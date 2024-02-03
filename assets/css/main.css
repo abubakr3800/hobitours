@@ -1638,10 +1638,12 @@ section {
 --------------------------------------------------------------*/
 .testimonials {
   padding: 80px 0;
-  background: url("../img/testimonials-bg.jpg") no-repeat;
+  background: url("../img/eg/HD-Egyptian-Pictures.jpg") no-repeat;
   background-position: center center;
   background-size: cover;
   position: relative;
+  background-attachment: fixed;
+
 }
 
 .testimonials::before {
@@ -2045,7 +2047,7 @@ section {
 }
 
 .portfolio .portfolio-item:hover:before {
-  visibility: visible;
+  /* visibility: visible; */
   opacity: 1;
 }
 
@@ -3287,11 +3289,11 @@ section {
   padding: 0;
 }
 
-.flip-card-front p , .flip-card-back .link{
+.flip-card-back .link{
   /* top: -150px; */
   font-weight: bold;
   font-size: larger;
-  padding:140px 0;
+  padding:90px 0;
   margin: 0;
   background: #333a;
   height: 100%;
@@ -3300,5 +3302,10 @@ section {
 .flip-card-front p{
   color: #fff;
   position: relative;
-
+  font-weight: bold;
+  font-size: larger;
+  padding:140px 0 ;
+  margin: 0;
+  background: #333a;
+  height: 100%;
 }

@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (preloader) {
     window.addEventListener('load', () => {
       preloader.remove();
+      document.getElementById("header").innerHTML = loadPage('nav.html');
     });
   }
 
@@ -20,7 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
     });
   }
-
+  
+  function loadPage(href)
+  {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", href, false);
+      xmlhttp.send();
+      return xmlhttp.responseText;
+  }
   /**
    * Navbar links active state on scroll
    */
