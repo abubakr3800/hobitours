@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
       preloader.remove();
       document.getElementById("header").innerHTML = loadPage('nav.html');
+      document.getElementById("footer").innerHTML = loadPage('footer.html');
     });
   }
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.scrollY > 100 ? selectHeader.classList.add('sticked') : selectHeader.classList.remove('sticked');
     });
   }
-  
+
   function loadPage(href)
   {
       var xmlhttp = new XMLHttpRequest();
