@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (preloader) {
     window.addEventListener('load', () => {
       preloader.remove();
-      document.getElementById("header").innerHTML = loadPage('nav.html');
+      // document.getElementById("header").innerHTML = loadPage('nav.html');
       document.getElementById("footer").innerHTML = loadPage('footer.html');
     });
   }
