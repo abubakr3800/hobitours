@@ -219,41 +219,25 @@
   <script src="assets/vendor/counter/jquery.counterup.min.js"></script>
   <script>
     function fetchGitJSONDataOnline() {
-      // fetch("https://hobitours.somee.com/api/Category/all")
-      //     .then((res) => {
-      //         if (!res.ok) {
-      //             throw new Error
-      //                 (`HTTP error! Status: ${res.status}`);
-      //         }
-      //         return res.json();
-      //     })
-      //     .then((data) => {
-      //       console.log(data);
-      //     }
-      //           )
-      //     .catch((error) => 
-      //            console.error("Unable to fetch data:", error));
+      fetch("https://hobitours.somee.com/api/Category/all")
+          .then((res) => {
+              if (!res.ok) {
+                  throw new Error
+                      (`HTTP error! Status: ${res.status}`);
+              }
+              return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+          }
+                )
+          .catch((error) => 
+                 console.error("Unable to fetch data:", error));
             
       fetch("https://regres.in/api/users").then(res=>{
         console.log(res.data);
       })
   }
-  // function fetchGitJSONDataOnline() {
-  //     fetch("https://merecado.github.io/qr/users.json")
-  //         .then((res) => {
-  //             if (!res.ok) {
-  //                 throw new Error
-  //                     (`HTTP error! Status: ${res.status}`);
-  //             }
-  //             return res.json();
-  //         })
-  //         .then((data) => {
-  //           console.log(data);
-  //         }
-  //               )
-  //         .catch((error) => 
-  //                console.error("Unable to fetch data:", error));
-  // }
   </script>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>

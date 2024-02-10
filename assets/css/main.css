@@ -3309,3 +3309,15 @@ section {
   background: #333a;
   height: 100%;
 }
+
+.offers-p{
+  text-align: justify; text-align: justify;
+  height: 52px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+}
+
+.offers-p::after{
+  content: "...";
+}
