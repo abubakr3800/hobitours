@@ -355,7 +355,7 @@
 
         <div class="row" id="offersResults">
 
-          <div class="col-lg col-sm-12" data-aos="fade-up" data-aos-delay="200">
+          <!-- <div class="col-lg col-sm-12" data-aos="fade-up" data-aos-delay="200">
             <div class="post-box">
               <div class="post-img"><img src="assets/img/travel/tourism.jpg" class="img-fluid" alt=""></div>
               <div class="meta">
@@ -365,26 +365,11 @@
               <h3 class="post-title">CAIRO EXPRESS</h3>
               <p class="offers-p">On the banks of the Nile lies Cairo, the capital of Egypt and one of the most populous cities in the world. Called "the mother of the world" for its thousand-year history, Cairo fascinates with its forts contrasts between tradition and modernity, where traffic and confusion can disorientate, but the whirlwind of emotions experienced will remain indelible in the minds and hearts of those who have lucky enough to visit it. Our tour includes a visit to the Egyptian Museum, Khan El Khalili, Al Azhar Mosque, Cairo Coptic and Old Cairo, Pyramids of Giza and Memphis. All transfers are included. Accommodation in a 3*/4*/5* hotel with half board + 2 lunches in a restaurant local. Italian speaking guide.</p>
               <span>...</span>
-              <a href="blog-details.html" class="readmore"><span>Read More</span><i class="bi bi-arrow-right"></i></a> <!--  (stretched-link) class will make all text clickable -->
+              <a href="blog-details.html" class="readmore"><span>Read More</span><i class="bi bi-arrow-right"></i></a> // (stretched-link) class will make all text clickable
               <p>REQUEST QUOTE Add link to <a href="mailto:info@hobitourstravel.com" class=""><span>info@hobitourstravel.com</span></a> </p>
             </div>
-          </div>
-          <div class="col-lg col-sm-12" data-aos="fade-up" data-aos-delay="200">
-            <div class="post-box">
-              <div class="post-img"><img src="assets/img/travel/tourism.jpg" class="img-fluid" alt=""></div>
-              <div class="meta">
-                <span class="post-date">2 Days</span>
-                <span class="post-author"> /1 Nights</span>
-              </div>
-              <h3 class="post-title">LUXOR & DENDERA</h3>
-              <p class="offers-p">
-                Luxor, defined as "the largest open-air museum in the world", is located on the eastern bank of the Nile River. It has been one of the most important urban centers since the times of the pharaohs and is home to some of the most impressive monuments in the world. Our tour includes visiting the Valley of the Kings, Valley of the Queens, Colossi of Memnon, Luxor Temple, Medinet Habu Temple, Karnak Temple Complex, Dendera Temple. All transfers are included. Accommodation in a 4* hotel with accommodation half board + 1 lunch at the restaurant. Italian speaking guide.
-              </p>
-              <span>...</span>
-              <a href="blog-details.html" class="readmore"><span>Read More</span><i class="bi bi-arrow-right"></i></a> <!--  (stretched-link) class will make all text clickable -->
-              <p>REQUEST QUOTE Add link to <a href="mailto:info@hobitourstravel.com" class=""><span>info@hobitourstravel.com</span></a> </p>
-            </div>
-          </div>
+          </div>-->
+          
 
           <!-- <div class="col-lg col-sm-12" data-aos="fade-up" data-aos-delay="600">
             <div class="post-box">
@@ -679,22 +664,23 @@
       offers.then(d=>{
         var ofNum = d.data.length;
         console.log(d.data.length);
+        console.log(d.data[0]);
         d.data.forEach(e => {
 
-          var offersResult = document.getElementById("offersResults"),
-              bigFather = document.createElement("div"),
-              father = document.createElement("div"),
-              imageFather = document.createElement("div"),
-              image = document.createElement("image"),
-              day_night = document.createElement("div"),
-              days = document.createElement("span"),
-              nights = document.createElement("span"),
-              offerName = document.createElement("h3"),
-              offer = document.createElement("p"),
-              ovfow = document.createElement("span"),
-              readmore = document.createElement("a");
+        var offersResult = document.getElementById("offersResults"),
+            bigFather = document.createElement("div"),
+            father = document.createElement("div"),
+            imageFather = document.createElement("div"),
+            image = document.createElement("img"),
+            day_night = document.createElement("div"),
+            days = document.createElement("span"),
+            nights = document.createElement("span"),
+            offerName = document.createElement("h3"),
+            offer = document.createElement("p"),
+            ovfow = document.createElement("span"),
+            readmore = document.createElement("a");
 
-          bigFather.setAttribute("class" ,"col-lg col-sm-12" );
+          bigFather.setAttribute("class" ,`col-lg${ofNum > 3 ? "-3" : ""} col-sm-12` );
           bigFather.setAttribute("data-aos" ,"fade-up" );
           bigFather.setAttribute("data-aos-delay" ,"600" );
 
@@ -702,15 +688,44 @@
 
           imageFather.setAttribute("class","post-img");
 
-        //      <img src="assets/img/blog/blog-3.jpg" class="img-fluid" alt="">
-        //      <div class="meta">
-        //        <span class="post-date">Tue, July 27</span>
-        //       <span class="post-author"> / Lisa Hunter</span>
-        //      </div>
-        //    <h3 class="post-title">Quia assumenda est et veritatis aut quae</h3>
-        //      <p>Quia nam eaque omnis explicabo similique eum quaerat similique laboriosam. Quis omnis repellat sed quae consectetur magnam veritatis dicta nihil...</p>
-        //      <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+          image.src = (e.image == null || undefined ? "assets/img/travel/tourism.jpg" : e.image )
+          image.setAttribute("class" , "img-fluid");
 
+          // image.src= e.ImageURL;
+          
+          day_night.setAttribute("class" , "meta");
+          days.textContent=e.day_night.split(",")[0] + " Days / ";
+          days.setAttribute("class", "post-date");
+          nights.textContent=e.day_night.split(",")[1] + " Nights";
+          nights.setAttribute("class" , "post-author");
+
+          offerName.textContent = e.name;
+          offerName.setAttribute("class" , "post-title");
+
+          offer.textContent = e.description;
+          offer.setAttribute("class" , "offers-p");
+
+          ovfow.textContent = "...";
+
+          readmore.href="offer-details.html?id="+e.id + "&lan=" + language;
+          readmore.setAttribute("class" ,"readmore");
+
+          readmore.innerHTML=`Read More<i class="bi bi-arrow-right"></i>`;
+
+
+          imageFather.appendChild(image);
+
+          day_night.appendChild(days);
+          day_night.appendChild(nights);
+
+          father.appendChild(imageFather);
+          father.appendChild(day_night);
+          father.appendChild(offerName);
+          father.appendChild(offer);
+          father.appendChild(ovfow);
+          father.appendChild(readmore);
+          bigFather.appendChild(father);
+          offersResult.appendChild(bigFather)
         });
 
       })
