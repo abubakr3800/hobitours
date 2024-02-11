@@ -238,6 +238,34 @@
         console.log(res.data);
       })
   }
+
+  // Assume you have an object with data
+  var myObject = {
+    operation: 'some_value',
+    amount: 100
+  };
+
+  function apiSend(data) {
+
+    // Convert the object to a JSON string
+    var str_json = JSON.stringify(data);
+
+    // Send the JSON data to your PHP script
+    var url = 'capilot.php';
+    fetch(url, {
+      method: 'POST',
+      body: str_json,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.text())
+    .then(txt => {
+      // Handle the response from the server
+      console.log(txt);
+    });
+
+  }
   </script>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
