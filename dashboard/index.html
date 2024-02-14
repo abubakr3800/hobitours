@@ -387,7 +387,7 @@
               singleOffer.push(e.description)
               singleOffer.push(e.day_night)
               offersTable.push(singleOffer)
-              offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + `.....<a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan ]).draw(false)
+              offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan ]).draw(false)
               console.log(e);
             });
           })
