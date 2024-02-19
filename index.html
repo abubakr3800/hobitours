@@ -781,7 +781,7 @@
 
     var language;
     window.onload = function () {
-      language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
+      language = (parseURLParams(window.location.href) == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
       // getObject("https://hobitours.somee.com/Offer/all/" + language);
       offers = reqApi("https://hobitours.somee.com/Offer/all/" + language);
       offers.then(d=>{

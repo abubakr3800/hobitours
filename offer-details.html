@@ -101,7 +101,7 @@
             <article class="blog-details">
 
               <div class="post-img">
-                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid" id="offerImage">
+                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid w-100" id="offerImage">
               </div>
 
               <h2 class="title" id="offerName">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</h2>
@@ -276,6 +276,9 @@
         var getOff = d.data;
         // console.log(d.length);
         console.log(getOff);
+        document.getElementById('offerImage').src = (getOff.image == null || undefined ? "assets/img/travel/tourism.jpg" : getOff.image ) 
+        document.getElementById('offerName').innerText = getOff.name + " (" + getOff.day_night.split(",")[0] + " Days / " + getOff.day_night.split(",")[1] + " Nights )";
+        document.querySelector("#offerDescription > p").innerText = getOff.description;
 
         // var offersResult = document.getElementById("offersResults"),
         //     bigFather = document.createElement("div"),

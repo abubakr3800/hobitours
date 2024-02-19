@@ -352,50 +352,7 @@
     <script src="js/dashboard.js"></script>
     <!-- <script src="../assets/js/main.js"></script> -->
     <script>
-      var languages = ["it" , "en"],
-          allOffers = [];
-
-      var offtab = new DataTable('#offers', {
-            columns: [
-                { title: 'id' },
-                { title: 'offer head' },
-                { title: 'offer' },
-                { title: 'Days' },
-                { title: 'Nights' },
-                { title: 'Language' },
-            ],
-            data: []
-        });
-      window.onload = function () {
-        // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
-        // getObject("https://hobitours.somee.com/Offer/all/" + language);
-        var offersTable ;
-        languages.forEach(lan=> {
-          offersTable = [] ; 
-          // console.log(e);
-          offers = reqApi("https://hobitours.somee.com/Offer/all/" + lan);
-          offers.then(d=>{
-            var ofNum = d.data.length;
-            console.log(d.data.length);
-            // console.log(d.data[0]);
-            var singleOffer = [];
-            d.data.forEach(e => {
-              // offersTable.push(e);
-              singleOffer = []   ; 
-              singleOffer.push(e.id)
-              singleOffer.push(e.name)
-              singleOffer.push(e.description)
-              singleOffer.push(e.day_night)
-              offersTable.push(singleOffer)
-              offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan ]).draw(false)
-              console.log(e);
-            });
-          })
-        })
-        allOffers.push(offersTable)
-        // offtab.row.add(allOffers).draw(false);
-        
-      }
+      
 
     </script>
   </body>
