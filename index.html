@@ -77,9 +77,9 @@
 
       <div class="carousel-inner d-flex align-items-center" style="height: 100vh;">
         <div class="carousel-item active hero-fullscreen d-flex align-items-center" style="background: url('assets/img/eg/1676131.jpg');height: 100vh;">
-          <div class="bg-wh-tr p-5 container d-flex flex-column align-items-center position-relative" data-aos="zoom-out">
+          <div class="bg-wh-tr p-5 container d-flex flex-column align-items-center position-relative py-5" data-aos="zoom-out">
             <h2>Welcome to <span>Hobitours</span></h2>
-            <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p>
+            <!-- <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p> -->
             <div class="d-flex">
               <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
               <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
@@ -88,9 +88,9 @@
         </div><!-- End Carousel Item -->
   
         <div class="carousel-item hero-fullscreen d-flex align-items-center" style="background: url('assets/img/eg/1676137.jpg');height: 100vh;">
-          <div class="bg-wh-tr p-5 container d-flex flex-column align-items-center position-relative" data-aos="zoom-out">
+          <div class="bg-wh-tr p-5 container d-flex flex-column align-items-center position-relative py-5" data-aos="zoom-out">
             <h2>Welcome to <span>Hobitours</span></h2>
-            <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p>
+            <!-- <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p> -->
             <div class="d-flex">
               <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
               <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
@@ -99,9 +99,9 @@
         </div><!-- End Carousel Item -->
   
         <div class="carousel-item hero-fullscreen d-flex align-items-center" style="background: url('assets/img/eg/1676157.jpg');height: 100vh;">
-          <div class="bg-wh-tr p-5 container d-flex flex-column align-items-center position-relative" data-aos="zoom-out">
+          <div class="bg-wh-tr p-5 container d-flex flex-column align-items-center position-relative py-5" data-aos="zoom-out">
             <h2>Welcome to <span>Hobitours</span></h2>
-            <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p>
+            <!-- <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p> -->
             <div class="d-flex">
               <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a> -->
               <!-- <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
@@ -781,7 +781,7 @@
 
     var language;
     window.onload = function () {
-      language = (parseURLParams(window.location.href) == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
+      language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
       // getObject("https://hobitours.somee.com/Offer/all/" + language);
       offers = reqApi("https://hobitours.somee.com/Offer/all/" + language);
       offers.then(d=>{
@@ -803,7 +803,7 @@
             ovfow = document.createElement("span"),
             readmore = document.createElement("a");
 
-          bigFather.setAttribute("class" ,`col-lg${ofNum > 3 ? "-3" : ""} col-sm-12` );
+          bigFather.setAttribute("class" ,`my-3 col-lg${ofNum > 3 ? "-3 col-md-6" : ""} col-sm-12` );
           bigFather.setAttribute("data-aos" ,"fade-up" );
           bigFather.setAttribute("data-aos-delay" ,"600" );
 

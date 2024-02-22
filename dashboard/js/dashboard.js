@@ -1,53 +1,3 @@
-/* globals Chart:false */
-function char() {
-  'use strict'
-
-  // Graphs
-  const ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  const myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
-        },
-        tooltip: {
-          boxPadding: 3
-        }
-      }
-    }
-  })
-}
-
-
 function parseURLParams(url) {
   var queryStart = url.indexOf("?") + 1,
       queryEnd   = url.indexOf("#") + 1 || url.length + 1,
@@ -98,17 +48,31 @@ var languages = ["it" , "en"],
           allOffers = [];
 
 var offtab = new DataTable('#offers', {
-      columns: [
-          { title: 'id' },
-          { title: 'offer head' },
-          { title: 'offer' },
-          { title: 'Days' },
-          { title: 'Nights' },
-          { title: 'Language' },
-      ],
-      data: []
-  });
+    columns: [
+        { title: 'id' },
+        { title: 'offer head' },
+        { title: 'offer' },
+        { title: 'Days' },
+        { title: 'Nights' },
+        { title: 'Language' },
+    ],
+    data: []
+});
+
 window.onload = function () {
+  const accessToken = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('accessToken='))
+  ?.split('=')[1];
+
+  if (accessToken) {
+  console.log(`Access token value: ${accessToken}`);
+  // alert(accessToken)
+  } else {
+    console.log('Access token not found.');
+    // alert(accessToken)
+  location.href = "./sign-in.html"
+  }
   // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
   // getObject("https://hobitours.somee.com/Offer/all/" + language);
   var offersTable ;
