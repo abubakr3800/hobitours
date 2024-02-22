@@ -60,19 +60,17 @@ var offtab = new DataTable('#offers', {
 });
 
 window.onload = function () {
-  const accessToken = document.cookie
-  .split('; ')
-  .find(row => row.startsWith('accessToken='))
-  ?.split('=')[1];
+  const accessToken = localStorage.getItem("token");
 
   if (accessToken) {
   console.log(`Access token value: ${accessToken}`);
   // alert(accessToken)
   } else {
     console.log('Access token not found.');
-    // alert(accessToken)
-  location.href = "./sign-in.html"
+    alert(accessToken)
+  // location.href = "./sign-in.html"
   }
+
   // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
   // getObject("https://hobitours.somee.com/Offer/all/" + language);
   var offersTable ;
@@ -100,5 +98,4 @@ window.onload = function () {
   })
   allOffers.push(offersTable)
   // offtab.row.add(allOffers).draw(false);
-  
 }
