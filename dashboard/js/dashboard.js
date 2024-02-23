@@ -1,3 +1,11 @@
+window.onload = function () {
+  document.getElementById("sidebar").innerHTML = loadPage('sidenav.html');
+  // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
+  // getObject("https://hobitours.somee.com/Offer/all/" + language);
+}
+
+checkAuth() ? "" : location.href="./sign-in.html";
+
 function checkAuth() {
   var accessToken = localStorage.getItem("token");
   if (accessToken) {
@@ -9,40 +17,20 @@ function checkAuth() {
   }
 }
 
-checkAuth() ? "" : location.href="./sign-in.html";
-
 function logout() {
   localStorage.removeItem("token")
   checkAuth() ? "" : location.href="./sign-in.html";
 }
 
-// Define a function that returns a promise
-function reqApi(url) {
-  // Create a new promise
-  return new Promise(function(resolve, reject) {
-    // Create a new XHR object
-    var xhr = new XMLHttpRequest();
-    // Set the response type to JSON
-    xhr.responseType = "json";
-    // Open the request with the given url
-    xhr.open("GET", url, true);
-    // Define what to do when the request is loaded
-    xhr.onload = function() {
-      // Check if the status is 200 (OK)
-      if (this.status === 200) {
-        // Resolve the promise with the response object
-        resolve(this.response);
-      } else {
-        // Reject the promise with the status text
-        reject(this.statusText);
-      }
-    };
-    // Send the request
-    xhr.send();
-  });
-}
-
 var languages = ["it" , "en"], allOffers = [];
+
+class Offer {
+  name;
+  day_night;
+  description;
+  image;
+  languageCode;
+}
 
 function loadOffers() {
   document.getElementById("secTitle").innerHTML = 'Watch Offers';
@@ -61,7 +49,7 @@ function loadOffers() {
         data: []
     });
   }
-  var offersTable ;
+  var offersTable , offers ;
   languages.forEach(lan=> {
     offersTable = [] ; 
     // console.log(e);
@@ -189,14 +177,6 @@ function manageOffers() {
 
 }
 
-class Offer {
-  name;
-  day_night;
-  description;
-  image;
-  languageCode;
-}
-
 function addNewOffer(off) {
   // console.log(ee.enname.value);
   var enOffer = new Offer(),
@@ -222,12 +202,59 @@ function addNewOffer(off) {
   loadOffers()
 }
 
-window.onload = function () {
-  document.getElementById("sidebar").innerHTML = loadPage('sidenav.html');
+function showDeleteOffer() {
+  document.getElementById("secTitle").innerHTML = 'Delete Offer';
+  var delForm = document.createElement("form");
+  delForm.setAttribute('method',"post");
+  delForm.setAttribute("class" , "row g-3 needs-validation");
 
-  // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
-  // getObject("https://hobitours.somee.com/Offer/all/" + language);
+  var selecBox = document.createElement("select");
+  selecBox.setAttribute("class" , "form-select");
+  selecBox.setAttribute("name" , "id");
+
+  var deleteBtn = document.createElement("button"); 
+  deleteBtn.setAttribute("class","btn btn-primary col-12 mt-4");
+  deleteBtn.innerText = "Delete";
+  deleteBtn.addEventListener("click", event => {
+    event.preventDefault();
+    deleteOffer(delForm);
+  });
+
+  var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+  selectoffers.then(d=>{
+    var ofNum = d.data.length;
+    console.log(ofNum);
+    d.data.forEach(e => {
+      var offOption = document.createElement("option");
+      offOption.setAttribute("value", e.id);
+      offOption.textContent = `${e.name}` ;
+      selecBox.appendChild(offOption);
+      // offersTable.push(e);
+      // singleOffer.push(e.id)
+      // singleOffer.push(e.name)
+      // singleOffer.push(e.description)
+      // singleOffer.push(e.day_night)
+      // offersTable.push(singleOffer)
+      // offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan ]).draw(false)
+      // console.log(e);
+    });
+    delForm.appendChild(selecBox);
+
+    divCont.appendChild(deleteBtn);
+
+  })
+  .catch((err)=>{console.error(`Error: ${err}`)})
   
+  
+  var divCont = document.getElementById("content");
+  divCont.innerHTML="";
+  divCont.appendChild(delForm);
+}
+
+function deleteOffer(e) {
+  console.log(e.id.value);
+  deleteApi("https://hobitours.somee.com//Offer/delete/" +e.id.value );
+  window.location.reload();
 }
 
 // Define a function that returns a promise
@@ -293,5 +320,31 @@ function putApi(url,str_json) {
   .then(txt => {
     // Handle the response from the server
     console.log(txt);
+  });
+}
+
+// Define a function that returns a promise
+function reqApi(url) {
+  // Create a new promise
+  return new Promise(function(resolve, reject) {
+    // Create a new XHR object
+    var xhr = new XMLHttpRequest();
+    // Set the response type to JSON
+    xhr.responseType = "json";
+    // Open the request with the given url
+    xhr.open("GET", url, true);
+    // Define what to do when the request is loaded
+    xhr.onload = function() {
+      // Check if the status is 200 (OK)
+      if (this.status === 200) {
+        // Resolve the promise with the response object
+        resolve(this.response);
+      } else {
+        // Reject the promise with the status text
+        reject(this.statusText);
+      }
+    };
+    // Send the request
+    xhr.send();
   });
 }
