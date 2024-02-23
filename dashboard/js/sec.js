@@ -10,8 +10,8 @@ class User {
 }
 
 var logUser = new User() ;
-function Auth() {
+document.getElementById("logForm").onsubmit = function (e) {
     e.preventDefault();
     localStorage.setItem("token" , "112233")
-    location.href = "./"
+    location.href = "./index.html"
 }

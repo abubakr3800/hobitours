@@ -1,3 +1,25 @@
+function checkAuth() {
+  var accessToken = localStorage.getItem("token");
+  if (accessToken) {
+  // console.log(`Access token value: ${accessToken}`);
+  return true
+  // alert(accessToken)
+  } else {
+    // console.log('Access token not found.');
+    // alert(accessToken)
+    // location.href = "./sign-in.html"
+    return false
+  }
+}
+
+checkAuth() ? "" : location.href="./sign-in.html";
+
+function logout() {
+  localStorage.removeItem("token")
+  checkAuth() ? "" : location.href="./sign-in.html";
+
+}
+
 function parseURLParams(url) {
   var queryStart = url.indexOf("?") + 1,
       queryEnd   = url.indexOf("#") + 1 || url.length + 1,
@@ -59,17 +81,9 @@ var offtab = new DataTable('#offers', {
     data: []
 });
 
-window.onload = function () {
-  const accessToken = localStorage.getItem("token");
 
-  if (accessToken) {
-  console.log(`Access token value: ${accessToken}`);
-  // alert(accessToken)
-  } else {
-    console.log('Access token not found.');
-    alert(accessToken)
-  // location.href = "./sign-in.html"
-  }
+window.onload = function () {
+  document.getElementById("sidebar").innerHTML = loadPage('sidenav.html');
 
   // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
   // getObject("https://hobitours.somee.com/Offer/all/" + language);
@@ -80,7 +94,7 @@ window.onload = function () {
     offers = reqApi("https://hobitours.somee.com/Offer/all/" + lan);
     offers.then(d=>{
       var ofNum = d.data.length;
-      console.log(d.data.length);
+      // console.log(d.data.length);
       // console.log(d.data[0]);
       var singleOffer = [];
       d.data.forEach(e => {
@@ -92,7 +106,7 @@ window.onload = function () {
         singleOffer.push(e.day_night)
         offersTable.push(singleOffer)
         offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan ]).draw(false)
-        console.log(e);
+        // console.log(e);
       });
     })
   })
