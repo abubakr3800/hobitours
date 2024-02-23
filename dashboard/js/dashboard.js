@@ -232,11 +232,54 @@ window.onload = function () {
 
 // Define a function that returns a promise
 function postApi(url,str_json) {
-    
   // Send the JSON data to your PHP script
   // var url = 'capilot.php';
   fetch(url, {
     method: 'POST',
+    body: str_json,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(
+      (response) => {
+          response.text()
+          return response
+      })
+  .then(txt => {
+    // Handle the response from the server
+    console.log(txt);
+  });
+}
+
+// Define a function that returns a promise
+function deleteApi(url,str_json) {
+  // Send the JSON data to your PHP script
+  // var url = 'capilot.php';
+  fetch(url, {
+    method: 'DELETE',
+    body: str_json,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(
+      (response) => {
+          response.text()
+          return response
+      })
+  .then(txt => {
+    // Handle the response from the server
+    console.log(txt);
+  });
+}
+
+// Define a function that returns a promise
+function putApi(url,str_json) {
+  // Send the JSON data to your PHP script
+  // var url = 'capilot.php';
+  fetch(url, {
+    method: 'PUT',
     body: str_json,
     headers: {
       'Content-Type': 'application/json'
