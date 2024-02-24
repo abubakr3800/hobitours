@@ -217,16 +217,17 @@
         event.preventDefault();
         var inputFile = document.getElementById("fileUpload");
         var data = new FormData();
-        data.append("name", inputFile.files[0].name);
-        data.append("file", inputFile.files[0]);
+        data.append("name", "bla");
+        data.append("imgName", inputFile.files[0].name);
+        data.append("logo", inputFile.files[0]);
         console.log(inputFile.files[0]);
-        var url = "https://localhost:7181/test";
+        var url = "https://hobitours.somee.com/partener/add";
         fetch(url, {
           method: "POST",
           body: data,
-          // headers: {
-          //   "Content-Type": "application/json",
-          // },
+          headers: {
+            "Accept" : "*/*"
+          },
         })
           .then((response) => response.text())
           .then((txt) => {
