@@ -1,21 +1,60 @@
+class User {
+  claim = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/";
+  token;
+  id;
+  name;
+  email;
+  exp;
+  constructor (token){
+    this.token = token;
+    this.id = parseJwt(token)[this.claim + "id"];
+    this.name = parseJwt(token)[this.claim + "name"];
+    this.email = parseJwt(token)[this.claim + "emailaddress"];
+    this.exp = parseJwt(token)["exp"];
+  }
+}
+var user;
 window.onload = function () {
   document.getElementById("sidebar").innerHTML = loadPage('sidenav.html');
+  token = localStorage.getItem("token");
   // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
   // getObject("https://hobitours.somee.com/Offer/all/" + language);
+  if (token == null || undefined || "") {
+    alert("please sign in first");
+    window.location.replace("./sign-in.html");
+  }else{
+    if ( isNaN(Number(token)) ) {
+      // console.log(token);
+      user = new User(token);
+      checkAuth();
+      // window.location.replace("./index.html");
+    } else{
+      // updatePass(Number(result.data));
+      alert("please confirm your identity");
+      window.location.replace("./sign-in.html");
+    }
+  }
 }
-
-checkAuth() ? "" : location.href="./sign-in.html";
+var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
 
 function checkAuth() {
-  var accessToken = localStorage.getItem("token");
-  if (accessToken) {
+  // var accessToken = localStorage.getItem("token");
+  var expireDate = new Date(user['exp'] * 1000) ,
+      currentDate = new Date();
+  // console.log(token);
+  console.log(currentDate);
+  if (expireDate > currentDate) {
   // console.log(`Access token value: ${accessToken}`);
-  return true
+  console.log(expireDate);
+    return true
   } else {
+    logout();
     // console.log('Access token not found.');
     return false
   }
 }
+
+// checkAuth();
 
 function logout() {
   localStorage.removeItem("token")
@@ -45,6 +84,7 @@ function loadOffers() {
           { title: 'Days' },
           { title: 'Nights' },
           { title: 'Language' },
+          { title: 'mange' },
       ],
         data: []
     });
@@ -55,9 +95,9 @@ function loadOffers() {
     // console.log(e);
     offers = reqApi("https://hobitours.somee.com/Offer/all/" + lan);
     offers.then(d=>{
-      var ofNum = d.data.length;
-      // console.log(d.data.length);
-      // console.log(d.data[0]);
+    // selectoffers.then(d=>{
+      // var ofNum = d.data.length;
+      // console.log(ofNum);
       var singleOffer = [];
       d.data.forEach(e => {
         // offersTable.push(e);
@@ -67,7 +107,7 @@ function loadOffers() {
         singleOffer.push(e.description)
         singleOffer.push(e.day_night)
         offersTable.push(singleOffer)
-        offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan ]).draw(false)
+        offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan , `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger"><i class="bi bi-trash"></i></button></div>` ]).draw(false)
         // console.log(e);
       });
     })
@@ -220,7 +260,7 @@ function showDeleteOffer() {
     deleteOffer(delForm);
   });
 
-  var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+  // var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
   selectoffers.then(d=>{
     var ofNum = d.data.length;
     console.log(ofNum);
@@ -229,14 +269,6 @@ function showDeleteOffer() {
       offOption.setAttribute("value", e.id);
       offOption.textContent = `${e.name}` ;
       selecBox.appendChild(offOption);
-      // offersTable.push(e);
-      // singleOffer.push(e.id)
-      // singleOffer.push(e.name)
-      // singleOffer.push(e.description)
-      // singleOffer.push(e.day_night)
-      // offersTable.push(singleOffer)
-      // offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan ]).draw(false)
-      // console.log(e);
     });
     delForm.appendChild(selecBox);
 
@@ -255,6 +287,117 @@ function deleteOffer(e) {
   console.log(e.id.value);
   deleteApi("https://hobitours.somee.com//Offer/delete/" +e.id.value );
   window.location.reload();
+}
+
+function showEdit(offId , lang) {
+  var divCont = document.getElementById("content"), 
+      divRow = document.createElement("div");
+      divRow.setAttribute("class" , "row justify-content-md-center") ;
+  divCont.innerHTML="";
+  var allOff = [] , otherOff;
+  languages.forEach(lan=> {
+    var off = reqApi("https://hobitours.somee.com/Offer/"+ offId +"/" + lan);
+    off.then(d=>{
+      
+      var sOff = d.data;
+      console.log(sOff);
+      
+      // console.log(d.data);
+      // d.data.forEach(e => {
+        if (lang == lan) {
+        var editForm = document.createElement("form"),
+            hiddenId = document.createElement( "input" ),
+            // oldName = document.createElement("output"),
+            // oldNameLabel = document.createElement("label"),
+            newName = document.createElement("input"),
+            newNameLabel = document.createElement("label"),
+            // oldDesc = document.createElement("output"),
+            // oldDescLabel = document.createElement("label"),
+            newDesc = document.createElement("textarea"),
+            newDescLabel = document.createElement("label"),
+            // oldDay = document.createElement("output"),
+            // oldDayLabel = document.createElement("label"),
+            newDay = document.createElement("input"),
+            newDayLabel = document.createElement("label"),
+            // oldNight = document.createElement("output"),
+            // oldNightLabel = document.createElement("label"),
+            newNight = document.createElement("input"),
+            newNightLabel = document.createElement("label"),
+            submitBtn = document.createElement("button");
+
+            editForm.setAttribute("class" , "py-md-3 py-lg-5 col-sm-12 col-md-6")
+
+            hiddenId.setAttribute("hidden" , "");
+            hiddenId.value =  sOff.id;
+
+            newName.setAttribute("class" , "form-control mt-3");
+            newDesc.setAttribute("class" , "form-control mt-3");
+            newDay.setAttribute("class" , "form-control mt-3");
+            newNight.setAttribute("class" , "form-control mt-3");
+
+            newDay.setAttribute("type" , "number");
+            newNight.setAttribute("type" , "number");
+
+            newNameLabel.textContent = "change offer name or keep it as it is";
+            newDescLabel.textContent = "change offer description or keep it as it is";
+            newDayLabel.textContent = "change offer Days number or keep it as it is";
+            newNightLabel.textContent = "change offer Nights number or keep it as it is";
+
+            newName.setAttribute("value" , sOff["name"]);
+            // newDesc.setAttribute("value" , sOff["description"]);
+            newDesc.textContent = sOff["description"];
+            newDay.setAttribute("value" , Number(sOff["day_night"].split(",")[0]) );
+            newNight.setAttribute("value" , Number(sOff["day_night"].split(",")[1]) );
+            submitBtn.setAttribute("type" , "submit");
+            submitBtn.textContent = "send updates";
+            submitBtn.className ="btn btn-primary btn-block col-12 mt-3 ";
+            submitBtn.addEventListener("click", event => {
+              event.preventDefault();
+              console.log(hiddenId.value);
+              var upOff = {
+                id : Number(hiddenId.value),
+                name:newName.value,
+                description:newDesc.value,
+                day_night:`${newDay.value},${newNight.value}`,
+                image: null
+              };
+              // allOff.push(upOff);
+              allOff = [upOff,otherOff];
+              sendApi("https://hobitours.somee.com/Offer/update" , allOff , "PUT");
+              // window.location.href = "./";
+              // checkPassword();
+            });
+
+            editForm.appendChild(hiddenId);
+            editForm.appendChild(newNameLabel);
+            editForm.appendChild(newName);
+            editForm.appendChild(newDescLabel);
+            editForm.appendChild(newDesc);
+            editForm.appendChild(newDayLabel);
+            editForm.appendChild(newDay);
+            editForm.appendChild(newNightLabel);
+            editForm.appendChild(newNight);
+            editForm.appendChild(submitBtn);
+
+            // divCont.appendChild(editForm);
+            divRow.appendChild(editForm);
+            divCont.appendChild(divRow);
+            console.log(allOff);
+        } else {
+          // allOff.push(sOff);
+          otherOff = sOff;
+        }
+            
+      });
+
+    })
+  // })
+}
+
+function editOffer( id , oldData , newData ) {
+  var data =  {};
+  data["id"] = id ;
+  data[oldData] = newData;
 }
 
 // Define a function that returns a promise
@@ -302,24 +445,33 @@ function deleteApi(url,str_json) {
 }
 
 // Define a function that returns a promise
-function putApi(url,str_json) {
-  // Send the JSON data to your PHP script
-  // var url = 'capilot.php';
-  fetch(url, {
-    method: 'PUT',
-    body: str_json,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(
-      (response) => {
-          response.text()
-          return response
-      })
-  .then(txt => {
-    // Handle the response from the server
-    console.log(txt);
+
+function putApi(url , data) {
+  // console.log(data);
+  // Create a new promise
+  return new Promise(function(resolve, reject) {
+    
+    // Create a new XHR object
+    var xhr = new XMLHttpRequest();
+    // Set the response type to JSON
+    xhr.responseType = "json";
+    
+    // Open the request with the given url
+    xhr.open("PUT", url, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    // Define what to do when the request is loaded
+    xhr.onload = function() {
+      // Check if the status is 200 (OK)
+      if (this.status === 200) {
+        // Resolve the promise with the response object
+        resolve(this.response);
+      } else {
+        // Reject the promise with the status text
+        reject(this.statusText);
+      }
+    };
+    // Send the request
+    xhr.send(JSON.stringify(data));
   });
 }
 
@@ -347,4 +499,54 @@ function reqApi(url) {
     // Send the request
     xhr.send();
   });
+}
+
+function parseJwt(token) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+      atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+  );
+  return JSON.parse(jsonPayload);
+}
+
+// if ( Number(token) != NaN ) {
+//     // updatePass(Number(result.data));
+//     alert("you didn't confirm your identity yet please return and change your password");
+//     window.location.href = "./sign-in.html"
+// }
+
+
+function sendApi(url,data,method) {
+  console.log(url);
+  console.log(data);
+  console.log(method);
+  // Create a new promise
+  // return new Promise(function(resolve, reject) {
+    
+  //   // Create a new XHR object
+  //   var xhr = new XMLHttpRequest();
+  //   // Set the response type to JSON
+  //   xhr.responseType = "json";
+    
+  //   // Open the request with the given url
+  //   xhr.open(method, url, true);
+  //   xhr.setRequestHeader('Content-type', 'application/json');
+  //   // Define what to do when the request is loaded
+  //   xhr.onload = function() {
+  //     // Check if the status is 200 (OK)
+  //     if (this.status === 200) {
+  //       // Resolve the promise with the response object
+  //       resolve(this.response);
+  //     } else {
+  //       // Reject the promise with the status text
+  //       reject(this.statusText);
+  //     }
+  //   };
+  //   // Send the request
+  //   xhr.send(JSON.stringify(data));
+  // });
 }

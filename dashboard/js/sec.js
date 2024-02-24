@@ -13,7 +13,6 @@ var logUser = new User() ;
 
 document.getElementById("logForm").onsubmit = function (e) {
     e.preventDefault();
-    // localStorage.setItem("token" , "112233")
     // location.href = "./index.html"
 
     // console.log(this.email.value);
@@ -25,10 +24,10 @@ document.getElementById("logForm").onsubmit = function (e) {
             password: this.password.value
         };
         // Convert the object to a JSON string
-        var str_json = JSON.stringify(userData);
+        // var str_json = JSON.stringify(userData);
         // console.log(str_json);
-        var signUser = signApi("https://hobitours.somee.com/user/login/" , str_json);
-        console.log(signUser);
+        var signUser = signApi("https://hobitours.somee.com/user/login/" , userData);
+        // console.log(signUser);
         signUser.then((result)=>{
             console.log(result);
             if (result.status === 400) {
@@ -36,13 +35,18 @@ document.getElementById("logForm").onsubmit = function (e) {
             } else if (result.status === 500) {
                 alert('Server Error')
             } else {
-                logUser.token = result.token;
-                logUser.name = result.data.username;
-                logUser.id= result.data._id;
-                logUser.exDate = new Date().getTime() + parseInt(result.data.expiresIn);
-                setCookie("token", logUser.token , logUser.exDate );
-                setCookie("userId", logUser.id , logUser.exDate );
-                window.location.replace("./index.html");
+                // console.log(result.data.length);
+                // console.log(result.data);
+                // let userInfo = parseJwt(result.data) , claim = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/";
+                // console.log(userInfo[claim + "emailaddress"]);
+                token = result.data;
+                localStorage.setItem("token", result.data);
+                if ( isNaN(Number(result.data)) ) {
+                    console.log(token);
+                    window.location.replace("./index.html");
+                } else{
+                    updatePass(Number(result.data));
+                }
             }
         })
          .catch((err)=>console.log(err));
@@ -50,26 +54,119 @@ document.getElementById("logForm").onsubmit = function (e) {
 
 }
 
-
-// Define a function that returns a promise
-function signApi(url,str_json) {
+function updatePass(userId) {
+    console.log(userId);
+    let upForm = document.getElementById("logForm"),
+        newPass = document.createElement("input"),
+        newPassLabel = document.createElement("label"),
+        confPass = document.createElement("input"),
+        confPassLabel = document.createElement("label"),
+        btnSubmit = document.createElement("button");
     
-    // Send the JSON data to your PHP script
-    // var url = 'capilot.php';
-    fetch(url, {
-      method: 'POST',
-      body: str_json,
-      headers: {
-        'Content-Type': 'application/json'
+        newPass.setAttribute("class" , "form-control mt-3");
+        newPassLabel.setAttribute("class" , "form-label ");
+        confPass.setAttribute("class" , "form-control mt-3");
+        confPassLabel.setAttribute("class" , "form-label ");
+        
+        upForm.innerHTML = "";
+        newPass.textContent = "Set New Password";
+        confPass.textContent = "Confirm Your Password";
+        newPass.setAttribute("type","password")
+        newPass.placeholder="New Password";
+        confPass.setAttribute("type","password");
+        confPass.placeholder="Confirm New Password";
+        btnSubmit.textContent= "Update" ;
+        btnSubmit.className ="btn btn-primary mt-3 ";
+        btnSubmit.addEventListener("click", function(){
+            checkPassword();
+        });
+
+        upForm.appendChild(newPassLabel);
+        upForm.appendChild(newPass);
+        // upForm.appendChild(document.createElement("br"));
+        upForm.appendChild(confPassLabel);
+        upForm.appendChild(confPass);
+        // upForm.appendChild(document.createElement("br"));
+        // upForm.appendChild(document.createElement("br"));
+        upForm.appendChild(btnSubmit);
+
+    function checkPassword() {
+        if (newPass.value === confPass.value && newPass.value !== "" && confPass.value!== ""){
+            // sendReq(userId, newPass.value);
+            var newUser = {
+                id: userId,
+                password :  newPass.value
+            }
+            putApi( 'https://hobitours.somee.com/user/updatePassword' , newUser);
+            alert ("Password Updated Successfully!");
+            window.location.replace("./sign-in.html");
+        } else {
+            alert("Please enter a valid password or leave both fields empty to reset the password.")
+        }
+    }
+}
+
+// function sendReq(id , pass){
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.open("PUT", "/user/updatePassword", true);
+//     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//     xhttp.send();
+// }
+
+function signApi(url , data) {
+    console.log(data);
+    // Create a new promise
+  return new Promise(function(resolve, reject) {
+    
+    // Create a new XHR object
+    var xhr = new XMLHttpRequest();
+    // Set the response type to JSON
+    xhr.responseType = "json";
+    
+    // Open the request with the given url
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    // Define what to do when the request is loaded
+    xhr.onload = function() {
+      // Check if the status is 200 (OK)
+      if (this.status === 200) {
+        // Resolve the promise with the response object
+        resolve(this.response);
+      } else {
+        // Reject the promise with the status text
+        reject(this.statusText);
       }
-    })
-    .then(
-        (response) => {
-            response.text()
-            return response
-        })
-    .then(txt => {
-      // Handle the response from the server
-      console.log(txt);
-    });
-  }
+    };
+    // Send the request
+    xhr.send(JSON.stringify(data));
+  });
+}
+
+function putApi(url , data) {
+    console.log(data);
+    // Create a new promise
+  return new Promise(function(resolve, reject) {
+    
+    // Create a new XHR object
+    var xhr = new XMLHttpRequest();
+    // Set the response type to JSON
+    xhr.responseType = "json";
+    
+    // Open the request with the given url
+    xhr.open("PUT", url, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    // Define what to do when the request is loaded
+    xhr.onload = function() {
+      // Check if the status is 200 (OK)
+      if (this.status === 200) {
+        // Resolve the promise with the response object
+        resolve(this.response);
+      } else {
+        // Reject the promise with the status text
+        reject(this.statusText);
+      }
+    };
+    // Send the request
+    xhr.send(JSON.stringify(data));
+  });
+}
