@@ -35,6 +35,11 @@ window.onload = function () {
     }
   }
 }
+
+function reloadOffers() {
+  var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+  return selectoffers;
+}
 var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
 
 function checkAuth() {
@@ -107,7 +112,7 @@ function loadOffers() {
         singleOffer.push(e.description)
         singleOffer.push(e.day_night)
         offersTable.push(singleOffer)
-        offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan , `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger"><i class="bi bi-trash"></i></button></div>` ]).draw(false)
+        offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan , `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="sendApi()"><i class="bi bi-trash"></i></button></div>` ]).draw(false)
         // console.log(e);
       });
     })
@@ -359,11 +364,12 @@ function showEdit(offId , lang) {
                 name:newName.value,
                 description:newDesc.value,
                 day_night:`${newDay.value},${newNight.value}`,
-                image: null
+                image: null,
+                languageCode:lang
               };
               // allOff.push(upOff);
               allOff = [upOff,otherOff];
-              sendApi("https://hobitours.somee.com/Offer/update" , allOff , "PUT");
+              sendApi("https://hobitours.somee.com/Offer/update" , allOff , "PUT").then(result=>{ reloadOffers(); loadOffers() });
               // window.location.href = "./";
               // checkPassword();
             });
@@ -386,6 +392,8 @@ function showEdit(offId , lang) {
         } else {
           // allOff.push(sOff);
           otherOff = sOff;
+          otherOff.languageCode = lan;
+          console.log(otherOff.languageCode);
         }
             
       });
@@ -525,28 +533,28 @@ function sendApi(url,data,method) {
   console.log(data);
   console.log(method);
   // Create a new promise
-  // return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, reject) {
     
-  //   // Create a new XHR object
-  //   var xhr = new XMLHttpRequest();
-  //   // Set the response type to JSON
-  //   xhr.responseType = "json";
+    // Create a new XHR object
+    var xhr = new XMLHttpRequest();
+    // Set the response type to JSON
+    xhr.responseType = "json";
     
-  //   // Open the request with the given url
-  //   xhr.open(method, url, true);
-  //   xhr.setRequestHeader('Content-type', 'application/json');
-  //   // Define what to do when the request is loaded
-  //   xhr.onload = function() {
-  //     // Check if the status is 200 (OK)
-  //     if (this.status === 200) {
-  //       // Resolve the promise with the response object
-  //       resolve(this.response);
-  //     } else {
-  //       // Reject the promise with the status text
-  //       reject(this.statusText);
-  //     }
-  //   };
-  //   // Send the request
-  //   xhr.send(JSON.stringify(data));
-  // });
+    // Open the request with the given url
+    xhr.open(method, url, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    // Define what to do when the request is loaded
+    xhr.onload = function() {
+      // Check if the status is 200 (OK)
+      if (this.status === 200) {
+        // Resolve the promise with the response object
+        resolve(this.response);
+      } else {
+        // Reject the promise with the status text
+        reject(this.statusText);
+      }
+    };
+    // Send the request
+    xhr.send(JSON.stringify(data));
+  });
 }
