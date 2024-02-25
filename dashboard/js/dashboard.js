@@ -26,6 +26,7 @@ window.onload = function () {
     if ( isNaN(Number(token)) ) {
       // console.log(token);
       user = new User(token);
+      document.getElementById("user-name").textContent=user.name;
       checkAuth();
       // window.location.replace("./index.html");
     } else{
@@ -112,7 +113,7 @@ function loadOffers() {
         singleOffer.push(e.description)
         singleOffer.push(e.day_night)
         offersTable.push(singleOffer)
-        offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan , `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="sendApi()"><i class="bi bi-trash"></i></button></div>` ]).draw(false)
+        offtab.row.add([singleOffer[0] ,singleOffer[1] ,singleOffer[2].slice(0 , 50) + ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>` , singleOffer[3].split(",")[0] , singleOffer[3].split(",")[1] , lan , `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteOffer(${e.id})"><i class="bi bi-trash"></i></button></div>` ]).draw(false)
         // console.log(e);
       });
     })
@@ -244,7 +245,8 @@ function addNewOffer(off) {
 
   postApi( 'https://hobitours.somee.com/Offer/add' , newOffer)
   console.log(newOffer);
-  loadOffers()
+  reloadOffers();
+  loadOffers();
 }
 
 function showDeleteOffer() {
@@ -262,7 +264,7 @@ function showDeleteOffer() {
   deleteBtn.innerText = "Delete";
   deleteBtn.addEventListener("click", event => {
     event.preventDefault();
-    deleteOffer(delForm);
+    deleteOffer(delForm.id.value);
   });
 
   // var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
@@ -288,10 +290,12 @@ function showDeleteOffer() {
   divCont.appendChild(delForm);
 }
 
-function deleteOffer(e) {
-  console.log(e.id.value);
-  deleteApi("https://hobitours.somee.com//Offer/delete/" +e.id.value );
-  window.location.reload();
+function deleteOffer(offid) {
+  console.log(offid);
+  var del = sendApi("https://hobitours.somee.com//Offer/delete/" +offid , {id : offid} ,"DELETE" );
+  del.then(res=>{ reloadOffers();loadOffers(); })
+     .catch((err)=> { alert('Errore durante la cancellazione dell\'offerta' + err);});
+  // window.location.reload();
 }
 
 function showEdit(offId , lang) {
@@ -368,6 +372,8 @@ function showEdit(offId , lang) {
                 languageCode:lang
               };
               // allOff.push(upOff);
+              otherOff.day_night = upOff.day_night;
+              
               allOff = [upOff,otherOff];
               sendApi("https://hobitours.somee.com/Offer/update" , allOff , "PUT").then(result=>{ reloadOffers(); loadOffers() });
               // window.location.href = "./";
@@ -436,10 +442,7 @@ function deleteApi(url,str_json) {
   // var url = 'capilot.php';
   fetch(url, {
     method: 'DELETE',
-    body: str_json,
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    body: str_json
   })
   .then(
       (response) => {
@@ -557,4 +560,42 @@ function sendApi(url,data,method) {
     // Send the request
     xhr.send(JSON.stringify(data));
   });
+}
+
+function showProfile() {
+  var divCont = document.getElementById("content"),
+      divRow = document.createElement("div");
+      divRow.setAttribute("class","row");
+  divCont.innerHTML = "";
+  var userName = document.createElement("div");
+  userName.setAttribute("class","col-lg-6 col-md-12");
+  
+  
+  var h1Elm = document.createElement("h1");
+  h1Elm.innerHTML = "Profile";
+  profileDiv.appendChild(h1Elm);
+  
+  var userNameField = document.createElement("p");
+  userNameField.innerHTML ="User Name: ";
+  var userNameDisplay = document.createTextNode(userName);
+  userNameField.appendChild(userNameDisplay);
+  profileDiv.appendChild(userNameField);
+  
+  getDataFromServer("/users/" + userId,"GET").then((serverResponse)=>{
+    var emailField = document.createElement("p");
+    emailField.innerHTML = "Email: ";
+    var emailDisplay = document.createTextNode(serverResponse.email);
+    emailField.appendChild(emailDisplay);
+    profileDiv.appendChild(emailField);
+    
+    var dateJoinedField = document.createElement("p");
+    dateJoinedField.innerHTML="Date Joined: ";
+    var dateDispay = document.createTextNode(new Date(serverResponse.date_joined).toLocaleString());
+    dateJoinedField.appendChild(dateDisplay);
+    profileDiv.appendChild(dateJoinedField)
+    
+    divCont.appendChild(profileDiv);
+  })
+
+  divCont.appendChild(divRow);
 }
