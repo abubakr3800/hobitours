@@ -217,15 +217,15 @@
         event.preventDefault();
         var inputFile = document.getElementById("fileUpload");
         var data = new FormData();
-        data.append("name", "bla");
         data.append("imgName", inputFile.files[0].name);
-        data.append("logo", inputFile.files[0]);
+        data.append("img", inputFile.files[0]);
         console.log(inputFile.files[0]);
-        var url = "https://hobitours.somee.com/partener/add";
+        var url = "https://hobitours.somee.com/Offer/img/1";
         fetch(url, {
-          method: "POST",
-          body: data,
+          method: "PUT",
+          body:data,
           headers: {
+            // "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary3CwJNHYabBSBswH0",
             "Accept" : "*/*"
           },
         })
