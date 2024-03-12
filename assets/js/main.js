@@ -343,4 +343,35 @@ function reqApi(url) {
     // Send the request
     xhr.send();
   });
+} 
+
+function sendApi(url,data,method) {
+  console.log(url);
+  console.log(data);
+  console.log(method);
+  // Create a new promise
+  return new Promise(function(resolve, reject) {
+    
+    // Create a new XHR object
+    var xhr = new XMLHttpRequest();
+    // Set the response type to JSON
+    xhr.responseType = "json";
+    
+    // Open the request with the given url
+    xhr.open(method, url, true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    // Define what to do when the request is loaded
+    xhr.onload = function() {
+      // Check if the status is 200 (OK)
+      if (this.status === 200) {
+        // Resolve the promise with the response object
+        resolve(this.response);
+      } else {
+        // Reject the promise with the status text
+        reject(this.statusText);
+      }
+    };
+    // Send the request
+    xhr.send(JSON.stringify(data));
+  });
 }

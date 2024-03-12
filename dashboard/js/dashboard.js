@@ -38,7 +38,7 @@ window.onload = function () {
 }
 
 function reloadOffers() {
-  var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+  selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
   return selectoffers;
 }
 var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
@@ -49,13 +49,17 @@ function checkAuth() {
       currentDate = new Date();
   // console.log(token);
   console.log(currentDate);
-  if (expireDate > currentDate) {
-  // console.log(`Access token value: ${accessToken}`);
-  console.log(expireDate);
-    return true
-  } else {
-    logout();
-    // console.log('Access token not found.');
+  if (localStorage.getItem("token") != null || undefined) {  
+    if (expireDate > currentDate) {
+    // console.log(`Access token value: ${accessToken}`);
+    console.log(expireDate);
+      return true
+    } else {
+      logout();
+      // console.log('Access token not found.');
+      return false
+    }
+  }else {
     return false
   }
 }
@@ -95,6 +99,7 @@ function loadOffers() {
         data: []
     });
   }
+
   var offersTable , offers ;
   languages.forEach(lan=> {
     offersTable = [] ; 
@@ -118,6 +123,7 @@ function loadOffers() {
       });
     })
   })
+
   allOffers.push(offersTable)
   // offtab.row.add(allOffers).draw(false);
 }
@@ -125,100 +131,114 @@ function loadOffers() {
 function manageOffers() {
   document.getElementById("secTitle").innerHTML = 'Add Offer';
   var manageForm = document.createElement("form");
-  manageForm.setAttribute('method',"post");
-  manageForm.setAttribute("class" , "row g-3 needs-validation")
-  // manageForm.setAttribute('action','#');
+      manageForm.setAttribute('method',"post");
+      manageForm.setAttribute("class" , "row g-3 needs-validation");
+      manageForm.setAttribute("enctype" , "multipart/form-data");
+      // manageForm.setAttribute('action','#');
+
+  var imgLabel = document.createElement('label');
+      imgLabel.setAttribute("class" , "form-label");
+      imgLabel.innerText = "The image of the offer";
+  var imgContainer = document.createElement("div");
+      imgContainer.setAttribute("class" , "col-md-12");
+  var imgFile = document.createElement("input");
+      imgFile.setAttribute("type" , "file");
+      imgFile.setAttribute("name" , "image");
+      imgFile.setAttribute("class" , "form-control");
+      imgContainer.appendChild(imgLabel);
+      imgContainer.appendChild(imgFile);
+      manageForm.appendChild(imgContainer) ;
 
   var enLabel = document.createElement('label');
-  enLabel.setAttribute("class" , "form-label");
-  enLabel.innerText = "offer name in english";
+      enLabel.setAttribute("class" , "form-label");
+      enLabel.innerText = "offer name in english";
   var enContainer = document.createElement("div");
-  enContainer.setAttribute("class" , "col-md-6");
+      enContainer.setAttribute("class" , "col-md-6");
   var enOfferName = document.createElement("input");
-  enOfferName.setAttribute("type" , "text");
-  enOfferName.setAttribute("name" , "enname");
-  enOfferName.setAttribute("class" , "form-control");
-  enContainer.appendChild(enLabel);
-  enContainer.appendChild(enOfferName);
-  manageForm.appendChild(enContainer) ;
+      enOfferName.setAttribute("type" , "text");
+      enOfferName.setAttribute("name" , "enname");
+      enOfferName.setAttribute("class" , "form-control");
+      enContainer.appendChild(enLabel);
+      enContainer.appendChild(enOfferName);
+      manageForm.appendChild(enContainer) ;
 
   var itLabel = document.createElement('label');
-  itLabel.setAttribute("class" , "form-label");
-  itLabel.innerText = "offer name in italic";
+      itLabel.setAttribute("class" , "form-label");
+      itLabel.innerText = "offer name in italic";
   var itContainer = document.createElement("div");
-  itContainer.setAttribute("class" , "col-md-6");
+      itContainer.setAttribute("class" , "col-md-6");
   var itOfferName = document.createElement("input");
-  itOfferName.setAttribute("type" , "text");
-  itOfferName.setAttribute("name" , "itname");
-  itOfferName.setAttribute("class" , "form-control");
-  itContainer.appendChild(itLabel);
-  itContainer.appendChild(itOfferName);
-  manageForm.appendChild(itContainer) ;
+      itOfferName.setAttribute("type" , "text");
+      itOfferName.setAttribute("name" , "itname");
+      itOfferName.setAttribute("class" , "form-control");
+      itContainer.appendChild(itLabel);
+      itContainer.appendChild(itOfferName);
+      manageForm.appendChild(itContainer) ;
 
   var dLabel = document.createElement('label');
-  dLabel.setAttribute("class" , "form-label");
-  dLabel.innerText = "Days of the offer";
+      dLabel.setAttribute("class" , "form-label");
+      dLabel.innerText = "Days of the offer";
   var dContainer = document.createElement("div");
-  dContainer.setAttribute("class" , "col-md-6");
+      dContainer.setAttribute("class" , "col-md-6");
   var days = document.createElement("input");
-  days.setAttribute("type" , "number");
-  days.setAttribute("name" , "days");
-  days.setAttribute("class" , "form-control");
-  dContainer.appendChild(dLabel);
-  dContainer.appendChild(days);
-  manageForm.appendChild(dContainer) ;
+      days.setAttribute("type" , "number");
+      days.setAttribute("name" , "days");
+      days.setAttribute("class" , "form-control");
+      dContainer.appendChild(dLabel);
+      dContainer.appendChild(days);
+      manageForm.appendChild(dContainer) ;
 
   var nLabel = document.createElement('label');
-  nLabel.setAttribute("class" , "form-label");
-  nLabel.innerText = "Nights of the offer";
+      nLabel.setAttribute("class" , "form-label");
+      nLabel.innerText = "Nights of the offer";
   var nContainer = document.createElement("div");
-  nContainer.setAttribute("class" , "col-md-6");
+      nContainer.setAttribute("class" , "col-md-6");
   var nights = document.createElement("input");
-  nights.setAttribute("type" , "number");
-  nights.setAttribute("name" , "nights");
-  nights.setAttribute("class" , "form-control");
-  nContainer.appendChild(nLabel);
-  nContainer.appendChild(nights);
-  manageForm.appendChild(nContainer) ;
+      nights.setAttribute("type" , "number");
+      nights.setAttribute("name" , "nights");
+      nights.setAttribute("class" , "form-control");
+      nContainer.appendChild(nLabel);
+      nContainer.appendChild(nights);
+      manageForm.appendChild(nContainer) ;
 
   var endesLabel = document.createElement('label');
-  endesLabel.setAttribute("class" , "form-label");
-  endesLabel.innerText = "Offer Description in English";
+      endesLabel.setAttribute("class" , "form-label");
+      endesLabel.innerText = "Offer Description in English";
   var endesContainer = document.createElement("div");
-  endesContainer.setAttribute("class" , "col-md-12");
+      endesContainer.setAttribute("class" , "col-md-12");
   var endescrInput = document.createElement("textarea");
-  endescrInput.setAttribute("name" , "endescription");
-  endescrInput.setAttribute("class" , "form-control");
-  endesContainer.appendChild(endesLabel);
-  endesContainer.appendChild(endescrInput);
-  manageForm.appendChild(endesContainer) ;
+      endescrInput.setAttribute("name" , "endescription");
+      endescrInput.setAttribute("class" , "form-control");
+      endesContainer.appendChild(endesLabel);
+      endesContainer.appendChild(endescrInput);
+      manageForm.appendChild(endesContainer) ;
 
   var itdesLabel = document.createElement('label');
-  itdesLabel.setAttribute("class" , "form-label");
-  itdesLabel.innerText = "Offer Description in English";
+      itdesLabel.setAttribute("class" , "form-label");
+      itdesLabel.innerText = "Offer Description in English";
   var itdesContainer = document.createElement("div");
-  itdesContainer.setAttribute("class" , "col-md-12");
+      itdesContainer.setAttribute("class" , "col-md-12");
   var itdescrInput = document.createElement("textarea");
-  itdescrInput.setAttribute("name" , "itdescription");
-  itdescrInput.setAttribute("class" , "form-control");
-  itdesContainer.appendChild(itdesLabel);
-  itdesContainer.appendChild(itdescrInput);
-  manageForm.appendChild(itdesContainer) 
+      itdescrInput.setAttribute("name" , "itdescription");
+      itdescrInput.setAttribute("class" , "form-control");
+      itdesContainer.appendChild(itdesLabel);
+      itdesContainer.appendChild(itdescrInput);
+      manageForm.appendChild(itdesContainer) 
 
   var btnSubmit = document.createElement('button');
-  btnSubmit.setAttribute('type' , 'submit');
-  btnSubmit.setAttribute('class' , 'btn btn-primary col-12');
-  btnSubmit.innerHTML = "Add Offer";
+      btnSubmit.setAttribute('type' , 'submit');
+      btnSubmit.setAttribute('class' , 'btn btn-primary col-12');
+      btnSubmit.innerHTML = "Add Offer";
 
   btnSubmit.addEventListener('click' , function (event) {
     event.preventDefault();
     addNewOffer(manageForm);
   } )
 
-  manageForm.appendChild(btnSubmit);
+      manageForm.appendChild(btnSubmit);
 
-  document.getElementById('content').innerHTML = ``;
-  document.getElementById('content').appendChild(manageForm) ;
+      document.getElementById('content').innerHTML = ``;
+      document.getElementById('content').appendChild(manageForm) ;
 
 
 }
@@ -231,19 +251,21 @@ function addNewOffer(off) {
       enOffer.name= off.enname.value;
       enOffer.day_night = Number(off.days.value) + "," + Number(off.nights.value);
       enOffer.description = off.endescription.value;
-      enOffer.image = "";
+      // enOffer.image = "";
       enOffer.languageCode = "en";
 
       itOffer.name= off.itname.value;
       itOffer.day_night = Number(off.days.value) + "," + Number(off.nights.value);
       itOffer.description = off.itdescription.value;
-      itOffer.image = "";
+      // itOffer.image = "";
       itOffer.languageCode = "it";
 
       var newOffer = [enOffer,itOffer];
       newOffer = JSON.stringify(newOffer);
 
-  postApi( 'https://hobitours.somee.com/Offer/add' , newOffer)
+      img = off.image;
+
+  postApi( 'https://hobitours.somee.com/Offer/add' , newOffer ,img)
   console.log(newOffer);
   reloadOffers();
   loadOffers();
@@ -415,14 +437,43 @@ function editOffer( id , oldData , newData ) {
 }
 
 // Define a function that returns a promise
-function postApi(url,str_json) {
+function postApi(url,str_json , img) {
   // Send the JSON data to your PHP script
   // var url = 'capilot.php';
+  var nOff = JSON.parse(str_json);
+  var inputFile = img;
+        var data = new FormData();
+        // data.append("name", nOff.name);
+        data.append("imgName", inputFile.files[0].name);
+        data.append("logo", inputFile.files[0]);
+        console.log(inputFile.files[0]);
+        
+  // ************ add text ************
   fetch(url, {
     method: 'POST',
     body: str_json,
     headers: {
       'Content-Type': 'application/json'
+      // "Accept" : "*/*"
+    }
+  })
+  .then(
+      (response) => {
+          response.text()
+          return response
+      })
+  .then(txt => {
+    // Handle the response from the server
+    console.log(txt);
+  });
+
+  // ************ add image ************
+  fetch(url, {
+    method: 'POST',
+    body: data,
+    headers: {
+      // 'Content-Type': 'application/json'
+      "Accept" : "*/*"
     }
   })
   .then(
@@ -457,7 +508,7 @@ function deleteApi(url,str_json) {
 
 // Define a function that returns a promise
 
-function putApi(url , data) {
+function putApi(url , data , img) {
   // console.log(data);
   // Create a new promise
   return new Promise(function(resolve, reject) {
@@ -469,7 +520,8 @@ function putApi(url , data) {
     
     // Open the request with the given url
     xhr.open("PUT", url, true);
-    xhr.setRequestHeader('Content-type', 'application/json');
+    // xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.setRequestHeader('Accept', '*/*');
     // Define what to do when the request is loaded
     xhr.onload = function() {
       // Check if the status is 200 (OK)
