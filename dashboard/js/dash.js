@@ -441,17 +441,11 @@ function postApi(url,str_json , img) {
   // Send the JSON data to your PHP script
   // var url = 'capilot.php';
   var nOff = JSON.parse(str_json);
-  var inputFile = img;
-        var data = new FormData();
-        // data.append("name", nOff.name);
-        data.append("imgName", inputFile.files[0].name);
-        data.append("logo", inputFile.files[0]);
-        console.log(inputFile.files[0]);
         
   // ************ add text ************
   fetch(url, {
     method: 'POST',
-    body: str_json,
+    body: nOff,
     headers: {
       'Content-Type': 'application/json'
       // "Accept" : "*/*"
@@ -460,31 +454,42 @@ function postApi(url,str_json , img) {
   .then(
       (response) => {
           response.text()
+          // *************************** newly added *****************************
+            addOffImage("https://hobitours.somee.com/Offer/update" , response.data , img);
+          // *************************** newly added *****************************
           return response
-      })
+        })
   .then(txt => {
     // Handle the response from the server
     console.log(txt);
   });
+}
 
-  // ************ add image ************
-  fetch(url, {
-    method: 'POST',
-    body: data,
-    headers: {
-      // 'Content-Type': 'application/json'
-      "Accept" : "*/*"
-    }
-  })
-  .then(
-      (response) => {
-          response.text()
-          return response
-      })
-  .then(txt => {
-    // Handle the response from the server
-    console.log(txt);
-  });
+function addOffImage(url , id , img) {
+  var inputFile = img;
+  var data = new FormData();
+  data.append("id", id);
+  data.append("imgName", inputFile.files[0].name);
+  data.append("logo", inputFile.files[0]);
+  console.log(inputFile.files[0]);
+   // ************ add image ************
+   fetch(url, {
+      method: 'PUT',
+      body: data,
+      headers: {
+        // 'Content-Type': 'application/json'
+        "Accept" : "*/*"
+      }
+    })
+    .then(
+        (response) => {
+            response.text()
+            return response
+        })
+    .then(txt => {
+      // Handle the response from the server
+      console.log(txt);
+    });
 }
 
 // Define a function that returns a promise
