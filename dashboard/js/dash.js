@@ -265,7 +265,7 @@ function addNewOffer(off) {
 
       img = off.image;
 
-  postApi( 'https://hobitours.somee.com/Offer/add' , newOffer ,img)
+  postApi( 'https://localhost:7181/Offer/add' , newOffer ,img)
   console.log(newOffer);
   reloadOffers();
   loadOffers();
@@ -455,7 +455,7 @@ function postApi(url,str_json , img) {
       (response) => {
           response.text()
           // *************************** newly added *****************************
-            addOffImage("https://hobitours.somee.com/Offer/update" , response.data , img);
+            addOffImage("https://localhost:7181/Offer/img/" + response.data , img);
           // *************************** newly added *****************************
           return response
         })
@@ -465,10 +465,9 @@ function postApi(url,str_json , img) {
   });
 }
 
-function addOffImage(url , id , img) {
+function addOffImage(url , img) {
   var inputFile = img;
   var data = new FormData();
-  data.append("id", id);
   data.append("imgName", inputFile.files[0].name);
   data.append("logo", inputFile.files[0]);
   console.log(inputFile.files[0]);
