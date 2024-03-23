@@ -38,10 +38,14 @@ window.onload = function () {
 };
 
 function reloadOffers() {
-  selectoffers = reqApi("https://localhost:7181/Offer/all/it/");
+  // selectoffers = reqApi("https://localhost:7181/Offer/all/it/");
+  // selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+  selectoffers = sendApi("https://hobitours.somee.com/Offer/all/it/" , '' , "GET");
   return selectoffers;
 }
-var selectoffers = reqApi("https://localhost:7181/Offer/all/it/");
+// var selectoffers = reqApi("https://localhost:7181/Offer/all/it/");
+// var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+var selectoffers = sendApi("https://hobitours.somee.com/Offer/all/it/" , '' , "GET");
 
 function checkAuth() {
   // var accessToken = localStorage.getItem("token");
@@ -107,8 +111,9 @@ function loadOffers() {
   languages.forEach((lan) => {
     offersTable = [];
     // console.log(e);
-    offers = reqApi("https://localhost:7181/Offer/all/" + lan);
+    // offers = reqApi("https://localhost:7181/Offer/all/" + lan);
     // offers = reqApi("https://hobitours.somee.com/Offer/all/" + lan);
+    offers = sendApi("https://hobitours.somee.com/Offer/all/" + lan , '' , "GET");
     offers.then((d) => {
       // selectoffers.then(d=>{
       // var ofNum = d.data.length;
@@ -230,7 +235,7 @@ function manageOffers() {
 
   var itdesLabel = document.createElement("label");
   itdesLabel.setAttribute("class", "form-label");
-  itdesLabel.innerText = "Offer Description in English";
+  itdesLabel.innerText = "Offer Description in Italic";
   var itdesContainer = document.createElement("div");
   itdesContainer.setAttribute("class", "col-md-12");
   var itdescrInput = document.createElement("textarea");
@@ -277,10 +282,160 @@ function addNewOffer(off) {
   newOffer = JSON.stringify(newOffer);
 
   img = off.image;
-var offerE = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
+// var offerE = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
+var offerE = sendApi("https://hobitours.somee.com/Offer/add", newOffer,"POST");
 offerE.then((res)=>{
   console.log(img);
-  addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
+  // addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
+  addOffImage("https://hobitours.somee.com/Offer/img/" + res.data, img);
+  // var inputFile = img;
+  // var data = new FormData();
+  // data.append("imgName", inputFile.files[0].name);
+  // data.append("img", inputFile.files[0]);
+  // console.log(inputFile.files[0]);
+  // var offerimg = sendApi("https://hobitours.somee.com/Offer/img" + res.data, data,"PUT");
+
+});
+  // postApi("https://localhost:7181/Offer/add", newOffer, img);
+  console.log(newOffer);
+  reloadOffers();
+  loadOffers();
+}
+
+function manageDestinations() {
+  document.getElementById("secTitle").innerHTML = "Add Destination";
+  var manageForm = document.createElement("form");
+  manageForm.setAttribute("method", "post");
+  manageForm.setAttribute("class", "row g-3 needs-validation");
+  manageForm.setAttribute("enctype", "multipart/form-data");
+  // manageForm.setAttribute('action','#');
+
+  var imgLabel = document.createElement("label");
+  imgLabel.setAttribute("class", "form-label");
+  imgLabel.innerText = "The image of the offer";
+  var imgContainer = document.createElement("div");
+  imgContainer.setAttribute("class", "col-md-12");
+  var imgFile = document.createElement("input");
+  imgFile.setAttribute("type", "file");
+  imgFile.setAttribute("name", "image");
+  imgFile.setAttribute("class", "form-control");
+  imgContainer.appendChild(imgLabel);
+  imgContainer.appendChild(imgFile);
+  manageForm.appendChild(imgContainer);
+
+  var enLabel = document.createElement("label");
+  enLabel.setAttribute("class", "form-label");
+  enLabel.innerText = "destination name in english";
+  var enContainer = document.createElement("div");
+  enContainer.setAttribute("class", "col-md-6");
+  var enOfferName = document.createElement("input");
+  enOfferName.setAttribute("type", "text");
+  enOfferName.setAttribute("name", "enname");
+  enOfferName.setAttribute("class", "form-control");
+  enContainer.appendChild(enLabel);
+  enContainer.appendChild(enOfferName);
+  manageForm.appendChild(enContainer);
+
+  var itLabel = document.createElement("label");
+  itLabel.setAttribute("class", "form-label");
+  itLabel.innerText = "destination name in italic";
+  var itContainer = document.createElement("div");
+  itContainer.setAttribute("class", "col-md-6");
+  var itOfferName = document.createElement("input");
+  itOfferName.setAttribute("type", "text");
+  itOfferName.setAttribute("name", "itname");
+  itOfferName.setAttribute("class", "form-control");
+  itContainer.appendChild(itLabel);
+  itContainer.appendChild(itOfferName);
+  manageForm.appendChild(itContainer);
+
+  var places = document.createElement("label");
+  places.setAttribute("class", "form-label");
+  places.innerText = "Days of the offer";
+  var dContainer = document.createElement("div");
+  dContainer.setAttribute("class", "col-md-12");
+  var days = document.createElement("input");
+  days.setAttribute("type", "text");
+  days.setAttribute("name", "places[]");
+  days.setAttribute("class", "form-control");
+  dContainer.appendChild(places);
+  dContainer.appendChild(days);
+  manageForm.appendChild(dContainer);
+
+  var endesLabel = document.createElement("label");
+  endesLabel.setAttribute("class", "form-label");
+  endesLabel.innerText = "Destination Description in English";
+  var endesContainer = document.createElement("div");
+  endesContainer.setAttribute("class", "col-md-12");
+  var endescrInput = document.createElement("textarea");
+  endescrInput.setAttribute("name", "endescription");
+  endescrInput.setAttribute("class", "form-control");
+  endesContainer.appendChild(endesLabel);
+  endesContainer.appendChild(endescrInput);
+  manageForm.appendChild(endesContainer);
+
+  var itdesLabel = document.createElement("label");
+  itdesLabel.setAttribute("class", "form-label");
+  itdesLabel.innerText = "Destination Description in Italic";
+  var itdesContainer = document.createElement("div");
+  itdesContainer.setAttribute("class", "col-md-12");
+  var itdescrInput = document.createElement("textarea");
+  itdescrInput.setAttribute("name", "itdescription");
+  itdescrInput.setAttribute("class", "form-control");
+  itdesContainer.appendChild(itdesLabel);
+  itdesContainer.appendChild(itdescrInput);
+  manageForm.appendChild(itdesContainer);
+
+  var btnSubmit = document.createElement("button");
+  btnSubmit.setAttribute("type", "submit");
+  btnSubmit.setAttribute("class", "btn btn-primary col-12");
+  btnSubmit.innerHTML = "Add Destination";
+
+  btnSubmit.addEventListener("click", function (event) {
+    event.preventDefault();
+    addNewDest(manageForm);
+  });
+
+  manageForm.appendChild(btnSubmit);
+
+  document.getElementById("content").innerHTML = ``;
+  document.getElementById("content").appendChild(manageForm);
+}
+
+function addNewDest(dest) {
+  // console.log(ee.enname.value);
+  var enOffer = new Offer(),
+    itOffer = new Offer();
+
+  enOffer.name = dest.enname.value;
+  enOffer.places = places;
+  enOffer.description = dest.endescription.value;
+  // enOffer.image = "";
+  enOffer.languageCode = "en";
+
+  itOffer.name = dest.itname.value;
+  itOffer.day_night = places;
+  itOffer.description = dest.itdescription.value;
+  // itOffer.image = "";
+  itOffer.languageCode = "it";
+
+  var newOffer = [enOffer, itOffer];
+  newOffer = JSON.stringify(newOffer);
+
+  img = off.image;
+// var offerE = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
+var offerE = sendApi("https://hobitours.somee.com/destination/add", newOffer,"POST");
+offerE.then((res)=>{
+  console.log(img);
+  // addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
+  addOffImage("https://hobitours.somee.com/destination/img/" + res.data, img);
+  // var inputFile = img;
+  // var data = new FormData();
+  // data.append("imgName", inputFile.files[0].name);
+  // data.append("img", inputFile.files[0]);
+  // console.log(inputFile.files[0]);
+  // var offerimg = sendApi("https://hobitours.somee.com/Offer/img" + res.data, data,"PUT");
+
 });
   // postApi("https://localhost:7181/Offer/add", newOffer, img);
   console.log(newOffer);
@@ -332,17 +487,9 @@ function showDeleteOffer() {
 
 function deleteOffer(offid) {
   console.log(offid);
-<<<<<<< HEAD
-  var del = sendApi("https://hobitours.somee.com/Offer/delete/" + offid , {id : offid} ,"DELETE" );
-  // var del = deleteApi("https://hobitours.somee.com/Offer/delete/" + offid , {id : offid} );
-  del.then(res=>{ reloadOffers();loadOffers(); })
-     .catch((err)=> { alert('Errore durante la cancellazione dell\'offerta' + err);});
-=======
-  var del = sendApi(
-    "https://localhost:7181/Offer/delete/" + offid,
-    { id: offid },
-    "DELETE"
-  );
+  // var del = sendApi( "https://localhost:7181/Offer/delete/" + offid, { id: offid }, "DELETE" );
+  var del = sendApi( "https://hobitours.somee.com/Offer/delete/" + offid, { id: offid }, "DELETE" );
+  
   del
     .then((res) => {
       reloadOffers();
@@ -351,7 +498,6 @@ function deleteOffer(offid) {
     .catch((err) => {
       alert("Errore durante la cancellazione dell'offerta" + err);
     });
->>>>>>> 52a024919e02dd0092207c3ee0df1afa53a35680
   // window.location.reload();
 }
 
@@ -363,7 +509,8 @@ function showEdit(offId, lang) {
   var allOff = [],
     otherOff;
   languages.forEach((lan) => {
-    var off = reqApi("https://hobitours.somee.com/Offer/" + offId + "/" + lan);
+    // var off = reqApi("https://hobitours.somee.com/Offer/" + offId + "/" + lan);
+    var off = sendApi("https://hobitours.somee.com/Offer/" + offId + "/" + lan , "" , "GET");
     off.then((d) => {
       var sOff = d.data;
       console.log(sOff);
@@ -498,7 +645,8 @@ function postApi(url, str_json, img) {
       // console.log(response.text());
       // *************************** newly added *****************************
       console.log(response)
-      addOffImage("https://localhost:7181/Offer/img/" + response.data, img);
+      // addOffImage("https://localhost:7181/Offer/img/" + response.data, img);
+      addOffImage("https://hobitours.somee.com/Offer/img/" + response.data, img);
       // *************************** newly added *****************************
       return response;
     })
@@ -658,4 +806,12 @@ function sendApi(url, data, method) {
     // Send the request
     xhr.send(data);
   });
+}
+
+function loadPage(href)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", href, false);
+    xmlhttp.send();
+    return xmlhttp.responseText;
 }
