@@ -314,7 +314,8 @@ function showDeleteOffer() {
 
 function deleteOffer(offid) {
   console.log(offid);
-  var del = sendApi("https://hobitours.somee.com//Offer/delete/" +offid , {id : offid} ,"DELETE" );
+  var del = sendApi("https://hobitours.somee.com/Offer/delete/" + offid , {id : offid} ,"DELETE" );
+  // var del = deleteApi("https://hobitours.somee.com/Offer/delete/" + offid , {id : offid} );
   del.then(res=>{ reloadOffers();loadOffers(); })
      .catch((err)=> { alert('Errore durante la cancellazione dell\'offerta' + err);});
   // window.location.reload();
