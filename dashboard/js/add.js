@@ -250,9 +250,9 @@ function addNewOffer(off) {
     newOffer = JSON.stringify(newOffer);
   
     img = off.image;
-  // var offerE = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
-  var offerE = sendApi("https://hobitours.somee.com/Offer/add", newOffer,"POST");
-  offerE.then((res)=>{
+  // var sendOff = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
+  var sendOff = sendApi("https://hobitours.somee.com/Offer/add", newOffer,"POST");
+  sendOff.then((res)=>{
     console.log(img);
     // addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
     addOffImage("https://hobitours.somee.com/Offer/img/" + res.data, img);
@@ -299,8 +299,8 @@ function addNewOffer(off) {
   
     img = dest.image;
   // var offerE = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
-  var offerE = sendApi("https://hobitours.somee.com/destination/add", newOffer,"POST");
-  offerE.then((res)=>{
+  var sendDest = sendApi("https://hobitours.somee.com/destination/add", newOffer,"POST");
+  sendDest.then((res)=>{
     console.log(img);
     // addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
     addOffImage("https://hobitours.somee.com/destination/img/" + res.data, img);
