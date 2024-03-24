@@ -149,7 +149,7 @@ window.onload = function () {
                         ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>`,
                         singleDest[3],
                     lan,
-                    `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteOffer(${e.id})"><i class="bi bi-trash"></i></button></div>`,
+                    `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteDestination(${e.id})"><i class="bi bi-trash"></i></button></div>`,
                 ])
                 .draw(false);
             // console.log(e);

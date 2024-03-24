@@ -99,8 +99,8 @@ function showDeletDestination() {
   
   function deleteDestination(desid) {
     console.log(desid);
-    // var del = sendApi( "https://localhost:7181/destination/delete/" + offid, { id: desid }, "DELETE" );
-    var del = sendApi( "https://hobitours.somee.com/destination/delete/" + offid, { id: desid }, "DELETE" );
+    // var del = sendApi( "https://localhost:7181/destination/delete/" + desid, { id: desid }, "DELETE" );
+    var del = sendApi( "https://hobitours.somee.com/destination/delete/" + desid, { id: desid }, "DELETE" );
     
     del
       .then((res) => {

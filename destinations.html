@@ -44,7 +44,7 @@
       </a>
 
       <nav id="navbar" class="navbar">
-        <ul>
+        <ul id="n-menu" >
           <li><a class="nav-link scrollto" href="index.html#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="index.html#portfolio">Services</a></li>
           <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
@@ -80,7 +80,7 @@
 
     <!-- ======= Features Section ======= -->
     <section id="features" class="features mt-5">
-      <div class="container" data-aos="fade-up">
+      <div class="container" data-aos="fade-up" id="destsResults">
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
@@ -204,6 +204,103 @@
         delay: 100,
         time: 5000
     });
+    var language;
+    window.onload = function () {
+      language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+      // getObject("https://hobitours.somee.com/Offer/all/" + language);
+      dests = reqApi("https://hobitours.somee.com/destination/all/" + language);
+      dests.then(d=>{
+        var ofNum = d.data.length;
+        console.log(d.data.length);
+        console.log(d.data[0]);
+        d.data.forEach(e => {
+
+        var destsResult = document.getElementById("destsResults"),
+            tabDest = document.createElement("ul"),
+            eachDest = document.createElement("li"),
+            destDesc = document.createElement("div"),
+            father = document.createElement("div"),
+            imageFather = document.createElement("div"),
+            image = document.createElement("img"),
+            places = document.createElement("div"),
+            place = document.createElement("div"),
+            eachPlace = document.createElement("div"),
+            placeList = document.createElement("ul"),
+            destName = document.createElement("h3"),
+            destination = document.createElement("button"),
+            ovflow = document.createElement("span"),
+            readmore = document.createElement("a");
+
+            destsResult.innerHTML = '';
+
+            tabDest.setAttribute("class" , "nav nav-tabs");
+            tabDest.setAttribute("id" , "myTab");
+            tabDest.setAttribute("role" , "tablist");
+            eachDest.setAttribute("class" , "nav-item");
+            eachDest.setAttribute("role" , "presentation");
+            destination.setAttribute("class" ,"nav-link active p-3");
+            destination.setAttribute("id" ,`${e.name.replace(" " ,"-")}-tab`);
+            destination.setAttribute("data-bs-toggle" , "tab");
+            destination.setAttribute("data-bs-target" , `${e.name.replace(" " ,"-")}`);
+            destination.setAttribute("type" , `button`);
+            destination.setAttribute("role" , `tap`);
+            destination.setAttribute("aria-controls" , `${e.name.replace(" " ,"-")}`);
+            destination.setAttribute("aria-selected" , `true`);
+
+            destination.innerHTML = e.name ;
+
+            eachDest.appendChild(destination);
+            tabDest.appendChild(eachDest);
+
+            places.setAttribute("class" , "tab-content");
+            places.setAttribute("id" , "myTabContent");
+            place.setAttribute("class" , "tab-pane fade show active p-5");
+            place.setAttribute("id" , `${e.name.replace(" " ,"-")}`);
+            place.setAttribute("role" , `tabpanel`);
+            place.setAttribute("aria-labelledby" , `${e.name.replace(" " ,"-")}`);
+
+            eachPlace.innerHTML = e.description;
+            e.places.forEach((itemText) => {
+                let liElement = document.createElement("li");
+                liElement.textContent = itemText;
+                placeList.appendChild(liElement);
+            });
+            eachPlace.appendChild(placeList);
+
+          father.setAttribute("class" , "post-box");
+
+          imageFather.setAttribute("class" , "post-img");
+
+          image.src = (e.image == null || undefined ? "assets/img/travel/tourism.jpg" : e.image )
+          image.setAttribute("class" , "img-fluid");
+
+          // image.src= e.ImageURL;
+          
+          // offer.textContent = e.description;
+          // offer.setAttribute("class" , "offers-p");
+
+          // ovfow.textContent = "...";
+
+          // readmore.href="offer-details.html?id="+e.id + "&lan=" + language;
+          // readmore.setAttribute("class" ,"readmore");
+
+          // readmore.innerHTML=`Read More<i class="bi bi-arrow-right"></i>`;
+
+
+          imageFather.appendChild(image);
+
+          eachPlace.appendChild(imageFather);
+          eachPlace.appendChild(tabDest);
+          place.append(eachPlace);
+          places.append(place);
+          father.appendChild(tabDest);
+          father.appendChild(places);
+          destsResult.appendChild(father)
+        });
+
+      })
+    }
+
   </script>
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
