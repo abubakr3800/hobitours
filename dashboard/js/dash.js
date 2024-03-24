@@ -34,41 +34,6 @@ class Dest {
   languageCode;
 }
 
-
-// Define a function that returns a promise
-function postApi(url, str_json, img) {
-  // Send the JSON data to your PHP script
-  // var url = 'capilot.php';
-  var nOff = JSON.parse(str_json);
-
-  // ************ add text ************
-  fetch(url, {
-    method: "POST",
-    body: str_json,
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "*/*",
-    },
-  })
-    .then((response) => {
-      // console.log(response.text());
-      // *************************** newly added *****************************
-      console.log(response)
-      // addOffImage("https://localhost:7181/Offer/img/" + response.data, img);
-      addOffImage("https://hobitours.somee.com/Offer/img/" + response.data, img);
-      // *************************** newly added *****************************
-      return response;
-    })
-    .then((data) => {
-      // Handle the response from the server
-      console.log(data);
-    })
-    .then((txt) => {
-      // Handle the response from the server
-      console.log(txt);
-    });
-}
-
 function addOffImage(url, img) {
   var inputFile = img;
   var data = new FormData();
@@ -92,55 +57,6 @@ function addOffImage(url, img) {
       // Handle the response from the server
       console.log(txt);
     });
-}
-
-// Define a function that returns a promise
-function deleteApi(url, str_json) {
-  // Send the JSON data to your PHP script
-  // var url = 'capilot.php';
-  fetch(url, {
-    method: "DELETE",
-    body: str_json,
-  })
-    .then((response) => {
-      response.text();
-      return response;
-    })
-    .then((txt) => {
-      // Handle the response from the server
-      console.log(txt);
-    });
-}
-
-// Define a function that returns a promise
-
-function putApi(url, data, img) {
-  // console.log(data);
-  // Create a new promise
-  return new Promise(function (resolve, reject) {
-    // Create a new XHR object
-    var xhr = new XMLHttpRequest();
-    // Set the response type to JSON
-    xhr.responseType = "json";
-
-    // Open the request with the given url
-    xhr.open("PUT", url, true);
-    // xhr.setRequestHeader('Content-type', 'application/json');
-    xhr.setRequestHeader("Accept", "*/*");
-    // Define what to do when the request is loaded
-    xhr.onload = function () {
-      // Check if the status is 200 (OK)
-      if (this.status === 200) {
-        // Resolve the promise with the response object
-        resolve(this.response);
-      } else {
-        // Reject the promise with the status text
-        reject(this.statusText);
-      }
-    };
-    // Send the request
-    xhr.send(JSON.stringify(data));
-  });
 }
 
 // Define a function that returns a promise

@@ -1,4 +1,3 @@
-
 function manageOffers() {
     document.getElementById("secTitle").innerHTML = "Add Offer";
     var manageForm = document.createElement("form");
@@ -111,7 +110,47 @@ function manageOffers() {
     document.getElementById("content").innerHTML = ``;
     document.getElementById("content").appendChild(manageForm);
   }
-  
+    
+function addNewOffer(off) {
+  // console.log(ee.enname.value);
+  var enOffer = new Offer(),
+    itOffer = new Offer();
+
+  enOffer.name = off.enname.value;
+  enOffer.day_night = Number(off.days.value) + "," + Number(off.nights.value);
+  enOffer.description = off.endescription.value;
+  // enOffer.image = "";
+  enOffer.languageCode = "en";
+
+  itOffer.name = off.itname.value;
+  itOffer.day_night = Number(off.days.value) + "," + Number(off.nights.value);
+  itOffer.description = off.itdescription.value;
+  // itOffer.image = "";
+  itOffer.languageCode = "it";
+
+  var newOffer = [enOffer, itOffer];
+  newOffer = JSON.stringify(newOffer);
+
+  img = off.image;
+// var sendOff = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
+var sendOff = sendApi("https://hobitours.somee.com/Offer/add", newOffer,"POST");
+sendOff.then((res)=>{
+  console.log(img);
+  // addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
+  addOffImage("https://hobitours.somee.com/Offer/img/" + res.data, img);
+  // var inputFile = img;
+  // var data = new FormData();
+  // data.append("imgName", inputFile.files[0].name);
+  // data.append("img", inputFile.files[0]);
+  // console.log(inputFile.files[0]);
+  // var offerimg = sendApi("https://hobitours.somee.com/Offer/img" + res.data, data,"PUT");
+
+});
+  console.log(newOffer);
+  reloadOffers();
+  loadOffers();
+}
+
 function manageDestinations() {
     document.getElementById("secTitle").innerHTML = "Add Destination";
     var manageForm = document.createElement("form");
@@ -228,48 +267,6 @@ function manageDestinations() {
     document.getElementById("content").appendChild(manageForm);
   }
   
-  
-function addNewOffer(off) {
-    // console.log(ee.enname.value);
-    var enOffer = new Offer(),
-      itOffer = new Offer();
-  
-    enOffer.name = off.enname.value;
-    enOffer.day_night = Number(off.days.value) + "," + Number(off.nights.value);
-    enOffer.description = off.endescription.value;
-    // enOffer.image = "";
-    enOffer.languageCode = "en";
-  
-    itOffer.name = off.itname.value;
-    itOffer.day_night = Number(off.days.value) + "," + Number(off.nights.value);
-    itOffer.description = off.itdescription.value;
-    // itOffer.image = "";
-    itOffer.languageCode = "it";
-  
-    var newOffer = [enOffer, itOffer];
-    newOffer = JSON.stringify(newOffer);
-  
-    img = off.image;
-  // var sendOff = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
-  var sendOff = sendApi("https://hobitours.somee.com/Offer/add", newOffer,"POST");
-  sendOff.then((res)=>{
-    console.log(img);
-    // addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
-    addOffImage("https://hobitours.somee.com/Offer/img/" + res.data, img);
-    // var inputFile = img;
-    // var data = new FormData();
-    // data.append("imgName", inputFile.files[0].name);
-    // data.append("img", inputFile.files[0]);
-    // console.log(inputFile.files[0]);
-    // var offerimg = sendApi("https://hobitours.somee.com/Offer/img" + res.data, data,"PUT");
-  
-  });
-    // postApi("https://localhost:7181/Offer/add", newOffer, img);
-    console.log(newOffer);
-    reloadOffers();
-    loadOffers();
-  }
-  
   function addNewDest(dest) {
     // console.log(ee.enname.value);
     var enDest = new Dest(),
@@ -283,13 +280,13 @@ function addNewOffer(off) {
         });
 
       enDest.name = dest.enname.value;
-      enDest.places = dest.enname.places;
+      enDest.places = allPlaces;
       enDest.description = dest.endescription.value;
     // enDest.image = "";
     enDest.languageCode = "en";
   
     itDest.name = dest.itname.value;
-    itDest.day_night = places;
+    itDest.day_night = allPlaces;
     itDest.description = dest.itdescription.value;
     // itDest.image = "";
     itDest.languageCode = "it";
@@ -298,8 +295,8 @@ function addNewOffer(off) {
     newDest = JSON.stringify(newDest);
   
     img = dest.image;
-  // var offerE = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
-  var sendDest = sendApi("https://hobitours.somee.com/destination/add", newOffer,"POST");
+  // var offerE = sendApi("https://localhost:7181/destination/add", newDest,"POST");
+  var sendDest = sendApi("https://hobitours.somee.com/destination/add", newDest,"POST");
   sendDest.then((res)=>{
     console.log(img);
     // addOffImage("https://localhost:7181/Offer/img/" + res.data, img);
@@ -309,11 +306,10 @@ function addNewOffer(off) {
     // data.append("imgName", inputFile.files[0].name);
     // data.append("img", inputFile.files[0]);
     // console.log(inputFile.files[0]);
-    // var offerimg = sendApi("https://hobitours.somee.com/Offer/img" + res.data, data,"PUT");
+    // var offerimg = sendApi("https://hobitours.somee.com/destination/img" + res.data, data,"PUT");
   
   });
-    // postApi("https://localhost:7181/Offer/add", newOffer, img);
-    console.log(newOffer);
+    console.log(newDest);
     reloadOffers();
     loadOffers();
   }

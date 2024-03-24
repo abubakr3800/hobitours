@@ -1,4 +1,3 @@
-
 window.onload = function () {
     document.getElementById("sidebar").innerHTML = loadPage("sidenav.html");
     token = localStorage.getItem("token");
@@ -140,16 +139,15 @@ window.onload = function () {
             singleDest.push(e.id);
             singleDest.push(e.name);
             singleDest.push(e.description);
-            singleDest.push(e.day_night);
-            DestsTable.push(singleOffer);
+            singleDest.push(e.places.toLocaleString());
+            DestsTable.push(singleDest);
             desttab.row
                 .add([
                     singleDest[0],
                     singleDest[1],
                     singleDest[2].slice(0, 50) +
                         ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>`,
-                        singleDest[3].split(",")[0],
-                        singleDest[3].split(",")[1],
+                        singleDest[3],
                     lan,
                     `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteOffer(${e.id})"><i class="bi bi-trash"></i></button></div>`,
                 ])
