@@ -41,6 +41,12 @@
             see offers
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="#" onclick="loadDest()">
+            <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
+            see destinations
+          </a>
+        </li>
       </ul>
 
       <hr class="my-3">
@@ -56,6 +62,12 @@
           <a class="nav-link d-flex align-items-center gap-2" href="#" onclick="manageOffers()">
             <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
             add offers
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="#" onclick="manageDestinations()">
+            <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
+            add destinations
           </a>
         </li>
       </ul>
@@ -77,11 +89,19 @@
             delete offers
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-2" href="#" onclick="showDeletDestination()">
+            <!-- <svg class="bi"><use xlink:href="#file-earmark-text"/></svg> -->
+            <!-- <i class="fab fab-trash"></i>  -->
+            <i class="bi bi-trash"></i>
+            delete destinations
+          </a>
+        </li>
       </ul>
 
       <hr class="my-3">
 
-      <ul class="nav flex-column mb-auto">
+      <ul class="nav flex-column mb-5"> <!-- mb-auto in before -->
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center gap-2" href="#">
             <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>

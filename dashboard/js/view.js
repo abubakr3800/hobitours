@@ -32,7 +32,6 @@ window.onload = function () {
     // var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
     var selectoffers = sendApi("https://hobitours.somee.com/Offer/all/it/" , '' , "GET");
 
-    
     function loadOffers() {
         document.getElementById("secTitle").innerHTML = "Watch Offers";
         document.getElementById(
@@ -95,10 +94,20 @@ window.onload = function () {
         // offtab.row.add(allOffers).draw(false);
     }
 
+    function reloadDests() {
+        // selectdests = reqApi("https://localhost:7181/destination/all/it/");
+        // selectdests = reqApi("https://hobitours.somee.com/destination/all/it/");
+        selectdests = sendApi("https://hobitours.somee.com/destination/all/it/" , '' , "GET");
+        return selectdests;
+    }
+    // var selectdests = reqApi("https://localhost:7181/destination/all/it/");
+    // var selectdests = reqApi("https://hobitours.somee.com/destination/all/it/");
+    var selectdests = sendApi("https://hobitours.somee.com/destination/all/it/" , '' , "GET");
+
     function loadDest() {
         document.getElementById("secTitle").innerHTML = "Watch Destinations";
         document.getElementById("content").innerHTML = `<div class="table-responsive small"><table id="destinations" class="display" width="100%"></table></div>`;
-        // Iterate over each language and make an API call for offers in that language
+        // Iterate over each language and make an API call for destination in that language
         if (desttab == null || undefined) {
         var desttab = new DataTable("#destinations", {
             columns: [
@@ -117,11 +126,11 @@ window.onload = function () {
         languages.forEach((lan) => {
             DestsTable = [];
         // console.log(e);
-        // offers = reqApi("https://localhost:7181/Offer/all/" + lan);
-        // offers = reqApi("https://hobitours.somee.com/Offer/all/" + lan);
+        // offers = reqApi("https://localhost:7181/destination/all/" + lan);
+        // offers = reqApi("https://hobitours.somee.com/destination/all/" + lan);
         Dests = sendApi("https://hobitours.somee.com/destination/all/" + lan , '' , "GET");
         Dests.then((d) => {
-            // selectoffers.then(d=>{
+            // selectdests.then(d=>{
             // var ofNum = d.data.length;
             // console.log(ofNum);
             var singleDest = [];
@@ -135,12 +144,12 @@ window.onload = function () {
             DestsTable.push(singleOffer);
             desttab.row
                 .add([
-                    singleOffer[0],
-                    singleOffer[1],
-                    singleOffer[2].slice(0, 50) +
+                    singleDest[0],
+                    singleDest[1],
+                    singleDest[2].slice(0, 50) +
                         ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>`,
-                    singleOffer[3].split(",")[0],
-                    singleOffer[3].split(",")[1],
+                        singleDest[3].split(",")[0],
+                        singleDest[3].split(",")[1],
                     lan,
                     `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteOffer(${e.id})"><i class="bi bi-trash"></i></button></div>`,
                 ])
