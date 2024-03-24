@@ -280,13 +280,13 @@ function manageDestinations() {
         });
 
       enDest.name = dest.enname.value;
-      enDest.places = allPlaces;
+      enDest.places = places;
       enDest.description = dest.endescription.value;
     // enDest.image = "";
     enDest.languageCode = "en";
   
     itDest.name = dest.itname.value;
-    itDest.day_night = allPlaces;
+    itDest.places = places;
     itDest.description = dest.itdescription.value;
     // itDest.image = "";
     itDest.languageCode = "it";
