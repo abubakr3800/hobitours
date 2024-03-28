@@ -1,0 +1,33 @@
+<!-- Add this style to hide the Google Translate widget -->
+<style>
+    #google_translate_element, .skiptranslate {
+        display: none;
+    }
+    body {
+        top: 0!important;
+    }
+</style>
+
+<!-- Include the "trn" class in the text you want to translate -->
+<div id="content">home</div>
+
+<!-- Initialize the Google Translate widget -->
+<script>
+    google.load("language", "1");
+
+    function initialize() {
+        var content = document.getElementById('content');
+        content.innerHTML = '<div id="text">Hola, me alegro mucho de verte.<\/div><div id="translation"/>';
+        var text = document.getElementById("text").innerHTML;
+        google.language.translate(text, 'es', 'en', function(result) {
+            var translated = document.getElementById("translation");
+            if (result.translation) {
+                translated.innerHTML = result.translation;
+            }
+        });
+    }
+    google.setOnLoadCallback(initialize);
+</script>
+
+<!-- Load the Google Translate script -->
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
