@@ -83,7 +83,7 @@
       <div class="container" data-aos="fade-up" id="destsResults">
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
+          <!-- <li class="nav-item" role="presentation">
             <button class="nav-link active p-3" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Crociera sul nilo</button>
           </li>
           <li class="nav-item" role="presentation">
@@ -91,10 +91,10 @@
           </li>
           <li class="nav-item" role="presentation">
             <button class="nav-link p-3" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Tour 7 notti / 8 giorni</button>
-          </li>
+          </li> -->
         </ul>
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active p-5" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <!-- <div class="tab-pane fade show active p-5" id="home" role="tabpanel" aria-labelledby="home-tab">
             <h1>Guida turistica di Crociera sul Nilo</h1>
             <h3>INFORMAZIONI GENERALI</h3>
             <p>Tradizionalmente una crociera sul Nilo è considerata il fulcro di un viaggio in Egitto ma a differenza del passato le opzioni sono molte di più: dalle crociere di extra-lusso con piscina a quelle più economiche (ma sempre con ogni confort) fino alle più avventurose crociere in feluca, senza confort, ma a prezzo più basso e con quel pizzico di avventura e alla sensazione di essere catapultato in tempi antichi che non esistono più.
@@ -123,7 +123,7 @@
               Dopo pranzo visita dei templi di Luxor & di Karnak.
               
               Rientro sulla nave, cena & pernottamento.</p>
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -204,25 +204,27 @@
         delay: 100,
         time: 5000
     });
-    var language;
     window.onload = function () {
+      var language , destsResult = document.getElementById("destsResults") , tabDest = document.createElement("ul") , places = document.getElementById("myTabContent");
+      destsResult.innerHTML = '';
+      var x = 0;
       language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
       // getObject("https://hobitours.somee.com/Offer/all/" + language);
       dests = reqApi("https://hobitours.somee.com/destination/all/" + language);
+
       dests.then(d=>{
         var ofNum = d.data.length;
         console.log(d.data.length);
         console.log(d.data[0]);
         d.data.forEach(e => {
 
-        var destsResult = document.getElementById("destsResults"),
-            tabDest = document.createElement("ul"),
+        var 
             eachDest = document.createElement("li"),
             destDesc = document.createElement("div"),
             father = document.createElement("div"),
             imageFather = document.createElement("div"),
             image = document.createElement("img"),
-            places = document.createElement("div"),
+            // places = document.createElement("div"),
             place = document.createElement("div"),
             eachPlace = document.createElement("div"),
             placeList = document.createElement("ul"),
@@ -231,17 +233,18 @@
             ovflow = document.createElement("span"),
             readmore = document.createElement("a");
 
-            destsResult.innerHTML = '';
+            // destsResult.innerHTML = '';
 
             tabDest.setAttribute("class" , "nav nav-tabs");
             tabDest.setAttribute("id" , "myTab");
             tabDest.setAttribute("role" , "tablist");
             eachDest.setAttribute("class" , "nav-item");
             eachDest.setAttribute("role" , "presentation");
-            destination.setAttribute("class" ,"nav-link active p-3");
+            // destination.setAttribute("class" ,"nav-link active p-3");
+            destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-3`);
             destination.setAttribute("id" ,`${e.name.replace(" " ,"-")}-tab`);
             destination.setAttribute("data-bs-toggle" , "tab");
-            destination.setAttribute("data-bs-target" , `${e.name.replace(" " ,"-")}`);
+            destination.setAttribute("data-bs-target" , `#${e.name.replace(" " ,"-")}`);
             destination.setAttribute("type" , `button`);
             destination.setAttribute("role" , `tap`);
             destination.setAttribute("aria-controls" , `${e.name.replace(" " ,"-")}`);
@@ -254,10 +257,11 @@
 
             places.setAttribute("class" , "tab-content");
             places.setAttribute("id" , "myTabContent");
-            place.setAttribute("class" , "tab-pane fade show active p-5");
+            // place.setAttribute("class" , "tab-pane fade show active p-5");
+            place.setAttribute("class" , `tab-pane fade ${(x == 0 ? "show active": "")} p-5`);
             place.setAttribute("id" , `${e.name.replace(" " ,"-")}`);
             place.setAttribute("role" , `tabpanel`);
-            place.setAttribute("aria-labelledby" , `${e.name.replace(" " ,"-")}`);
+            place.setAttribute("aria-labelledby" , `${e.name.replace(" " ,"-")}-tab`);
 
             eachPlace.innerHTML = e.description;
             e.places.forEach((itemText) => {
@@ -275,18 +279,12 @@
           image.setAttribute("class" , "img-fluid");
 
           // image.src= e.ImageURL;
-          
           // offer.textContent = e.description;
           // offer.setAttribute("class" , "offers-p");
-
           // ovfow.textContent = "...";
-
           // readmore.href="offer-details.html?id="+e.id + "&lan=" + language;
           // readmore.setAttribute("class" ,"readmore");
-
           // readmore.innerHTML=`Read More<i class="bi bi-arrow-right"></i>`;
-
-
           imageFather.appendChild(image);
 
           eachPlace.appendChild(imageFather);
@@ -295,7 +293,8 @@
           places.append(place);
           father.appendChild(tabDest);
           father.appendChild(places);
-          destsResult.appendChild(father)
+          destsResult.appendChild(father);
+          x ++;
         });
 
       })

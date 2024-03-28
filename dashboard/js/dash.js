@@ -34,7 +34,7 @@ class Dest {
   languageCode;
 }
 
-function addOffImage(url, img) {
+function addImage(url, img) {
   var inputFile = img;
   var data = new FormData();
   data.append("imgName", inputFile.files[0].name);

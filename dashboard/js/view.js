@@ -141,17 +141,15 @@ window.onload = function () {
             singleDest.push(e.description);
             singleDest.push(e.places.toLocaleString());
             DestsTable.push(singleDest);
-            desttab.row
-                .add([
+            desttab.row.add([
                     singleDest[0],
                     singleDest[1],
                     singleDest[2].slice(0, 50) +
                         ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>`,
                         singleDest[3],
                     lan,
-                    `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteDestination(${e.id})"><i class="bi bi-trash"></i></button></div>`,
-                ])
-                .draw(false);
+                    `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEditDest(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteDestination(${e.id})"><i class="bi bi-trash"></i></button></div>`,
+                ]).draw(false);
             // console.log(e);
             });
         });
