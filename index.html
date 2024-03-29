@@ -31,6 +31,11 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <style>
+    #google_translate_element, .skiptranslate {
+        display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -360,13 +365,13 @@
         <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order">
 
           <ul class="portfolio-flters">
-            <li data-filter="*" class="filter-active">All</li>
+            <!-- <li data-filter="*" class="filter-active">All</li>
             <li data-filter=".filter-Destination">Destination</li>
             <li data-filter=".filter-Nile">Nile Cruises</li>
-            <li data-filter=".filter-Safari">Safari</li>
+            <li data-filter=".filter-Safari">Safari</li> -->
           </ul><!-- End Portfolio Filters -->
 
-          <div class="row g-0 portfolio-container">
+          <div class="row g-0 portfolio-container" id="destinations">
 
             <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-Destination">
               <div class="flip-card">
@@ -409,7 +414,8 @@
                   <div class="flip-card-back">
                     <div class="link">
                       <p>this tour is very amazing</p>
-                      <a href="nile.html" class="btn btn-outline-info"> view more details </a>                    </div>
+                      <a href="nile.html" class="btn btn-outline-info"> view more details </a>                    
+                    </div>
                   </div>
                 </div>
               </div>
@@ -440,7 +446,8 @@
                   <div class="flip-card-back">
                     <div class="link">
                       <p>this tour is very amazing</p>
-                      <a href="nile.html" class="btn btn-outline-info"> view more details </a>                    </div>
+                      <a href="nile.html" class="btn btn-outline-info"> view more details </a>                    
+                    </div>
                   </div>
                 </div>
               </div>
@@ -455,7 +462,8 @@
                   <div class="flip-card-back">
                     <div class="link">
                       <p>this tour is very amazing</p>
-                      <a href="nile.html" class="btn btn-outline-info"> view more details </a>                    </div>
+                      <a href="nile.html" class="btn btn-outline-info"> view more details </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -477,38 +485,7 @@
           <!-- <p>Recent posts form our Blog</p> -->
         </div>
 
-        <div class="row" id="offersResults">
-
-          <!-- <div class="col-lg col-sm-12" data-aos="fade-up" data-aos-delay="200">
-            <div class="post-box">
-              <div class="post-img"><img src="assets/img/travel/tourism.jpg" class="img-fluid" alt=""></div>
-              <div class="meta">
-                <span class="post-date">5 Days</span>
-                <span class="post-author"> /4 Nights</span>
-              </div>
-              <h3 class="post-title">CAIRO EXPRESS</h3>
-              <p class="offers-p">On the banks of the Nile lies Cairo, the capital of Egypt and one of the most populous cities in the world. Called "the mother of the world" for its thousand-year history, Cairo fascinates with its forts contrasts between tradition and modernity, where traffic and confusion can disorientate, but the whirlwind of emotions experienced will remain indelible in the minds and hearts of those who have lucky enough to visit it. Our tour includes a visit to the Egyptian Museum, Khan El Khalili, Al Azhar Mosque, Cairo Coptic and Old Cairo, Pyramids of Giza and Memphis. All transfers are included. Accommodation in a 3*/4*/5* hotel with half board + 2 lunches in a restaurant local. Italian speaking guide.</p>
-              <span>...</span>
-              <a href="blog-details.html" class="readmore"><span>Read More</span><i class="bi bi-arrow-right"></i></a> // (stretched-link) class will make all text clickable
-              <p>REQUEST QUOTE Add link to <a href="mailto:info@hobitourstravel.com" class=""><span>info@hobitourstravel.com</span></a> </p>
-            </div>
-          </div>-->
-          
-
-          <!-- <div class="col-lg col-sm-12" data-aos="fade-up" data-aos-delay="600">
-            <div class="post-box">
-              <div class="post-img"><img src="assets/img/blog/blog-3.jpg" class="img-fluid" alt=""></div>
-              <div class="meta">
-                <span class="post-date">Tue, July 27</span>
-                <span class="post-author"> / Lisa Hunter</span>
-              </div>
-              <h3 class="post-title">Quia assumenda est et veritatis aut quae</h3>
-              <p>Quia nam eaque omnis explicabo similique eum quaerat similique laboriosam. Quis omnis repellat sed quae consectetur magnam veritatis dicta nihil...</p>
-              <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div> -->
-
-        </div>
+        <div class="row" id="offersResults"></div>
 
       </div>
 
@@ -689,40 +666,14 @@
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
               <h3>Hobitours</h3>
-              <!-- <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p> -->
             </div>
           </div>
 
-          <div class="col-lg-2 col-md-6 ">
-            <!-- <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul> -->
-          </div>
+          <div class="col-lg-2 col-md-6 "></div>
 
-          <div class="col-lg-3 col-md-6 ">
-            <!-- <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul> -->
-          </div>
+          <div class="col-lg-3 col-md-6 "></div>
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
-            <!-- <h4>Our Newsletter</h4> -->
-            <!-- <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p> -->
             <form action="" method="post">
               <label for=""><input type="email" name="email"><input type="submit" value="Subscribe"></label>
             </form>
@@ -761,6 +712,7 @@
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <div id="preloader"></div>
+  <div id="google_translate_element"></div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -812,7 +764,7 @@
 
           imageFather.setAttribute("class","post-img");
 
-          image.src = (e.image == null || undefined ? "assets/img/travel/tourism.jpg" : e.image )
+          image.src = (e.image == null || undefined || '' ? "assets/img/travel/tourism.jpg" : e.image )
           image.setAttribute("class" , "img-fluid");
 
           // image.src= e.ImageURL;
@@ -853,9 +805,101 @@
         });
 
       })
+
+      dests = reqApi("https://hobitours.somee.com/destination/all/" + language);
+      dests.then((data)=>{
+        // let destinations = JSON.parse(data.responseText()).destinations;
+        console.log(data);
+        if (destinations == null){
+            alert('Error');
+            return false;
+        }
+
+        // const destinationResult=document.querySelector("#destinations")
+        // const bigDestination= document.createElement("div");
+        // bigDestination.setAttribute("class","col-12");
+        // destinationResult.appendChild(bigDestimation);
+
+        var destinationResult=document.querySelector("#destinations");
+        destinationResult.innerHTML = '';
+        data.data.forEach((d, i) => {
+          console.log(d);
+          var showData = `<div class="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-Destination">
+              <div class="flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front" style="background: url(${(d.image == null || undefined || '' ? "assets/img/eg/sharm/marsa-alam.jpg" : d.image )});">
+                    <p> ${d.name} </p>
+                  </div>
+                  <div class="flip-card-back">
+                    <div class="link">
+                      <p>this tour is very amazing</p>
+                      <a href="destinations.html?des=${d.name}" class="btn btn-outline-info"> view more details </a>                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->`;
+            destinationResult.innerHTML += showData;
+          console.log(showData);
+          // const dad=document.createDocumentFragment();
+          
+          // const img=document.createElement("img");
+          // img.src=d.image;
+          // img.className='w-100';
+          // const name=document.createElement("h5");
+          // name.innerText=d.name;
+          // const cont=document.createElement("p");
+          // cont.innerHTML=`${d.description.slice(0,98)}...`;
+          // const readMore=document.createElement("a");
+          // readMore.href="#";
+          // readMore.className="btn btn-primary";
+          // readMore.onclick=function(){ 
+          //     showModal(i,"destination",language);
+          //      return false;   //stop the browser from executing the default event handler for this element
+          // };
+          // readMore.innerText="Read more"
+          // dad.append(img,name,cont,readMore);
+          // const card=document.createElement("div");
+          // card.className="card my-3";
+          // card.appendChild(dad);
+          // bigDestination.appendChild(card);
+        });
+      }).catch((err)=>console.log(err))
     }
 
   </script>
+  <script>
+      
+      function loadPage(href){
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.open("GET", href, false);
+          xmlhttp.send();
+          return xmlhttp.responseText;
+      }
+
+      function translate_to_itali() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'en',
+              includedLanguages: 'it', // Change 'es' to your desired target language code
+              autoDisplay: false
+          }, 'google_translate_element');
+          var languageSelector = document.querySelector("#google_translate_element select");
+          languageSelector.selectedIndex = 1; // Select the desired language
+          languageSelector.dispatchEvent(new Event('change'));
+      }
+      function translate_to_english() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'it',
+              includedLanguages: 'en', // Change 'es' to your desired target language code
+              autoDisplay: false
+          }, 'google_translate_element');
+          var languageSelector = document.querySelector("#google_translate_element select");
+          languageSelector.selectedIndex = 1; // Select the desired language
+          languageSelector.dispatchEvent(new Event('change'));
+      }
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 

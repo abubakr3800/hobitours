@@ -1,4 +1,3 @@
-<!-- Add this style to hide the Google Translate widget -->
 <style>
     #google_translate_element, .skiptranslate {
         display: none;
@@ -7,27 +6,53 @@
         top: 0!important;
     }
 </style>
-
-<!-- Include the "trn" class in the text you want to translate -->
-<div id="content">home</div>
-
-<!-- Initialize the Google Translate widget -->
+<div id="google_translate_element"></div>
+<div id="content">
+    casa
+</div>
+<ul>
+    <li><a class="nav-link scrollto" href="index.html#hero">Home</a></li>
+    <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
+    <li><a class="nav-link scrollto" href="index.html#portfolio">Services</a></li>
+    <li><a class="nav-link scrollto" href="destinations.html">destinations</a></li>
+    <!-- <li><a class="nav-link scrollto" href="index.html#portfolio">Portfolio</a></li> -->
+    <li><a class="nav-link scrollto" href="index.html#offers">offers</a></li>
+    <li><a class="nav-link scrollto" href="contact.html">Contact</a></li>
+    <li class="dropdown"><a href="#"><span>language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <ul>
+                <li><a href="?lan=it">italic</a></li>
+                <li><a href="?lan=en">english</a></li>
+          </ul>
+    </li>
+</ul>
 <script>
-    google.load("language", "1");
 
-    function initialize() {
-        var content = document.getElementById('content');
-        content.innerHTML = '<div id="text">Hola, me alegro mucho de verte.<\/div><div id="translation"/>';
-        var text = document.getElementById("text").innerHTML;
-        google.language.translate(text, 'es', 'en', function(result) {
-            var translated = document.getElementById("translation");
-            if (result.translation) {
-                translated.innerHTML = result.translation;
-            }
-        });
+    function loadPage(href){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", href, false);
+        xmlhttp.send();
+        return xmlhttp.responseText;
     }
-    google.setOnLoadCallback(initialize);
-</script>
 
-<!-- Load the Google Translate script -->
+    function translate_to_itali() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'it', // Change 'es' to your desired target language code
+            autoDisplay: false
+        }, 'google_translate_element');
+        var languageSelector = document.querySelector("#google_translate_element select");
+        languageSelector.selectedIndex = 1; // Select the desired language
+        languageSelector.dispatchEvent(new Event('change'));
+    }
+    function translate_to_english() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'it',
+            includedLanguages: 'en', // Change 'es' to your desired target language code
+            autoDisplay: false
+        }, 'google_translate_element');
+        var languageSelector = document.querySelector("#google_translate_element select");
+        languageSelector.selectedIndex = 2; // Select the desired language
+        languageSelector.dispatchEvent(new Event('change'));
+    }
+</script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
