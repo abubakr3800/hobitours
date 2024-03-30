@@ -666,28 +666,32 @@
   <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" ></script> -->
   <script src="assets/vendor/waypoints/waypoints.min.js"></script>
   <script src="assets/vendor/counter/jquery.counterup.min.js"></script>
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
   <script>
     $('.counter').counterUp({
         delay: 100,
         time: 5000
     });
+    var language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+
     var changedata = {
         nav:{
           en: [
-            ['Home' , 'index.html#hero'],
-            ['About Us', 'index.html#about'],
-            ['Services','index.html#services'],
-            ['destinations','destinations.html'],
-            ['offers','index.html#offers'],
-            ['Contact','contact.html'],
+            ['Home' , `index.html?lan=${language}#hero`],
+            ['About Us', `index.html?lan=${language}#about`],
+            ['Services',`index.html?lan=${language}#portfolio`],
+            ['destinations',`destinations.html?lan=${language}&id=all`],
+            ['offers',`index.html?lan=${language}#offers`],
+            ['Contact',`contact.html?lan=${language}`],
           ],
           it: [
-            ['Casa' , 'index.html#hero'],
-            ['Chi siamo', 'index.html#about'],
-            ['Servizi','index.html#services'],
-            ['destinazioni','destinations.html'],
-            ['offerte','index.html#offers'],
-            ['Contatto','contact.html'],
+            ['Casa' , `index.html?lan=${language}#hero`],
+            ['Chi siamo', `index.html?lan=${language}#about`],
+            ['Servizi',`index.html?lan=${language}#portfolio`],
+            ['destinazioni',`destinations.html?lan=${language}&id=all`],
+            ['offerte',`index.html?lan=${language}#offers`],
+            ['Contatto',`contact.html?lan=${language}`],
           ]
         },
         home:{
@@ -731,7 +735,7 @@
           it:"I nostri travils"
         }
       };
-      var navLanguages = ['?lan=it' , '?lan=en'], language;
+      var navLanguages = ['?lan=it' , '?lan=en'];
 
       var destinationResult=document.querySelector("#destinations");
         destinationResult.innerHTML = '';
@@ -874,8 +878,8 @@
                   </div>
                   <div class="flip-card-back">
                     <div class="link">
-                      <p>this tour is very amazing</p>
-                      <a href="destinations.html?des=${d.name}" class="btn btn-outline-info"> view more details </a>                    
+                      <p>${d.description.slice(0,50)} ........</p>
+                      <a href="destinations.html?id=${d.id}&lan=${language}" class="btn btn-outline-info"> view more details </a>                    
                     </div>
                   </div>
                 </div>
@@ -942,8 +946,7 @@
   </script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+
 
 </body>
 

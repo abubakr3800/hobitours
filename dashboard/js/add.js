@@ -200,7 +200,7 @@ function manageDestinations() {
   
     var places = document.createElement("label");
     places.setAttribute("class", "form-label");
-    places.innerText = "Days of the places";
+    places.innerText = "Add the places and press (+) to add more places";
     var dContainer = document.createElement("div");
     dContainer.setAttribute("class", "col-md-12");
     var place = document.createElement("input");
@@ -310,8 +310,8 @@ function manageDestinations() {
   
   });
     console.log(newDest);
-    reloadOffers();
-    loadOffers();
+    reloadDests();
+    loadDest();
   }
   
   function addNewPlace(params) {

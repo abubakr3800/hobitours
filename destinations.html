@@ -199,30 +199,33 @@
   <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" ></script> -->
   <script src="assets/vendor/waypoints/waypoints.min.js"></script>
   <script src="assets/vendor/counter/jquery.counterup.min.js"></script>
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
   <script>
 
     $('.counter').counterUp({
         delay: 100,
         time: 5000
     });
+    var language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
 
     var changedata = {
         nav:{
           en: [
-            ['Home' , 'index.html#hero'],
-            ['About Us', 'index.html#about'],
-            ['Services','index.html#services'],
-            ['destinations','destinations.html'],
-            ['offers','index.html#offers'],
-            ['Contact','contact.html'],
+            ['Home' , `index.html?lan=${language}#hero`],
+            ['About Us', `index.html?lan=${language}#about`],
+            ['Services',`index.html?lan=${language}#portfolio`],
+            ['destinations',`destinations.html?lan=${language}&id=all`],
+            ['offers',`index.html?lan=${language}#offers`],
+            ['Contact',`contact.html?lan=${language}`],
           ],
           it: [
-            ['Casa' , 'index.html#hero'],
-            ['Chi siamo', 'index.html#about'],
-            ['Servizi','index.html#services'],
-            ['destinazioni','destinations.html'],
-            ['offerte','index.html#offers'],
-            ['Contatto','contact.html'],
+            ['Casa' , `index.html?lan=${language}#hero`],
+            ['Chi siamo', `index.html?lan=${language}#about`],
+            ['Servizi',`index.html?lan=${language}#portfolio`],
+            ['destinazioni',`destinations.html?lan=${language}&id=all`],
+            ['offerte',`index.html?lan=${language}#offers`],
+            ['Contatto',`contact.html?lan=${language}`],
           ]
         },
         home:{
@@ -268,13 +271,13 @@
       };
       var navLanguages = ['?lan=it' , '?lan=en'], language;
 
-    window.onload = function () {
-      
       var language , destsResult = document.getElementById("destsResults") , tabDest = document.createElement("ul") , places = document.getElementById("myTabContent");
+
+    window.onload = function () {
       destsResult.innerHTML = '';
       var x = 0;
       language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
-      language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+      id = (parseURLParams(window.location.href) == null || undefined ? "all" : ( parseURLParams(window.location.href).id == null || undefined ? "all" : parseURLParams(window.location.href).id[0]) ) ;
       var navi = document.getElementById("n-menu");
       navi.innerHTML = '';
       changedata['nav'][language].forEach(d=>{
@@ -289,95 +292,156 @@
           </li>`
       // })
       // getObject("https://hobitours.somee.com/Offer/all/" + language);
-      dests = reqApi("https://hobitours.somee.com/destination/all/" + language);
+      dests = reqApi("https://hobitours.somee.com/destination/"+id+"/" + language);
 
       dests.then(d=>{
         var ofNum = d.data.length;
         console.log(d.data.length);
+        console.log(ofNum);
         console.log(d.data[0]);
-        d.data.forEach(e => {
-
-        var 
-            eachDest = document.createElement("li"),
-            destDesc = document.createElement("div"),
-            father = document.createElement("div"),
-            imageFather = document.createElement("div"),
-            image = document.createElement("img"),
-            // places = document.createElement("div"),
-            place = document.createElement("div"),
-            eachPlace = document.createElement("div"),
-            placeList = document.createElement("ul"),
-            destName = document.createElement("h3"),
-            destination = document.createElement("button"),
-            ovflow = document.createElement("span"),
-            readmore = document.createElement("a");
-
-            // destsResult.innerHTML = '';
-
-            tabDest.setAttribute("class" , "nav nav-tabs");
-            tabDest.setAttribute("id" , "myTab");
-            tabDest.setAttribute("role" , "tablist");
-            eachDest.setAttribute("class" , "nav-item");
-            eachDest.setAttribute("role" , "presentation");
-            // destination.setAttribute("class" ,"nav-link active p-3");
-            destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-3`);
-            destination.setAttribute("id" ,`${e.name.replace(" " ,"-")}-tab`);
-            destination.setAttribute("data-bs-toggle" , "tab");
-            destination.setAttribute("data-bs-target" , `#${e.name.replace(" " ,"-")}`);
-            destination.setAttribute("type" , `button`);
-            destination.setAttribute("role" , `tap`);
-            destination.setAttribute("aria-controls" , `${e.name.replace(" " ,"-")}`);
-            destination.setAttribute("aria-selected" , `true`);
-
-            destination.innerHTML = e.name ;
-
-            eachDest.appendChild(destination);
-            tabDest.appendChild(eachDest);
-
-            places.setAttribute("class" , "tab-content");
-            places.setAttribute("id" , "myTabContent");
-            // place.setAttribute("class" , "tab-pane fade show active p-5");
-            place.setAttribute("class" , `tab-pane fade ${(x == 0 ? "show active": "")} p-5`);
-            place.setAttribute("id" , `${e.name.replace(" " ,"-")}`);
-            place.setAttribute("role" , `tabpanel`);
-            place.setAttribute("aria-labelledby" , `${e.name.replace(" " ,"-")}-tab`);
-
-            eachPlace.innerHTML = e.description;
-            e.places.forEach((itemText) => {
-                let liElement = document.createElement("li");
-                liElement.textContent = itemText;
-                placeList.appendChild(liElement);
-            });
-            eachPlace.appendChild(placeList);
-
-          father.setAttribute("class" , "post-box");
-
-          imageFather.setAttribute("class" , "post-img");
-
-          image.src = (e.image == null || undefined ? "assets/img/travel/tourism.jpg" : e.image )
-          image.setAttribute("class" , "img-fluid");
-
-          // image.src= e.ImageURL;
-          // offer.textContent = e.description;
-          // offer.setAttribute("class" , "offers-p");
-          // ovfow.textContent = "...";
-          // readmore.href="offer-details.html?id="+e.id + "&lan=" + language;
-          // readmore.setAttribute("class" ,"readmore");
-          // readmore.innerHTML=`Read More<i class="bi bi-arrow-right"></i>`;
-          imageFather.appendChild(image);
-
-          eachPlace.appendChild(imageFather);
-          eachPlace.appendChild(tabDest);
-          place.append(eachPlace);
-          places.append(place);
-          father.appendChild(tabDest);
-          father.appendChild(places);
-          destsResult.appendChild(father);
-          x ++;
-        });
-
+        ofNum == undefined || null || '' ? showTheData(d.data) : showAll(d.data);
       })
     }
+
+    function showAll(theData){
+      var x = 0;
+      theData.forEach(e => {
+      var eachDest = document.createElement("li"), destDesc = document.createElement("div"), father = document.createElement("div"), imageFather = document.createElement("div"), image = document.createElement("img"), place = document.createElement("div"), eachPlace = document.createElement("div"), placeList = document.createElement("ul"), destName = document.createElement("h3"), destination = document.createElement("button"), ovflow = document.createElement("span"), readmore = document.createElement("a");
+      // places = document.createElement("div"),
+
+          // destsResult.innerHTML = '';
+
+          tabDest.setAttribute("class" , "nav nav-tabs");
+          tabDest.setAttribute("id" , "myTab");
+          tabDest.setAttribute("role" , "tablist");
+          eachDest.setAttribute("class" , "nav-item");
+          eachDest.setAttribute("role" , "presentation");
+          // destination.setAttribute("class" ,"nav-link active p-3");
+          destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-3`);
+          destination.setAttribute("id" ,`${e.name.replace(" " ,"-")}-tab`);
+          destination.setAttribute("data-bs-toggle" , "tab");
+          destination.setAttribute("data-bs-target" , `#${e.name.replace(" " ,"-")}`);
+          destination.setAttribute("type" , `button`);
+          destination.setAttribute("role" , `tap`);
+          destination.setAttribute("aria-controls" , `${e.name.replace(" " ,"-")}`);
+          destination.setAttribute("aria-selected" , `true`);
+
+          destination.innerHTML = e.name ;
+
+          eachDest.appendChild(destination);
+          tabDest.appendChild(eachDest);
+
+          places.setAttribute("class" , "tab-content");
+          places.setAttribute("id" , "myTabContent");
+          // place.setAttribute("class" , "tab-pane fade show active p-5");
+          place.setAttribute("class" , `tab-pane fade ${(x == 0 ? "show active": "")} p-5`);
+          place.setAttribute("id" , `${e.name.replace(" " ,"-")}`);
+          place.setAttribute("role" , `tabpanel`);
+          place.setAttribute("aria-labelledby" , `${e.name.replace(" " ,"-")}-tab`);
+
+          eachPlace.innerHTML = e.description;
+          e.places.forEach((itemText) => {
+              let liElement = document.createElement("li");
+              liElement.textContent = itemText;
+              placeList.appendChild(liElement);
+          });
+          eachPlace.appendChild(placeList);
+
+        father.setAttribute("class" , "post-box");
+
+        imageFather.setAttribute("class" , "post-img");
+
+        image.src = (e.image == null || undefined ? "assets/img/travel/tourism.jpg" : e.image )
+        image.setAttribute("class" , "img-fluid");
+
+        // image.src= e.ImageURL;
+        // offer.textContent = e.description;
+        // offer.setAttribute("class" , "offers-p");
+        // ovfow.textContent = "...";
+        // readmore.href="offer-details.html?id="+e.id + "&lan=" + language;
+        // readmore.setAttribute("class" ,"readmore");
+        // readmore.innerHTML=`Read More<i class="bi bi-arrow-right"></i>`;
+        imageFather.appendChild(image);
+
+        eachPlace.appendChild(imageFather);
+        eachPlace.appendChild(tabDest);
+        place.append(eachPlace);
+        places.append(place);
+        father.appendChild(tabDest);
+        father.appendChild(places);
+        destsResult.appendChild(father);
+        x ++;
+      });
+    }
+    function showTheData(theData){
+      var x = 0;
+      var eachDest = document.createElement("li"), destDesc = document.createElement("div"), father = document.createElement("div"), imageFather = document.createElement("div"), image = document.createElement("img"), place = document.createElement("div"), eachPlace = document.createElement("div"), placeList = document.createElement("ul"), destName = document.createElement("h3"), destination = document.createElement("button"), ovflow = document.createElement("span"), readmore = document.createElement("a");
+      // places = document.createElement("div"),
+
+          // destsResult.innerHTML = '';
+
+          tabDest.setAttribute("class" , "nav nav-tabs");
+          tabDest.setAttribute("id" , "myTab");
+          tabDest.setAttribute("role" , "tablist");
+          eachDest.setAttribute("class" , "nav-item");
+          eachDest.setAttribute("role" , "presentation");
+          // destination.setAttribute("class" ,"nav-link active p-3");
+          destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-3`);
+          destination.setAttribute("id" ,`${theData.name.replace(" " ,"-")}-tab`);
+          destination.setAttribute("data-bs-toggle" , "tab");
+          destination.setAttribute("data-bs-target" , `#${theData.name.replace(" " ,"-")}`);
+          destination.setAttribute("type" , `button`);
+          destination.setAttribute("role" , `tap`);
+          destination.setAttribute("aria-controls" , `${theData.name.replace(" " ,"-")}`);
+          destination.setAttribute("aria-selected" , `true`);
+
+          destination.innerHTML = theData.name ;
+
+          eachDest.appendChild(destination);
+          tabDest.appendChild(eachDest);
+
+          places.setAttribute("class" , "tab-content");
+          places.setAttribute("id" , "myTabContent");
+          // place.setAttribute("class" , "tab-pane fade show active p-5");
+          place.setAttribute("class" , `tab-pane fade ${(x == 0 ? "show active": "")} p-5`);
+          place.setAttribute("id" , `${theData.name.replace(" " ,"-")}`);
+          place.setAttribute("role" , `tabpanel`);
+          place.setAttribute("aria-labelledby" , `${theData.name.replace(" " ,"-")}-tab`);
+
+          eachPlace.innerHTML = theData.description;
+          theData.places.forEach((itemText) => {
+              let liElement = document.createElement("li");
+              liElement.textContent = itemText;
+              placeList.appendChild(liElement);
+          });
+          eachPlace.appendChild(placeList);
+
+        father.setAttribute("class" , "post-box");
+
+        imageFather.setAttribute("class" , "post-img");
+
+        image.src = (theData.image == null || undefined ? "assets/img/travel/tourism.jpg" : theData.image )
+        image.setAttribute("class" , "img-fluid");
+
+        // image.src= e.ImageURL;
+        // offer.textContent = e.description;
+        // offer.setAttribute("class" , "offers-p");
+        // ovfow.textContent = "...";
+        // readmore.href="offer-details.html?id="+e.id + "&lan=" + language;
+        // readmore.setAttribute("class" ,"readmore");
+        // readmore.innerHTML=`Read More<i class="bi bi-arrow-right"></i>`;
+        imageFather.appendChild(image);
+
+        eachPlace.appendChild(imageFather);
+        eachPlace.appendChild(tabDest);
+        place.append(eachPlace);
+        places.append(place);
+        father.appendChild(tabDest);
+        father.appendChild(places);
+        destsResult.appendChild(father);
+        x ++;
+    }
+
     function loadPage(href){
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", href, false);
@@ -386,8 +450,7 @@
     }
 
   </script>
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+
   <script> document.getElementById("n-menu").innerHTML = loadPage('navbar.html'); </script>
 
 </body>
