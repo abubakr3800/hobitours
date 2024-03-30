@@ -132,7 +132,7 @@ function showEdit(offId, lang) {
       otherDes;
     languages.forEach((lan) => {
       // var off = reqApi("https://hobitours.somee.com/Offer/" + desId + "/" + lan);
-      var des = sendApi("https://hobitours.somee.com/Offer/" + desId + "/" + lan , "" , "GET");
+      var des = sendApi("https://hobitours.somee.com/destination/" + desId + "/" + lan , "" , "GET");
       des.then((d) => {
         var sDes = d.data;
         console.log(sDes);
@@ -152,40 +152,57 @@ function showEdit(offId, lang) {
             newDescLabel = document.createElement("label"),
             // oldDay = document.createElement("output"),
             // oldDayLabel = document.createElement("label"),
-            newDay = document.createElement("input"),
-            newDayLabel = document.createElement("label"),
-            // oldNight = document.createElement("output"),
-            // oldNightLabel = document.createElement("label"),
-            newNight = document.createElement("input"),
-            newNightLabel = document.createElement("label"),
+            newPlaces = document.createElement("div"),
+            newPlacesLabel = document.createElement("label"),
+            
             submitBtn = document.createElement("button");
   
           editForm.setAttribute("class", "py-md-3 py-lg-5 col-sm-12 col-md-6");
   
           hiddenId.setAttribute("hidden", "");
-          hiddenId.value = sOff.id;
+          hiddenId.value = sDes.id;
   
           newName.setAttribute("class", "form-control mt-3");
           newDesc.setAttribute("class", "form-control mt-3");
-          newDay.setAttribute("class", "form-control mt-3");
-          newNight.setAttribute("class", "form-control mt-3");
+          newPlaces.setAttribute("class", " mt-3");
   
-          newDay.setAttribute("type", "number");
-          newNight.setAttribute("type", "number");
-  
+          var btnAddPlace = document.createElement("button");
+              btnAddPlace.setAttribute("type", "button");
+              btnAddPlace.setAttribute("class", "btn btn-primary col-12 mt-2");
+              btnAddPlace.innerHTML = "Add Place +";
+              btnAddPlace.addEventListener("click", function (event) {
+                event.preventDefault();
+                var plac = document.createElement("input");
+                    plac.setAttribute("type", "text");
+                    plac.setAttribute("name", "places[]");
+                    plac.setAttribute("class", "form-control mt-2");
+                    newPlaces.appendChild(plac);
+              //   addNewPlace(manageForm);
+              });
+
           newNameLabel.textContent = "change offer name or keep it as it is";
-          newDescLabel.textContent =
-            "change offer description or keep it as it is";
-          newDayLabel.textContent =
-            "change offer Days number or keep it as it is";
-          newNightLabel.textContent =
-            "change offer Nights number or keep it as it is";
+          // newNameLabel.setAttribute("for", "newOfferName");
+          newNameLabel.setAttribute("class", "mt-3");
+          newDescLabel.textContent = "change offer description or keep it as it is";
+          newDescLabel.setAttribute("class", "mt-3");
+          newPlacesLabel.textContent = "Add new places or keep it as it is";
+          newPlacesLabel.setAttribute("class", "mt-3");
   
-          newName.setAttribute("value", sOff["name"]);
+          newName.setAttribute("value", sDes["name"]);
           // newDesc.setAttribute("value" , sOff["description"]);
-          newDesc.textContent = sOff["description"];
-          newDay.setAttribute("value", Number(sOff["day_night"].split(",")[0]));
-          newNight.setAttribute("value", Number(sOff["day_night"].split(",")[1]));
+          newDesc.textContent = sDes["description"];
+          console.log(sDes["places"]);
+
+          // newPlaces.setAttribute("value", sDes["places"].toLocaleString());
+          var getAllPlaces = sDes["places"];
+          getAllPlaces.forEach((place, index)=>{
+            let placeInput = document.createElement('input');  
+            // placeInput.setAttribute('type','hidden');  
+            placeInput.setAttribute('name',`places[${index}]`)  ; 
+            placeInput.setAttribute('class',`form-control mt-3`)  ; 
+            placeInput.setAttribute('value',place);   
+            newPlaces.appendChild(placeInput);        
+          })
           submitBtn.setAttribute("type", "submit");
           submitBtn.textContent = "send updates";
           submitBtn.className = "btn btn-primary btn-block col-12 mt-3 ";
@@ -196,7 +213,7 @@ function showEdit(offId, lang) {
               id: Number(hiddenId.value),
               name: newName.value,
               description: newDesc.value,
-              day_night: `${newDay.value},${newNight.value}`,
+              places: `${newDay.value},${newNight.value}`,
               image: null,
               languageCode: lang,
             };
@@ -221,10 +238,9 @@ function showEdit(offId, lang) {
           editForm.appendChild(newName);
           editForm.appendChild(newDescLabel);
           editForm.appendChild(newDesc);
-          editForm.appendChild(newDayLabel);
-          editForm.appendChild(newDay);
-          editForm.appendChild(newNightLabel);
-          editForm.appendChild(newNight);
+          editForm.appendChild(newPlacesLabel);
+          editForm.appendChild(newPlaces);
+          editForm.appendChild(btnAddPlace);
           editForm.appendChild(submitBtn);
   
           // divCont.appendChild(editForm);

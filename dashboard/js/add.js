@@ -212,16 +212,16 @@ function manageDestinations() {
     manageForm.appendChild(dContainer);
   
     var btnAddPlace = document.createElement("button");
-    btnAddPlace.setAttribute("type", "submit");
+    btnAddPlace.setAttribute("type", "button");
     btnAddPlace.setAttribute("class", "btn btn-primary col-12");
     btnAddPlace.innerHTML = "Add Place +";
     btnAddPlace.addEventListener("click", function (event) {
       event.preventDefault();
       var plac = document.createElement("input");
-            plac.setAttribute("type", "text");
-            plac.setAttribute("name", "places[]");
-            plac.setAttribute("class", "form-control mt-2");
-            dContainer.appendChild(plac);
+          plac.setAttribute("type", "text");
+          plac.setAttribute("name", "places[]");
+          plac.setAttribute("class", "form-control mt-2");
+          dContainer.appendChild(plac);
     //   addNewPlace(manageForm);
     });
   
