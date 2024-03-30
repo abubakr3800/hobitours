@@ -150,7 +150,7 @@
 
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+              <label for=""><input type="email" name="email"><input type="submit" value="Subscribe"></label>
             </form>
           </div>
 
@@ -200,15 +200,94 @@
   <script src="assets/vendor/waypoints/waypoints.min.js"></script>
   <script src="assets/vendor/counter/jquery.counterup.min.js"></script>
   <script>
+
     $('.counter').counterUp({
         delay: 100,
         time: 5000
     });
+
+    var changedata = {
+        nav:{
+          en: [
+            ['Home' , 'index.html#hero'],
+            ['About Us', 'index.html#about'],
+            ['Services','index.html#services'],
+            ['destinations','destinations.html'],
+            ['offers','index.html#offers'],
+            ['Contact','contact.html'],
+          ],
+          it: [
+            ['Casa' , 'index.html#hero'],
+            ['Chi siamo', 'index.html#about'],
+            ['Servizi','index.html#services'],
+            ['destinazioni','destinations.html'],
+            ['offerte','index.html#offers'],
+            ['Contatto','contact.html'],
+          ]
+        },
+        home:{
+          en:`Welcome to <span>Hobitours</span>`,
+          it:`Benvenuti in <span>Hobitours</span>`
+        },
+        counters:{
+          en:[
+            [650 , "Organized Tours" , 0],
+            [800 , "Satisfied customers" , 200],
+            [50 , "Partnership" , 400]
+          ],
+          it:[
+            [650 ,"Tour Organizzati" , 0],
+            [800 ,"Clienti Soddisfatti" , 200],
+            [50 ,"Partnership" , 400]
+          ]
+        },
+        about:{
+          en:[
+            "About Us",
+            "Travel lovers, tourism employees and of course Egypt enthusiasts!",
+            "We have made our passion, our job.",
+            " We like to dream and travel is one of the most beautiful dreams... We want to help you make your dream come true, organizing your trip in the best possible way and making you live the best experience in this land of strong contrasts between tradition and modernity, where a smile will welcome you and fun is guaranteed. ",
+            " Egypt is the country of strong emotions that will remain forever in your hearts! ",
+          ],
+          it:[
+            "Chi siamo",
+            "Amanti dei viaggi, impiegati nel turismo e ovviamente appassionati di Egitto!",
+            "Abbiamo fatto della nostra passione, il nostro lavoro.",
+            "A noi piace sognare e il viaggio e' uno dei sogni piu' belli...Vogliamo aiutarvi a realizzare il vostro sogno, organizzando al meglio il vostro viaggio e facendovi vivere la migliore esperienza in questa terra dai forti contrasti tra tradizione e modernita', dove il sorriso vi accogliera' ed il divertimento e' assicurato.",
+            "L'Egitto e' il Paese delle forti emozioni che rimarranno per sempre nei vostri cuori!"
+          ]
+        },
+        services:{
+          en:"Services",
+          it:"Servizi"
+        },
+        offers:{
+          en:"Discover our offers",
+          it:"I nostri travils"
+        }
+      };
+      var navLanguages = ['?lan=it' , '?lan=en'], language;
+
     window.onload = function () {
+      
       var language , destsResult = document.getElementById("destsResults") , tabDest = document.createElement("ul") , places = document.getElementById("myTabContent");
       destsResult.innerHTML = '';
       var x = 0;
       language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+      language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+      var navi = document.getElementById("n-menu");
+      navi.innerHTML = '';
+      changedata['nav'][language].forEach(d=>{
+          navi.innerHTML += `<li><a class="nav-link scrollto" href="${d[1]}">${d[0]}</a></li>`
+        });
+      // navLanguages.forEach(l=>{
+        navi.innerHTML += `<li class="dropdown"><a href="#"><span>language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="?lan=it">italic</a></li>
+              <li><a href="?lan=en">english</a></li>
+            </ul>
+          </li>`
+      // })
       // getObject("https://hobitours.somee.com/Offer/all/" + language);
       dests = reqApi("https://hobitours.somee.com/destination/all/" + language);
 
