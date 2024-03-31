@@ -72,7 +72,7 @@ function showEdit(offId, lang) {
               name: newName.value,
               description: newDesc.value,
               day_night: `${newDay.value},${newNight.value}`,
-              image: null,
+              // image: null,
               languageCode: lang,
             };
             // allOff.push(upOff);
@@ -87,7 +87,6 @@ function showEdit(offId, lang) {
               reloadOffers();
               loadOffers();
             });
-            // window.location.href = "./";
             // checkPassword();
           });
   
@@ -177,6 +176,20 @@ function showEdit(offId, lang) {
                     plac.setAttribute("name", "places[]");
                     plac.setAttribute("class", "form-control mt-2");
                     newPlaces.appendChild(plac);
+                    console.log(editForm.querySelectorAll("input[name='places[]']"));
+              //   addNewPlace(manageForm);
+              });
+
+          var removePlace = document.createElement("button");
+              removePlace.setAttribute("type", "button");
+              removePlace.setAttribute("class", "btn btn-danger col-12 mt-2");
+              removePlace.innerHTML = "remove Place -";
+              removePlace.addEventListener("click", function (event) {
+                event.preventDefault();
+                var placlength = editForm.querySelectorAll("input[name='places[]']").length,
+                    delplac =  editForm.querySelectorAll("input[name='places[]']")[placlength-1];
+                    delplac.remove();
+                    console.log(editForm.querySelectorAll("input[name='places[]']"));
               //   addNewPlace(manageForm);
               });
 
@@ -198,36 +211,48 @@ function showEdit(offId, lang) {
           getAllPlaces.forEach((place, index)=>{
             let placeInput = document.createElement('input');  
             // placeInput.setAttribute('type','hidden');  
-            placeInput.setAttribute('name',`places[${index}]`)  ; 
+            placeInput.setAttribute('name',`places[]`)  ; 
             placeInput.setAttribute('class',`form-control mt-3`)  ; 
             placeInput.setAttribute('value',place);   
-            newPlaces.appendChild(placeInput);        
+            newPlaces.appendChild(placeInput);   
+            
           })
           submitBtn.setAttribute("type", "submit");
           submitBtn.textContent = "send updates";
           submitBtn.className = "btn btn-primary btn-block col-12 mt-3 ";
+          console.log(editForm.querySelectorAll("input[name='places[]']"));
           submitBtn.addEventListener("click", (event) => {
             event.preventDefault();
+            var theAllPlaces = [];
+            editForm.querySelectorAll("input[name='places[]']").forEach((item) =>{
+              if(item.value != ""){
+                // theAllPlaces = theAllPlaces + item.value + ",";
+                theAllPlaces.push(item.value);
+              }
+            });
+            console.log(theAllPlaces);
             console.log(hiddenId.value);
-            var upOff = {
+            var upDes = {
               id: Number(hiddenId.value),
               name: newName.value,
               description: newDesc.value,
-              places: `${newDay.value},${newNight.value}`,
-              image: null,
+              places: theAllPlaces,
+              // image: null,
               languageCode: lang,
             };
             // allDes.push(upOff);
-            otherDes.day_night = upOff.day_night;
+            // otherDes.day_night = upOff.day_night;
   
-            allDes = [upOff, otherDes];
+            allDes = [upDes, otherDes];
+            console.log(allDes);
             sendApi(
-              "https://hobitours.somee.com/Offer/update",
+              "https://hobitours.somee.com/destination/update",
               allDes,
               "PUT"
             ).then((result) => {
-              reloadOffers();
-              loadOffers();
+              console.log(result);
+              reloadDests();
+              loadDest();
             });
             // window.location.href = "./";
             // checkPassword();
@@ -241,6 +266,7 @@ function showEdit(offId, lang) {
           editForm.appendChild(newPlacesLabel);
           editForm.appendChild(newPlaces);
           editForm.appendChild(btnAddPlace);
+          editForm.appendChild(removePlace);
           editForm.appendChild(submitBtn);
   
           // divCont.appendChild(editForm);
