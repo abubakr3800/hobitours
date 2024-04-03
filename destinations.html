@@ -255,7 +255,7 @@
       theData.forEach(e => {
       var eachDest = document.createElement("li"), destDesc = document.createElement("div"), father = document.createElement("div"), imageFather = document.createElement("div"), image = document.createElement("img"), place = document.createElement("div"), eachPlace = document.createElement("div"), placeList = document.createElement("ul"), destName = document.createElement("h3"), destination = document.createElement("button"), ovflow = document.createElement("span"), readmore = document.createElement("a");
       // places = document.createElement("div"),
-
+        // console.log(e);
           // destsResult.innerHTML = '';
 
           tabDest.setAttribute("class" , "nav nav-tabs");
@@ -265,12 +265,13 @@
           eachDest.setAttribute("role" , "presentation");
           // destination.setAttribute("class" ,"nav-link active p-3");
           destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-3`);
-          destination.setAttribute("id" ,`${e.name.replace(" " ,"-")}-tab`);
+          destination.setAttribute("id" ,`${e.name.replaceAll(" " ,"-")}-tab`);
+          // console.log(e.name.replaceAll(" " ,"-"));
           destination.setAttribute("data-bs-toggle" , "tab");
-          destination.setAttribute("data-bs-target" , `#${e.name.replace(" " ,"-")}`);
+          destination.setAttribute("data-bs-target" , `#${e.name.replaceAll(" " ,"-")}`);
           destination.setAttribute("type" , `button`);
           destination.setAttribute("role" , `tap`);
-          destination.setAttribute("aria-controls" , `${e.name.replace(" " ,"-")}`);
+          destination.setAttribute("aria-controls" , `${e.name.replaceAll(" " ,"-")}`);
           destination.setAttribute("aria-selected" , `true`);
 
           destination.innerHTML = e.name ;
@@ -282,9 +283,9 @@
           places.setAttribute("id" , "myTabContent");
           // place.setAttribute("class" , "tab-pane fade show active p-5");
           place.setAttribute("class" , `tab-pane fade ${(x == 0 ? "show active": "")} p-5`);
-          place.setAttribute("id" , `${e.name.replace(" " ,"-")}`);
+          place.setAttribute("id" , `${e.name.replaceAll(" " ,"-")}`);
           place.setAttribute("role" , `tabpanel`);
-          place.setAttribute("aria-labelledby" , `${e.name.replace(" " ,"-")}-tab`);
+          place.setAttribute("aria-labelledby" , `${e.name.replaceAll(" " ,"-")}-tab`);
 
           eachPlace.innerHTML = e.description;
           e.places.forEach((itemText) => {
@@ -334,12 +335,12 @@
           eachDest.setAttribute("role" , "presentation");
           // destination.setAttribute("class" ,"nav-link active p-3");
           destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-3`);
-          destination.setAttribute("id" ,`${theData.name.replace(" " ,"-")}-tab`);
+          destination.setAttribute("id" ,`${theData.name.replaceAll(" " ,"-")}-tab`);
           destination.setAttribute("data-bs-toggle" , "tab");
-          destination.setAttribute("data-bs-target" , `#${theData.name.replace(" " ,"-")}`);
+          destination.setAttribute("data-bs-target" , `#${theData.name.replaceAll(" " ,"-")}`);
           destination.setAttribute("type" , `button`);
           destination.setAttribute("role" , `tap`);
-          destination.setAttribute("aria-controls" , `${theData.name.replace(" " ,"-")}`);
+          destination.setAttribute("aria-controls" , `${theData.name.replaceAll(" " ,"-")}`);
           destination.setAttribute("aria-selected" , `true`);
 
           destination.innerHTML = theData.name ;
@@ -351,9 +352,9 @@
           places.setAttribute("id" , "myTabContent");
           // place.setAttribute("class" , "tab-pane fade show active p-5");
           place.setAttribute("class" , `tab-pane fade ${(x == 0 ? "show active": "")} p-5`);
-          place.setAttribute("id" , `${theData.name.replace(" " ,"-")}`);
+          place.setAttribute("id" , `${theData.name.replaceAll(" " ,"-")}`);
           place.setAttribute("role" , `tabpanel`);
-          place.setAttribute("aria-labelledby" , `${theData.name.replace(" " ,"-")}-tab`);
+          place.setAttribute("aria-labelledby" , `${theData.name.replaceAll(" " ,"-")}-tab`);
 
           eachPlace.innerHTML = theData.description;
           theData.places.forEach((itemText) => {
