@@ -46,6 +46,7 @@
 
       <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
         <h1>Hobitours<span>.</span></h1>
+        <!-- <img src="assets/img/identity/logo-cropped.png" class="" alt=""> -->
       </a>
 
       <nav id="navbar" class="navbar">
@@ -54,11 +55,12 @@
           <li><a class="nav-link scrollto" href="index.html#about">About</a></li>
           <li><a class="nav-link scrollto" href="index.html#portfolio">Services</a></li>
           <li><a class="nav-link scrollto" href="destinations.html">destinations</a></li>
-          <li><a class="nav-link scrollto" href="index.html#offers">offers</a></li>
+          <!-- <li><a class="nav-link scrollto" href="index.html#offers">offers</a></li> -->
+          <li><a class="nav-link scrollto" href="index.html#offers">package</a></li>
           <li><a class="nav-link scrollto" href="contact.html">Contact</a></li>
           <li class="dropdown"><a href="#"><span>language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="?lan=it">italic</a></li>
+              <li><a href="?lan=it">italiano</a></li>
               <li><a href="?lan=en">english</a></li>
             </ul>
           </li>
@@ -483,7 +485,7 @@
             ['About Us', `index.html?lan=${language}#about`],
             ['Services',`index.html?lan=${language}#portfolio`],
             ['destinations',`destinations.html?lan=${language}&id=all`],
-            ['offers',`index.html?lan=${language}#offers`],
+            ['package',`index.html?lan=${language}#offers`],
             ['Contact',`contact.html?lan=${language}`],
           ],
           it: [
@@ -491,7 +493,7 @@
             ['Chi siamo', `index.html?lan=${language}#about`],
             ['Servizi',`index.html?lan=${language}#portfolio`],
             ['destinazioni',`destinations.html?lan=${language}&id=all`],
-            ['offerte',`index.html?lan=${language}#offers`],
+            ['pacchetto',`index.html?lan=${language}#offers`],
             ['Contatto',`contact.html?lan=${language}`],
           ]
         },
@@ -551,7 +553,7 @@
       // navLanguages.forEach(l=>{
         navi.innerHTML += `<li class="dropdown"><a href="#"><span>language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="?lan=it">italic</a></li>
+              <li><a href="?lan=it">italiano</a></li>
               <li><a href="?lan=en">english</a></li>
             </ul>
           </li>`
