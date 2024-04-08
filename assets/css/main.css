@@ -3370,3 +3370,8 @@ section {
   max-height: 80px !important;
   width: auto;
 }
+
+.about .section-header h2{
+  font-weight: bold;
+  color: var(--hobitours-secondary);
+}
