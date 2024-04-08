@@ -3345,6 +3345,28 @@ section {
 
 }
 
+/* ************************************************** added ************************************************** */
+
 .text-just{
   text-align: justify;
+}
+
+.header .logo img {
+  max-height: 80px !important;
+  margin-right: 6px;
+}
+
+.hero{
+  padding:  120px 0 0 0;
+}
+
+@media (max-width: 1279px){
+  .mobile-nav-toggle {
+      top: 44px;
+  }
+}
+
+.footer img {
+  max-height: 80px !important;
+  width: auto;
 }
