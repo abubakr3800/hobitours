@@ -194,7 +194,7 @@ section {
 /*--------------------------------------------------------------
 # Scroll top button
 --------------------------------------------------------------*/
-.scroll-top {
+.scroll-top , .whatsapp {
   position: fixed;
   visibility: hidden;
   opacity: 0;
@@ -206,6 +206,14 @@ section {
   height: 40px;
   border-radius: 4px;
   transition: all 0.4s;
+}
+
+.whatsapp{
+  visibility: visible;
+  opacity: 1;
+  background: var(--color-green);
+  color: #fff;
+  left: 15px;
 }
 
 .scroll-top i {
@@ -3335,4 +3343,8 @@ section {
   background-color: var(--color-primary) !important;
   color: white !important;
 
+}
+
+.text-just{
+  text-align: justify;
 }
