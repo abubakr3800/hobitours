@@ -225,6 +225,8 @@
   <!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" ></script> -->
   <script src="assets/vendor/waypoints/waypoints.min.js"></script>
   <script src="assets/vendor/counter/jquery.counterup.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
   <script>
     $('.counter').counterUp({
         delay: 100,
@@ -275,9 +277,9 @@
       var navLanguages = ['?lan=it' , '?lan=en'];
 
       window.onload = function (){
-        language = (parseURLParams(window.location.href) == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
-        id = (parseURLParams(window.location.href) == null || undefined ? history.go(-1) : parseURLParams(window.location.href).id[0] );
-        
+        language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+        id = (parseURLParams(window.location.href) == null || undefined ? "all" : ( parseURLParams(window.location.href).id == null || undefined ? "all" : parseURLParams(window.location.href).id[0]) ) ;
+
         var navi = document.getElementById("n-menu");
         navi.innerHTML = '';
         changedata['nav'][language].forEach(d=>{
@@ -297,7 +299,6 @@
       }
   </script>
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
   <script> document.getElementById("n-menu").innerHTML = loadPage('navbar.html'); </script>
 
 </body>

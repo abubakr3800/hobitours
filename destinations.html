@@ -157,68 +157,74 @@
     var language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
 
     var changedata = {
-        nav:{
-          en: [
-            ['Home' , `index.html?lan=${language}`],
-            ['About Us', `index.html?lan=${language}#about`],
-            ['Services',`index.html?lan=${language}#portfolio`],
-            ['destinations',`destinations.html?lan=${language}&id=all`],
-            ['offers',`index.html?lan=${language}#offers`],
-            ['Contact',`contact.html?lan=${language}`],
-          ],
-          it: [
-            ['Casa' , `index.html?lan=${language}`],
-            ['Chi siamo', `index.html?lan=${language}#about`],
-            ['Servizi',`index.html?lan=${language}#portfolio`],
-            ['destinazioni',`destinations.html?lan=${language}&id=all`],
-            ['offerte',`index.html?lan=${language}#offers`],
-            ['Contatto',`contact.html?lan=${language}`],
-          ]
-        },
-        home:{
-          en:`Welcome to <span>Hobitours</span>`,
-          it:`Benvenuti in <span>Hobitours</span>`
-        },
-        counters:{
-          en:[
-            [650 , "Organized Tours" , 0],
-            [800 , "Satisfied customers" , 200],
-            [50 , "Partnership" , 400]
-          ],
-          it:[
-            [650 ,"Tour Organizzati" , 0],
-            [800 ,"Clienti Soddisfatti" , 200],
-            [50 ,"Partnership" , 400]
-          ]
-        },
-        about:{
-          en:[
-            "About Us",
-            "Travel lovers, tourism employees and of course Egypt enthusiasts!",
-            "We have made our passion, our job.",
-            " We like to dream and travel is one of the most beautiful dreams... We want to help you make your dream come true, organizing your trip in the best possible way and making you live the best experience in this land of strong contrasts between tradition and modernity, where a smile will welcome you and fun is guaranteed. ",
-            " Egypt is the country of strong emotions that will remain forever in your hearts! ",
-          ],
-          it:[
-            "Chi siamo",
-            "Amanti dei viaggi, impiegati nel turismo e ovviamente appassionati di Egitto!",
-            "Abbiamo fatto della nostra passione, il nostro lavoro.",
-            "A noi piace sognare e il viaggio e' uno dei sogni piu' belli...Vogliamo aiutarvi a realizzare il vostro sogno, organizzando al meglio il vostro viaggio e facendovi vivere la migliore esperienza in questa terra dai forti contrasti tra tradizione e modernita', dove il sorriso vi accogliera' ed il divertimento e' assicurato.",
-            "L'Egitto e' il Paese delle forti emozioni che rimarranno per sempre nei vostri cuori!"
-          ]
-        },
-        services:{
-          en:"Services",
-          it:"Servizi"
-        },
-        offers:{
-          en:"Discover our offers",
-          it:"I nostri travils"
-        }
-      };
-      var navLanguages = ['?lan=it' , '?lan=en'], language;
+    nav:{
+      en: [
+        ['Home' , `index.html?lan=${language}#hero`],
+        ['About Us', `index.html?lan=${language}#about`],
+        ['Services',`index.html?lan=${language}#portfolio`],
+        ['destinations',`destinations.html?lan=${language}&id=all`],
+        ['package',`index.html?lan=${language}#offers`],
+        ['Contact',`contact.html?lan=${language}`],
+      ],
+      it: [
+        ['Home' , `index.html?lan=${language}#hero`],
+        ['Chi siamo', `index.html?lan=${language}#about`],
+        ['Servizi',`index.html?lan=${language}#portfolio`],
+        ['destinazioni',`destinations.html?lan=${language}&id=all`],
+        ['pacchetto',`index.html?lan=${language}#offers`],
+        ['Contatti',`contact.html?lan=${language}`],
+      ],
+      ar: [
+        ['الرئيسية' , `index.html?lan=${language}#hero`],
+        ['معلومات عننا', `index.html?lan=${language}#about`],
+        ['خدماتنا',`index.html?lan=${language}#portfolio`],
+        ['الرحلات',`destinations.html?lan=${language}&id=all`],
+        ['عروضنا',`index.html?lan=${language}#offers`],
+        ['تواصل معنا',`contact.html?lan=${language}`],
+      ]
+    },
+    home:{
+      en:`Welcome to <span>Hobitours</span>`,
+      it:`Benvenuti in <span>Hobitours</span>`,
+      ar:`مرحبا في <span>هوبيتورز</span>`,
+    },
+    about:{
+      en:[
+        "About Us",
+        "Travel lovers, tourism employees and of course Egypt enthusiasts!",
+        "We have made our passion, our job.",
+        " We like to dream and travel is one of the most beautiful dreams... We want to help you make your dream come true, organizing your trip in the best possible way and making you live the best experience in this land of strong contrasts between tradition and modernity, where a smile will welcome you and fun is guaranteed. ",
+        " Egypt is the country of strong emotions that will remain forever in your hearts! ",
+      ],
+      it:[
+        "Chi siamo",
+        "Amanti dei viaggi, impiegati nel turismo e ovviamente appassionati di Egitto!",
+        "Abbiamo fatto della nostra passione, il nostro lavoro.",
+        "A noi piace sognare e il viaggio e' uno dei sogni piu' belli...Vogliamo aiutarvi a realizzare il vostro sogno, organizzando al meglio il vostro viaggio e facendovi vivere la migliore esperienza in questa terra dai forti contrasti tra tradizione e modernita', dove il sorriso vi accogliera' ed il divertimento e' assicurato.",
+        "L'Egitto e' il Paese delle forti emozioni che rimarranno per sempre nei vostri cuori!"
+      ],
+      ar:[
+        "معلومات عننا",
+        "عشاق السفر وموظفي السياحة وبالطبع عشاق مصر!",
+        "لقد جعلنا شغفنا، وظيفتك.",
+        "نحن نحب أن نحلم والسفر من أجمل الأحلام... نريد مساعدتك لتحقيق حلمك وتنظيم رحلتك بأفضل طريقة ممكنة وجعلك تعيش أفضل تجربة في هذه الأرض ذات التناقضات القوية بين التقاليد والحداثة، حيث ترحب بكم الابتسامة ويضمن لكم المرح.",
+        "مصر بلد المشاعر القوية التي ستبقى في قلوبكم إلى الأبد!"
+      ]
+    },
+    services:{
+      en:"Services",
+      it:"Servizi",
+      ar:"الخدمات"
+    },
+    offers:{
+      en:"Discover our offers",
+      it:"I nostri pacchetti",
+      ar:"استكشف عروضنا"
+    }
+  };
+  var navLanguages = ['?lan=it' , '?lan=en' , '?lan=ar'];
 
-      var language , destsResult = document.getElementById("destsResults") , tabDest = document.createElement("ul") , places = document.getElementById("myTabContent");
+  var language , destsResult = document.getElementById("destsResults") , tabDest = document.createElement("ul") , places = document.getElementById("myTabContent");
 
     window.onload = function () {
       destsResult.innerHTML = '';
@@ -231,14 +237,21 @@
       document.getElementById("main-red").href = changedata['nav'][language][0][1];
       console.log(changedata['nav'][language][0][1]);
       // navLanguages.forEach(l=>{
-        navi.innerHTML += `<li class="dropdown"><a href="#"><span>language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="?lan=it&id=${id}">italic</a></li>
-              <li><a href="?lan=en&id=${id}">english</a></li>
-            </ul>
-          </li>`
+        navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <ul>
+            <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
+            <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'english'}</a></li>
+            <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'arabic'}</a></li>
+          </ul>
+        </li>`
       // })
       // getObject("https://hobitours.somee.com/Offer/all/" + language);
+          
+      if (language == 'ar') {
+        // change the direction of about section
+        document.querySelector(".features").style.textAlign = "right";
+        document.querySelector(".features").style.direction = "rtl";
+      }
       dests = reqApi("https://hobitours.somee.com/destination/"+id+"/" + language);
 
       dests.then(d=>{
