@@ -119,6 +119,19 @@ window.onload = function () {
     // change the direction of services  section
     document.querySelector(".portfolio ").style.textAlign = "right";
     document.querySelector(".portfolio ").style.direction = "rtl";
+  }else {
+    // change the direction of navbar section
+    document.querySelector(".header").style.textAlign = "left";
+    document.querySelector(".header").style.direction = "ltr";
+    // change the direction of about section
+    document.querySelector(".about").style.textAlign = "left";
+    document.querySelector(".about").style.direction = "ltr";
+    // change the direction of offers section
+    document.querySelector(".offers").style.textAlign = "left";
+    document.querySelector(".offers").style.direction = "ltr";
+    // change the direction of services  section
+    document.querySelector(".portfolio ").style.textAlign = "left";
+    document.querySelector(".portfolio ").style.direction = "ltr";
   }
 
   // ******************************************
