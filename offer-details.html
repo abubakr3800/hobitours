@@ -39,8 +39,11 @@
   <header id="header" class="header fixed-top" data-scrollto-offset="0" >
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-        <h1>Hobitours<span>.</span></h1>
+      <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <h1>
+          <!-- Hobitours<span>.</span> -->
+          <img src="assets/img/identity/logo-cut.png" class="" alt="">
+        </h1>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -253,31 +256,31 @@
   <script>
     var language , id;
 
-     language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+    language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
 
-     var changedata = {
+    var changedata = {
     nav:{
       en: [
         ['Home' , `index.html?lan=${language}#hero`],
         ['About Us', `index.html?lan=${language}#about`],
-        ['Services',`index.html?lan=${language}#portfolio`],
-        ['destinations',`destinations.html?lan=${language}&id=all`],
+        ['Services',`index.html?lan=${language}#Services`],
+        ['destinations',`index.html?lan=${language}#portfolio`],
         ['package',`index.html?lan=${language}#offers`],
         ['Contact',`contact.html?lan=${language}`],
       ],
       it: [
         ['Home' , `index.html?lan=${language}#hero`],
         ['Chi siamo', `index.html?lan=${language}#about`],
-        ['Servizi',`index.html?lan=${language}#portfolio`],
-        ['destinazioni',`destinations.html?lan=${language}&id=all`],
+        ['Servizi',`index.html?lan=${language}#Services`],
+        ['destinazioni',`index.html?lan=${language}#portfolio`],
         ['pacchetto',`index.html?lan=${language}#offers`],
         ['Contatti',`contact.html?lan=${language}`],
       ],
       ar: [
         ['الرئيسية' , `index.html?lan=${language}#hero`],
         ['معلومات عننا', `index.html?lan=${language}#about`],
-        ['خدماتنا',`index.html?lan=${language}#portfolio`],
-        ['الرحلات',`destinations.html?lan=${language}&id=all`],
+        ['خدماتنا',`index.html?lan=${language}#Services`],
+        ['الرحلات',`index.html?lan=${language}#portfolio`],
         ['عروضنا',`index.html?lan=${language}#offers`],
         ['تواصل معنا',`contact.html?lan=${language}`],
       ]
@@ -309,19 +312,25 @@
         "نحن نحب أن نحلم والسفر من أجمل الأحلام... نريد مساعدتك لتحقيق حلمك وتنظيم رحلتك بأفضل طريقة ممكنة وجعلك تعيش أفضل تجربة في هذه الأرض ذات التناقضات القوية بين التقاليد والحداثة، حيث ترحب بكم الابتسامة ويضمن لكم المرح.",
         "مصر بلد المشاعر القوية التي ستبقى في قلوبكم إلى الأبد!"
       ]
-    },
-    services:{
-      en:"Services",
-      it:"Servizi",
-      ar:"الخدمات"
-    },
-    offers:{
-      en:"Discover our offers",
-      it:"I nostri pacchetti",
-      ar:"استكشف عروضنا"
-    }
+    }  
   };
-  var navLanguages = ['?lan=it' , '?lan=en' , '?lan=ar'];
+  if (language == 'ar') {
+    // change the direction of navbar section
+    document.querySelector(".header").style.textAlign = "right";
+    document.querySelector(".header").style.direction = "rtl";
+    document.querySelector(".blog p").style.textAlign = "right";
+    document.querySelector(".blog p").style.direction = "rtl";
+    document.querySelector(".blog h2").style.textAlign = "right";
+    document.querySelector(".blog h2").style.direction = "rtl";
+  }else {
+    // change the direction of navbar section
+    document.querySelector(".header").style.textAlign = "left";
+    document.querySelector(".header").style.direction = "ltr";
+    document.querySelector(".blog p").style.textAlign = "left";
+    document.querySelector(".blog p").style.direction = "ltr";
+    document.querySelector(".blog h2").style.textAlign = "left";
+    document.querySelector(".blog h2").style.direction = "ltr";
+  }
 
     window.onload = function () {
       language = (parseURLParams(window.location.href) == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
@@ -333,13 +342,13 @@
           navi.innerHTML += `<li><a class="nav-link scrollto" href="${d[1]}">${d[0]}</a></li>`
         });
       // navLanguages.forEach(l=>{
-        // navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-        //     <ul>
-        //     <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
-        //     <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'english'}</a></li>
-        //     <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'arabic'}</a></li>
-        //   </ul>
-        // </li>`
+        navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+            <li><a href="?lan=it&id=${id}">${language == 'ar' ? 'الايطالية' : 'italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
+            <li><a href="?lan=en&id=${id}">${language == 'ar' ? 'الانجليزية' : 'english'}</a></li>
+            <li><a href="?lan=ar&id=${id}">${language == 'ar' ? 'العربية' : 'arabic'}</a></li>
+          </ul>
+        </li>`
       // })
       document.querySelectorAll(".home-welcome").forEach(home => {
           home.innerHTML = changedata['home'][language];
