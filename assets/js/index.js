@@ -9,24 +9,24 @@ var changedata = {
       en: [
         ['Home' , `index.html?lan=${language}#hero`],
         ['About Us', `index.html?lan=${language}#about`],
-        ['Services',`index.html?lan=${language}#portfolio`],
-        ['destinations',`destinations.html?lan=${language}&id=all`],
+        ['Services',`index.html?lan=${language}#Services`],
+        ['destinations',`index.html?lan=${language}#portfolio`],
         ['package',`index.html?lan=${language}#offers`],
         ['Contact',`contact.html?lan=${language}`],
       ],
       it: [
         ['Home' , `index.html?lan=${language}#hero`],
         ['Chi siamo', `index.html?lan=${language}#about`],
-        ['Servizi',`index.html?lan=${language}#portfolio`],
-        ['destinazioni',`destinations.html?lan=${language}&id=all`],
+        ['Servizi',`index.html?lan=${language}#Services`],
+        ['destinazioni',`index.html?lan=${language}#portfolio`],
         ['pacchetto',`index.html?lan=${language}#offers`],
         ['Contatti',`contact.html?lan=${language}`],
       ],
       ar: [
         ['الرئيسية' , `index.html?lan=${language}#hero`],
         ['معلومات عننا', `index.html?lan=${language}#about`],
-        ['خدماتنا',`index.html?lan=${language}#portfolio`],
-        ['الرحلات',`destinations.html?lan=${language}&id=all`],
+        ['خدماتنا',`index.html?lan=${language}#Services`],
+        ['الرحلات',`index.html?lan=${language}#portfolio`],
         ['عروضنا',`index.html?lan=${language}#offers`],
         ['تواصل معنا',`contact.html?lan=${language}`],
       ]
@@ -68,9 +68,14 @@ var changedata = {
       en:"Discover our offers",
       it:"I nostri pacchetti",
       ar:"استكشف عروضنا"
+    },
+    destination:{
+      en:"Destinations",
+      it:"Destinazioni",
+      ar:"الرحلات"
     }
   };
-  var navLanguages = ['?lan=it' , '?lan=en' , '?lan=ar'];
+  // var navLanguages = ['?lan=it' , '?lan=en' , '?lan=ar'];
 
   var destinationResult=document.querySelector("#destinations");
     destinationResult.innerHTML = '';
@@ -102,7 +107,9 @@ window.onload = function () {
   document.querySelectorAll("#about p")[0].innerHTML = allabout[3]; 
   document.querySelectorAll("#about p")[1].innerHTML = allabout[4]; 
   
-  document.querySelector("#portfolio h2").innerHTML = changedata['services'][language]; 
+  document.querySelector("#Services h2").innerHTML = changedata['services'][language]; 
+
+  document.querySelector("#portfolio h2").innerHTML = changedata['destination'][language]; 
   
   document.querySelector("#offers h2").innerHTML = changedata['offers'][language]; 
 

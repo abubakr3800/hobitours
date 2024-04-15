@@ -1,8 +1,3 @@
-/**
-* PHP Email Form Validation - v3.5
-* URL: https://bootstrapmade.com/php-email-form/
-* Author: BootstrapMade.com
-*/
 (function () {
   "use strict";
 
@@ -13,69 +8,57 @@
       event.preventDefault();
 
       let thisForm = this;
-
-      let action = thisForm.getAttribute('action');
-      let recaptcha = thisForm.getAttribute('data-recaptcha-site-key');
       
-      if( ! action ) {
-        displayError(thisForm, 'The form action property is not set!')
-        return;
-      }
       thisForm.querySelector('.loading').classList.add('d-block');
       thisForm.querySelector('.error-message').classList.remove('d-block');
       thisForm.querySelector('.sent-message').classList.remove('d-block');
 
-      let formData = new FormData( thisForm );
-
-      if ( recaptcha ) {
-        if(typeof grecaptcha !== "undefined" ) {
-          grecaptcha.ready(function() {
-            try {
-              grecaptcha.execute(recaptcha, {action: 'php_email_form_submit'})
-              .then(token => {
-                formData.set('recaptcha-response', token);
-                php_email_form_submit(thisForm, action, formData);
-              })
-            } catch(error) {
-              displayError(thisForm, error)
-            }
-          });
-        } else {
-          displayError(thisForm, 'The reCaptcha javascript API url is not loaded!')
-        }
-      } else {
-        php_email_form_submit(thisForm, action, formData);
+      var con = confirm(thisForm.name.value);
+      if (con){
+        thisForm.querySelector('.loading').classList.remove('d-block');
       }
     });
   });
 
-  function php_email_form_submit(thisForm, action, formData) {
-    fetch(action, {
-      method: 'POST',
-      body: formData,
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
-    })
-    .then(response => {
-      return response.text();
-    })
-    .then(data => {
-      thisForm.querySelector('.loading').classList.remove('d-block');
-      if (data.trim() == 'OK') {
-        thisForm.querySelector('.sent-message').classList.add('d-block');
-        thisForm.reset(); 
-      } else {
-        throw new Error(data ? data : 'Form submission failed and no error message returned from: ' + action); 
-      }
-    })
-    .catch((error) => {
-      displayError(thisForm, error);
-    });
-  }
 
   function displayError(thisForm, error) {
     thisForm.querySelector('.loading').classList.remove('d-block');
     thisForm.querySelector('.error-message').innerHTML = error;
     thisForm.querySelector('.error-message').classList.add('d-block');
   }
-
+  function displayS(thisForm, mes) {
+    thisForm.querySelector('.loading').classList.remove('d-block');
+    thisForm.querySelector('.sent-message').innerHTML = mes;
+    thisForm.querySelector('.sent-message').classList.add('d-block');
+  }
+  function sendApi(url, data, method) {
+    // Create a new promise
+    return new Promise((resolve, reject) => {
+      // Create a new XHR object
+      const xhr = new XMLHttpRequest();
+      // Set the response type to JSON
+      xhr.responseType = "json";
+      // Open the request with the given url
+      xhr.open(method, url, true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      // Define what to do when the request is loaded
+      xhr.onload = function () {
+        // Check if the status is 200 (OK)
+        if (this.status === 200) {
+          // Resolve the promise with the response object
+          resolve(this.response);
+        } else {
+          // Reject the promise with the status text
+          reject(new Error(this.statusText));
+        }
+      };
+      // Define what to do in case of an error
+      xhr.onerror = function () {
+        // Reject the promise with the status text
+        reject(new Error("An error occurred while making the request"));
+      };
+      // Send the request
+      xhr.send(JSON.stringify(data));
+    });
+  }
 })();

@@ -38,8 +38,10 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top" data-scrollto-offset="0" >
     <div class="container-fluid d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
-        <h1>Hobitours<span>.</span></h1>
+      <a class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <h1>
+          <img src="assets/img/identity/logo-cut.png" class="" alt="">
+        </h1>
       </a>
     
       <nav id="navbar" class="navbar">
@@ -72,7 +74,6 @@
 
         <div class="section-header">
           <h2>Contact Us</h2>
-          <p>Ea vitae aspernatur deserunt voluptatem impedit deserunt magnam occaecati dssumenda quas ut ad dolores adipisci aliquam.</p>
         </div>
 
       </div>
@@ -88,9 +89,9 @@
 
           <div class="col-lg-4">
 
-            <div class="info">
-              <h3>Get in touch</h3>
-              <p>Et id eius voluptates atque nihil voluptatem enim in tempore minima sit ad mollitia commodi minus.</p>
+            <div class="info" id="info">
+              <h3>Mettiti in contatto</h3>
+              <p>Non esitate a contattarci. Siamo felici di ricevere i vostri messaggi e ascoltare i vostri suggerimenti.</p>
 
               <!-- 
               <div class="info-item d-flex">
@@ -100,7 +101,7 @@
                   <p>A108 Adam Street, New York, NY 535022</p>
                 </div>
               </div>
-             -->
+            -->
               <!-- End Info Item -->
 
               <div class="info-item d-flex">
@@ -117,6 +118,7 @@
                 <div>
                   <h4>Call:</h4>
                   <p>+39 334 322 6221</p>
+                  <p>+39 334 322 6221</p>
                 </div>
               </div>
               <!-- End Info Item -->
@@ -126,7 +128,7 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form  method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -146,7 +148,7 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center"><button type="submit" name="submit">Send Message</button></div>
             </form>
           </div><!-- End Contact Form -->
 
@@ -242,39 +244,36 @@
   
   var language , id;
 
-     language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
+    language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
 
     var changedata = {
-        nav:{
-          en: [
-            ['Home' , `index.html?lan=${language}#hero`],
-            ['About Us', `index.html?lan=${language}#about`],
-            ['Services',`index.html?lan=${language}#portfolio`],
-            ['destinations',`destinations.html?lan=${language}&id=all`],
-            ['offers',`index.html?lan=${language}#offers`],
-            ['Contact',`contact.html?lan=${language}`],
-          ],
-          it: [
-            ['Casa' , `index.html?lan=${language}#hero`],
-            ['Chi siamo', `index.html?lan=${language}#about`],
-            ['Servizi',`index.html?lan=${language}#portfolio`],
-            ['destinazioni',`destinations.html?lan=${language}&id=all`],
-            ['offerte',`index.html?lan=${language}#offers`],
-            ['Contatto',`contact.html?lan=${language}`],
-          ]
-        },
-        lang : (() => {
-          let lng = (parseURLParams(window.location.href) == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] );
-          if(lng == "it"){
-            language = 'it';
-            return 'Italiano';
-          }else{
-            language = 'en';
-            return 'English';
-          }
-        })(),
-      };
-      var navLanguages = ['?lan=it' , '?lan=en'];
+    nav:{
+      en: [
+        ['Home' , `index.html?lan=${language}#hero`],
+        ['About Us', `index.html?lan=${language}#about`],
+        ['Services',`index.html?lan=${language}#Services`],
+        ['destinations',`index.html?lan=${language}#portfolio`],
+        ['package',`index.html?lan=${language}#offers`],
+        ['Contact',`contact.html?lan=${language}`],
+      ],
+      it: [
+        ['Home' , `index.html?lan=${language}#hero`],
+        ['Chi siamo', `index.html?lan=${language}#about`],
+        ['Servizi',`index.html?lan=${language}#Services`],
+        ['destinazioni',`index.html?lan=${language}#portfolio`],
+        ['pacchetto',`index.html?lan=${language}#offers`],
+        ['Contatti',`contact.html?lan=${language}`],
+      ],
+      ar: [
+        ['الرئيسية' , `index.html?lan=${language}#hero`],
+        ['معلومات عننا', `index.html?lan=${language}#about`],
+        ['خدماتنا',`index.html?lan=${language}#Services`],
+        ['الرحلات',`index.html?lan=${language}#portfolio`],
+        ['عروضنا',`index.html?lan=${language}#offers`],
+        ['تواصل معنا',`contact.html?lan=${language}`],
+      ]
+    },
+  };
 
       window.onload = function (){
         language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
@@ -286,21 +285,63 @@
             navi.innerHTML += `<li><a class="nav-link scrollto" href="${d[1]}">${d[0]}</a></li>`
           });
         // navLanguages.forEach(l=>{
-          navi.innerHTML += `<li class="dropdown"><a href="#"><span>language</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-              <ul>
-                <li><a href="?lan=it&id=${id}">italic</a></li>
-                <li><a href="?lan=en&id=${id}">english</a></li>
-              </ul>
-            </li>`
+          navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+        <ul>
+          <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
+          <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'english'}</a></li>
+          <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'arabic'}</a></li>
+        </ul>
+      </li>`
         // })
         document.querySelectorAll(".home-welcome").forEach(home => {
             home.innerHTML = changedata['home'][language];
         })
       }
+  if (language == 'ar') {
+    // change the direction of navbar section
+    document.querySelector(".header").style.textAlign = "right";
+    document.querySelector(".header").style.direction = "rtl";
+    document.querySelector(".contact form").style.textAlign = "right";
+    document.querySelector(".contact form").style.direction = "rtl";
+    document.querySelector(".info p").style.direction = "rtl";
+    document.querySelector(".info h3").style.direction = "rtl";
+  }else {
+    // change the direction of navbar section
+    document.querySelector(".header").style.textAlign = "left";
+    document.querySelector(".header").style.direction = "ltr";
+    document.querySelector(".contact").style.textAlign = "left";
+    document.querySelector(".contact").style.direction = "ltr";
+    document.querySelector(".info p").style.direction = "ltr";
+    document.querySelector(".info h3").style.direction = "ltr";
+  }
+  var Cform = document.querySelector("#contact form");
+  if (language == "ar"){
+    document.querySelector("#contact h2").innerHTML = "تواصل معنا"
+    document.querySelector("#info h3").innerHTML = "ابقى علي تواصل"
+    document.querySelector("#info p").innerHTML = "لا تتردد في التواصل معنا. يسعدنا تلقي رسائلكم والاستماع لاقتراحاتكم."
+    Cform.name.setAttribute("placeholder","الاسم")
+    Cform.email.setAttribute("placeholder","الإيميل")
+    Cform.subject.setAttribute("placeholder","العنوان")
+    Cform.message.setAttribute("placeholder","الرسالة")
+  }
+  else if (language == "en"){
+    document.querySelector("#contact h2").innerHTML = "Contact Us"
+    document.querySelector("#info h3").innerHTML = "Get in touch"
+    document.querySelector("#info p").innerHTML = "Do not hesitate to contact us. We are happy to receive your messages and listen to your suggestions."
+    Cform.name.setAttribute("placeholder","Name")
+    Cform.email.setAttribute("placeholder","Email")
+    Cform.subject.setAttribute("placeholder","Subject")
+    Cform.message.setAttribute("placeholder","Message")
+  }
+  else {
+    document.querySelector("#contact h2").innerHTML = "Contatti"
+    Cform.name.setAttribute("placeholder","Nome")
+    Cform.email.setAttribute("placeholder","Email")
+    Cform.subject.setAttribute("placeholder","Soggetto")
+    Cform.message.setAttribute("placeholder","Messaggio")
+  }
   </script>
-  <!-- Template Main JS File -->
-  <script> document.getElementById("n-menu").innerHTML = loadPage('navbar.html'); </script>
-
+  
 </body>
 
 </html>
