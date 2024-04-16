@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
    * Toggle mobile nav dropdowns
    */
   const navDropdownAll = document.querySelectorAll('.navbar .dropdown > a');
-
   navDropdownAll.forEach(el => {
     el.addEventListener('click', function(event) {
       if (document.querySelector('.mobile-nav-active')) {

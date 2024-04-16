@@ -80,6 +80,22 @@ var changedata = {
   var destinationResult=document.querySelector("#destinations");
     destinationResult.innerHTML = '';
 
+    function dropp() {
+      const navDropdownAll = document.querySelectorAll('.navbar .dropdown > a');
+      navDropdownAll.forEach(el => {
+        el.addEventListener('click', function(event) {
+          if (document.querySelector('.mobile-nav-active')) {
+            event.preventDefault();
+            this.classList.toggle('active');
+            this.nextElementSibling.classList.toggle('dropdown-active');
+    
+            let dropDownIndicator = this.querySelector('.dropdown-indicator');
+            dropDownIndicator.classList.toggle('bi-chevron-up');
+            dropDownIndicator.classList.toggle('bi-chevron-down');
+          }
+        })
+      });
+    }
 window.onload = function () {
   language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
   var navi = document.getElementById("n-menu");
@@ -96,6 +112,7 @@ window.onload = function () {
         </ul>
       </li>`
   // })
+  dropp()
   document.querySelectorAll(".home-welcome").forEach(home => {
       home.innerHTML = changedata['home'][language];
   })
