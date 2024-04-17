@@ -8,15 +8,22 @@
       event.preventDefault();
 
       let thisForm = this;
-      
+
       thisForm.querySelector('.loading').classList.add('d-block');
       thisForm.querySelector('.error-message').classList.remove('d-block');
       thisForm.querySelector('.sent-message').classList.remove('d-block');
 
-      var con = confirm(thisForm.name.value);
-      if (con){
-        thisForm.querySelector('.loading').classList.remove('d-block');
-      }
+      var msg =
+      {
+        name : thisForm.name.value,
+        email : thisForm.email.value,
+        subject : thisForm.subject.value,
+        message : thisForm.message.value
+      };
+      var sendMsg = sendApi("https://hobitours.somee.com/contact/add", msg,"POST");
+      sendMsg.then((res)=>{
+        displayS(thisForm)
+      });
     });
   });
 
@@ -26,9 +33,9 @@
     thisForm.querySelector('.error-message').innerHTML = error;
     thisForm.querySelector('.error-message').classList.add('d-block');
   }
-  function displayS(thisForm, mes) {
+  function displayS(thisForm) {
     thisForm.querySelector('.loading').classList.remove('d-block');
-    thisForm.querySelector('.sent-message').innerHTML = mes;
+    thisForm.querySelector('.sent-message').innerHTML = "Your message has been sent. Thank you!";
     thisForm.querySelector('.sent-message').classList.add('d-block');
   }
   function sendApi(url, data, method) {
