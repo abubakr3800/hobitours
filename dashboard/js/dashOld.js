@@ -71,7 +71,7 @@ function logout() {
   checkAuth() ? "" : location.href="./sign-in.html";
 }
 
-var languages = ["it" , "en"], allOffers = [];
+var languages = ["it" , "en", "ar"], allOffers = [];
 
 class Offer {
   name;

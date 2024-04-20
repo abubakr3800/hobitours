@@ -15,7 +15,7 @@ class User {
 }
 var user;
 
-var languages = ["it", "en"],
+var languages = ["it", "en", "ar"],
   allOffers = [], alldests = [];
 
 class Offer {

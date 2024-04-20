@@ -80,6 +80,31 @@ var changedata = {
   var destinationResult=document.querySelector("#destinations");
     destinationResult.innerHTML = '';
 
+  var CommentResult=document.querySelector(".swiper-wrapper");
+    // CommentResult.innerHTML = '';
+    var comments = ["ssss","gggg","dddd","bbbb"];
+  CommentResult.innerHTML = '';
+  comments.forEach((c)=>{
+    var showele = `
+    <div class="swiper-slide">
+    <div class="testimonial-item">
+      <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+    <h3>${c}</h3>
+    <h4>Store Owner</h4>
+    <div class="stars">
+      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+    </div>
+    <p>
+      <i class="bi bi-quote quote-icon-left"></i>
+      Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+      <i class="bi bi-quote quote-icon-right"></i>
+    </p>
+  </div>
+</div><!-- End testimonial item -->
+`
+    CommentResult.innerHTML += showele;
+  })
+
     function dropp() {
       const navDropdownAll = document.querySelectorAll('.navbar .dropdown > a');
       navDropdownAll.forEach(el => {
@@ -107,8 +132,8 @@ window.onload = function () {
     navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
         <ul>
           <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
-          <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'english'}</a></li>
-          <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'arabic'}</a></li>
+          <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'english'} <img src="assets/img/england.png" style="width: 30px;"></a></li>
+          <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'arabic'} <img src="assets/img/egypt.png" style="width: 30px;"></a></li>
         </ul>
       </li>`
   // })
@@ -239,7 +264,8 @@ window.onload = function () {
 
     data.data.forEach((d, i) => {
       // console.log(d);
-      var showData = `<div class="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-Destination">
+      var showData = `
+      <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-Destination">
           <div class="flip-card">
             <div class="flip-card-inner">
               <div class="flip-card-front" style="background: url(${(d.image == null || undefined || '' ? "assets/img/eg/sharm/marsa-alam.jpg" : d.image )});">
@@ -258,4 +284,26 @@ window.onload = function () {
       // console.log(showData);
     });
   }).catch((err)=>console.log(err))
+//   var comments = ["ssss","gggg","dddd","bbbb"];
+//   CommentResult.innerHTML = '';
+//   comments.forEach((c)=>{
+//     var showele = `
+//     <div class="swiper-slide">
+//     <div class="testimonial-item">
+//       <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+//     <h3>${c}</h3>
+//     <h4>Store Owner</h4>
+//     <div class="stars">
+//       <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+//     </div>
+//     <p>
+//       <i class="bi bi-quote quote-icon-left"></i>
+//       Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+//       <i class="bi bi-quote quote-icon-right"></i>
+//     </p>
+//   </div>
+// </div><!-- End testimonial item -->
+// `
+//     CommentResult.innerHTML += showele;
+//   })
 }

@@ -104,11 +104,22 @@ function showDeletDestination() {
     
     del
       .then((res) => {
-        reloadOffers();
-        loadOffers();
+        reloadDests();
+        loadDest();
       })
       .catch((err) => {
         alert("Errore durante la cancellazione dell'offerta" + err);
       });
     // window.location.reload();
+  }
+  
+  function deleteMsg(Msgid) {
+    var del = sendApi( "https://hobitours.somee.com/contact/delete/" + Msgid, { id: Msgid }, "DELETE" );
+    del
+      .then((res) => {
+        loadMessages();
+      })
+      .catch((err) => {
+        alert("Errore durante la cancellazione dell'offerta" + err);
+      });
   }

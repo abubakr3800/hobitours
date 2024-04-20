@@ -996,7 +996,8 @@ section {
 }
 
 .hero-fullscreen h2 span {
-  color: var(--color-primary);
+  /* color: var(--hobitours-secondary); */
+  color: #50add8;
 }
 
 .hero-fullscreen p {

@@ -51,19 +51,16 @@ window.onload = function () {
             data: [],
         });
         }
-    
         var offersTable, offers;
         languages.forEach((lan) => {
         offersTable = [];
-        // console.log(e);
-        // offers = reqApi("https://localhost:7181/Offer/all/" + lan);
-        // offers = reqApi("https://hobitours.somee.com/Offer/all/" + lan);
         offers = sendApi("https://hobitours.somee.com/Offer/all/" + lan , '' , "GET");
         offers.then((d) => {
             // selectoffers.then(d=>{
             // var ofNum = d.data.length;
             // console.log(ofNum);
             var singleOffer = [];
+            var c = 1;
             d.data.forEach((e) => {
             // offersTable.push(e);
             singleOffer = [];
@@ -74,7 +71,7 @@ window.onload = function () {
             offersTable.push(singleOffer);
             offtab.row
                 .add([
-                singleOffer[0],
+                c,
                 singleOffer[1],
                 singleOffer[2].slice(0, 50) +
                     ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>`,
@@ -84,6 +81,7 @@ window.onload = function () {
                 `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEdit(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteOffer(${e.id})"><i class="bi bi-trash"></i></button></div>`,
                 ])
                 .draw(false);
+                c++;
             // console.log(e);
             });
         });
@@ -120,19 +118,16 @@ window.onload = function () {
             data: [],
         });
         }
-    
         var DestsTable, Dests;
         languages.forEach((lan) => {
             DestsTable = [];
-        // console.log(e);
-        // offers = reqApi("https://localhost:7181/destination/all/" + lan);
-        // offers = reqApi("https://hobitours.somee.com/destination/all/" + lan);
         Dests = sendApi("https://hobitours.somee.com/destination/all/" + lan , '' , "GET");
         Dests.then((d) => {
             // selectdests.then(d=>{
             // var ofNum = d.data.length;
             // console.log(ofNum);
             var singleDest = [];
+            var c = 1;
             d.data.forEach((e) => {
             // offersTable.push(e);
             singleDest = [];
@@ -142,7 +137,7 @@ window.onload = function () {
             singleDest.push(e.places.toLocaleString());
             DestsTable.push(singleDest);
             desttab.row.add([
-                    singleDest[0],
+                    c,
                     singleDest[1],
                     singleDest[2].slice(0, 50) +
                         ` ..... <a href="#" onclick="alert('${e.description}')" >view all</a>`,
@@ -150,6 +145,7 @@ window.onload = function () {
                     lan,
                     `<div class="input-group mb-3"><button class="form-control btn btn-primary" onclick="showEditDest(${e.id} , '${lan}')"><i class="bi bi-pen"></i></button><button class="form-control btn btn-danger" onclick="deleteDestination(${e.id})"><i class="bi bi-trash"></i></button></div>`,
                 ]).draw(false);
+                c++;
             // console.log(e);
             });
         });
@@ -157,4 +153,39 @@ window.onload = function () {
     
         alldests.push(DestsTable);
         // desttab.row.add(alldests).draw(false);
+    }
+
+    function loadMessages() {
+        document.getElementById("secTitle").innerHTML = "Watch Messages";
+        document.getElementById("content").innerHTML = `<div class="table-responsive small"><table id="Messages" class="display" width="100%"></table></div>`;
+        // Iterate over each language and make an API call for destination in that language
+        if (Messagetab == null || undefined) {
+        var Messagetab = new DataTable("#Messages", {
+            columns: [
+            { title: "id" },
+            { title: "Name" },
+            { title: "Email" },
+            { title: "Subject" },
+            { title: "Message" },
+            { title: "mange" },
+            ],
+            data: [],
+        });
+        }
+        var request;
+        request = sendApi("https://hobitours.somee.com/contact/all" , '' , "GET");
+        request.then((d) => {
+            var c = 1;
+            d.data.forEach((e) => {
+            Messagetab.row.add([
+                c,
+                e.name,
+                e.email,
+                e.subject,
+                e.message,
+                `<div class="input-group mb-3"><button class="form-control btn btn-danger" onclick="deleteMsg(${e.id})"><i class="bi bi-trash"></i></button></div>`,
+                ]).draw(false);
+                c++;
+            });
+        });
     }
