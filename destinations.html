@@ -54,11 +54,8 @@
 
       <!-- <a class="btn-getstarted scrollto" href="index.html#about">Get Started</a> -->
       <div class="btn-getstarted social-links order-first order-lg-last mb-3 mb-lg-0">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61553373603287" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/hobitourstravelegypt?igsh=YWJxenF3YjFzOWsx " class="instagram"><i class="bi bi-instagram"></i></a>
       </div>
     </div>
   </header><!-- End Header -->
@@ -68,10 +65,25 @@
     <section id="features" class="features mt-5">
       <div class="container" data-aos="fade-up" id="destsResults">
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist"> </ul>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li>
+            <div class="shadow px-3 py-1 mb-2 bg-white rounded">
+              <h3 class="my-1">For reservation you can contact us on</h3>
+              <div class="con">
+                <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-phone m-1"></i></strong> <a href="tel:+393343226221">+39 334 322 6221</a> </div>
+                <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-whatsapp m-1"></i></strong> <a href="https://wa.me/+201017626008">+20 101 762 6008</a> </div>
+                <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-envelope m-1"></i></strong> <a href="mailto:info@hobitourstravel.com">info@hobitourstravel.com</a> </div>
+                <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-facebook m-1"></i></strong> <a href="https://www.facebook.com/profile.php?id=61553373603287">Hobitours Travel Egypt</a> </div>
+                <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-instagram m-1"></i></strong> <a href="https://www.instagram.com/hobitourstravelegypt?igsh=YWJxenF3YjFzOWsx">hobitourstravelegypt</a> </div>
+                
+              </div>
+            </div>
+          </li>  
+        </ul>
         <div class="tab-content" id="myTabContent"> </div>
-
+        
       </div>
+      
     </section><!-- End Features Section -->
 
   </main><!-- End #main -->
@@ -364,6 +376,20 @@
         father.appendChild(tabDest);
         father.appendChild(places);
         destsResult.appendChild(father);
+        destsResult.innerHTML += 
+        `
+        <div class="shadow px-3 py-1 m-2 bg-white rounded">
+                  <h3 class="my-1">For reservation you can contact us on</h3>
+                  <div class="con">
+                    <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-phone m-1"></i></strong> <a href="tel:+393343226221">+39 334 322 6221</a> </div>
+                    <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-whatsapp m-1"></i></strong> <a href="https://wa.me/+201017626008">+20 101 762 6008</a> </div>
+                    <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-envelope m-1"></i></strong> <a href="mailto:info@hobitourstravel.com">info@hobitourstravel.com</a> </div>
+                    <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-facebook m-1"></i></strong> <a href="https://www.facebook.com/profile.php?id=61553373603287">Hobitours Travel Egypt</a> </div>
+                    <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-instagram m-1"></i></strong> <a href="https://www.instagram.com/hobitourstravelegypt?igsh=YWJxenF3YjFzOWsx">hobitourstravelegypt</a> </div>
+                    
+                  </div>
+                </div>
+        `
         x ++;
     }
 
