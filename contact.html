@@ -108,7 +108,7 @@
                 <i class="bi bi-envelope flex-shrink-0"></i>
                 <div>
                   <h4>Email:</h4>
-                  <p>info@hobitourstravel.com</p>
+                  <a href="mailto:info@hobitourstravel.com">info@hobitourstravel.com</a>
                 </div>
               </div>
               <!-- End Info Item -->
@@ -117,12 +117,39 @@
                 <i class="bi bi-phone flex-shrink-0"></i>
                 <div>
                   <h4>Call:</h4>
-                  <p>+39 334 322 6221</p>
-                  <p>+20 101 762 6008</p>
+                  <a href="tel:+393343226221">+39 334 322 6221</a>
+                  <!-- <p>+39 334 322 6221</p> -->
                 </div>
               </div>
               <!-- End Info Item -->
 
+              <div class="info-item d-flex">
+                <i class="bi bi-whatsapp flex-shrink-0"></i>
+                <div>
+                  <h4>whatsapp:</h4>
+                  <a href="https://wa.me/+201017626008">+20 101 762 6008</a>
+                </div>
+              </div>
+              <!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-facebook flex-shrink-0"></i>
+                <div>
+                  <h4>Facebook:</h4>
+                  <a href="https://www.facebook.com/profile.php?id=61553373603287">Hobitours Travel Egypt</a>
+                </div>
+              </div>
+              <!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-instagram flex-shrink-0"></i>
+                <div>
+                  <h4>Instagram:</h4>
+                  <a href="https://www.instagram.com/hobitourstravelegypt?igsh=YWJxenF3YjFzOWsx">hobitourstravelegypt</a>
+                </div>
+              </div>
+              <!-- End Info Item -->
+              
             </div>
 
           </div>
@@ -247,21 +274,21 @@
     language = (parseURLParams(window.location.href) == null || undefined ? "it" : ( parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0]) ) ;
 
     var changedata = {
-    nav:{
+      nav:{
       en: [
         ['Home' , `index.html?lan=${language}#hero`],
         ['About Us', `index.html?lan=${language}#about`],
         ['Services',`index.html?lan=${language}#Services`],
-        ['destinations',`index.html?lan=${language}#portfolio`],
-        ['package',`index.html?lan=${language}#offers`],
+        ['Destinations',`index.html?lan=${language}#portfolio`],
+        ['Proposal',`index.html?lan=${language}#offers`],
         ['Contact',`contact.html?lan=${language}`],
       ],
       it: [
         ['Home' , `index.html?lan=${language}#hero`],
         ['Chi siamo', `index.html?lan=${language}#about`],
         ['Servizi',`index.html?lan=${language}#Services`],
-        ['destinazioni',`index.html?lan=${language}#portfolio`],
-        ['pacchetto',`index.html?lan=${language}#offers`],
+        ['Destinazioni',`index.html?lan=${language}#portfolio`],
+        ['Proposte',`index.html?lan=${language}#offers`],
         ['Contatti',`contact.html?lan=${language}`],
       ],
       ar: [
@@ -287,9 +314,9 @@
         // navLanguages.forEach(l=>{
           navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
         <ul>
-          <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
-          <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'english'}</a></li>
-          <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'arabic'}</a></li>
+          <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'Italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
+          <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'English'} <img src="assets/img/england.png" style="width: 30px;"></a></li>
+          <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'Arabic'} <img src="assets/img/egypt.png" style="width: 30px;"></a></li>
         </ul>
       </li>`
         // })

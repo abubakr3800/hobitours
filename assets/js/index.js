@@ -10,16 +10,16 @@ var changedata = {
         ['Home' , `index.html?lan=${language}#hero`],
         ['About Us', `index.html?lan=${language}#about`],
         ['Services',`index.html?lan=${language}#Services`],
-        ['destinations',`index.html?lan=${language}#portfolio`],
-        ['package',`index.html?lan=${language}#offers`],
+        ['Destinations',`index.html?lan=${language}#portfolio`],
+        ['Proposal',`index.html?lan=${language}#offers`],
         ['Contact',`contact.html?lan=${language}`],
       ],
       it: [
         ['Home' , `index.html?lan=${language}#hero`],
         ['Chi siamo', `index.html?lan=${language}#about`],
         ['Servizi',`index.html?lan=${language}#Services`],
-        ['destinazioni',`index.html?lan=${language}#portfolio`],
-        ['pacchetto',`index.html?lan=${language}#offers`],
+        ['Destinazioni',`index.html?lan=${language}#portfolio`],
+        ['Proposte',`index.html?lan=${language}#offers`],
         ['Contatti',`contact.html?lan=${language}`],
       ],
       ar: [
@@ -38,14 +38,14 @@ var changedata = {
     },
     about:{
       en:[
-        "About Us",
+        "ABOUT US",
         "Travel lovers, tourism employees and of course Egypt enthusiasts!",
         "We have made our passion, our job.",
         " We like to dream and travel is one of the most beautiful dreams... We want to help you make your dream come true, organizing your trip in the best possible way and making you live the best experience in this land of strong contrasts between tradition and modernity, where a smile will welcome you and fun is guaranteed. ",
         " Egypt is the country of strong emotions that will remain forever in your hearts! ",
       ],
       it:[
-        "Chi siamo",
+        "CHI SIAMO",
         "Amanti dei viaggi, impiegati nel turismo e ovviamente appassionati di Egitto!",
         "Abbiamo fatto della nostra passione, il nostro lavoro.",
         "A noi piace sognare e il viaggio e' uno dei sogni piu' belli...Vogliamo aiutarvi a realizzare il vostro sogno, organizzando al meglio il vostro viaggio e facendovi vivere la migliore esperienza in questa terra dai forti contrasti tra tradizione e modernita', dove il sorriso vi accogliera' ed il divertimento e' assicurato.",
@@ -60,18 +60,18 @@ var changedata = {
       ]
     },
     services:{
-      en:"Services",
-      it:"Servizi",
+      en:"SERVICIES",
+      it:"SERVIZI",
       ar:"الخدمات"
     },
     offers:{
-      en:"Discover our offers",
-      it:"I nostri pacchetti",
+      en:"DISCOVER OUR OFFERS",
+      it:" LE NOSTRE PROPOSTE",
       ar:"استكشف عروضنا"
     },
     destination:{
-      en:"Destinations",
-      it:"Destinazioni",
+      en:"DESTINATIONS",
+      it:"DESTINAZIONI",
       ar:"الرحلات"
     }
   };
@@ -131,9 +131,9 @@ window.onload = function () {
   // navLanguages.forEach(l=>{
     navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
         <ul>
-          <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
-          <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'english'} <img src="assets/img/england.png" style="width: 30px;"></a></li>
-          <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'arabic'} <img src="assets/img/egypt.png" style="width: 30px;"></a></li>
+          <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'Italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
+          <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'English'} <img src="assets/img/england.png" style="width: 30px;"></a></li>
+          <li><a href="?lan=ar">${language == 'ar' ? 'العربية' : 'Arabic'} <img src="assets/img/egypt.png" style="width: 30px;"></a></li>
         </ul>
       </li>`
   // })
