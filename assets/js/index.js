@@ -129,7 +129,7 @@ window.onload = function () {
       navi.innerHTML += `<li><a class="nav-link scrollto" href="${d[1]}">${d[0]}</a></li>`
     });
   // navLanguages.forEach(l=>{
-    navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : 'language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+    navi.innerHTML += `<li class="dropdown"><a href="#"><span>${language == 'ar' ? 'اللغة' : language == 'it' ? 'Lingua' : 'Language'}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
         <ul>
           <li><a href="?lan=it">${language == 'ar' ? 'الايطالية' : 'Italiano'} <img src="assets/img/italy.png" style="width: 30px;"></a></li>
           <li><a href="?lan=en">${language == 'ar' ? 'الانجليزية' : 'English'} <img src="assets/img/england.png" style="width: 30px;"></a></li>
