@@ -215,7 +215,7 @@ window.onload = function () {
       imageFather.setAttribute("class","post-img");
 
       image.src = (e.image == null || undefined || '' ? "assets/img/travel/tourism.jpg" : e.image )
-      image.setAttribute("class" , "img-fluid w-100");
+      image.setAttribute("class" , "img-fluid");
       image.setAttribute("style" , "height:200px;width:100%");
 
       day_night.setAttribute("class" , "meta");
