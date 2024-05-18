@@ -215,7 +215,8 @@ window.onload = function () {
       imageFather.setAttribute("class","post-img");
 
       image.src = (e.image == null || undefined || '' ? "assets/img/travel/tourism.jpg" : e.image )
-      image.setAttribute("class" , "img-fluid");
+      image.setAttribute("class" , "img-fluid w-100");
+      image.setAttribute("style" , "height:200px;width:100%");
 
       day_night.setAttribute("class" , "meta");
       days.textContent=e.day_night.split(",")[0] + ( language == 'ar' ? "ايام/" : "Days/ " );
