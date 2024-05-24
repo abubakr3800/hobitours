@@ -80,30 +80,30 @@ var changedata = {
   var destinationResult=document.querySelector("#destinations");
     destinationResult.innerHTML = '';
 
-  var CommentResult=document.querySelector(".swiper-wrapper");
-    // CommentResult.innerHTML = '';
-    var comments = ["ssss","gggg","dddd","bbbb"];
-  CommentResult.innerHTML = '';
-  comments.forEach((c)=>{
-    var showele = `
-    <div class="swiper-slide">
-    <div class="testimonial-item">
-      <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-    <h3>${c}</h3>
-    <h4>Store Owner</h4>
-    <div class="stars">
-      <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-    </div>
-    <p>
-      <i class="bi bi-quote quote-icon-left"></i>
-      Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-      <i class="bi bi-quote quote-icon-right"></i>
-    </p>
-  </div>
-</div><!-- End testimonial item -->
-`
-    CommentResult.innerHTML += showele;
-  })
+//   var CommentResult=document.querySelector(".swiper-wrapper");
+//     // CommentResult.innerHTML = '';
+//     var comments = ["ssss","gggg","dddd","bbbb"];
+//   CommentResult.innerHTML = '';
+//   comments.forEach((c)=>{
+//     var showele = `
+//     <div class="swiper-slide">
+//     <div class="testimonial-item">
+//       <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+//     <h3>${c}</h3>
+//     <h4>Store Owner</h4>
+//     <div class="stars">
+//       <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+//     </div>
+//     <p>
+//       <i class="bi bi-quote quote-icon-left"></i>
+//       Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+//       <i class="bi bi-quote quote-icon-right"></i>
+//     </p>
+//   </div>
+// </div><!-- End testimonial item -->
+// `
+    // CommentResult.innerHTML += showele;
+  // })
 
     function dropp() {
       const navDropdownAll = document.querySelectorAll('.navbar .dropdown > a');
