@@ -155,6 +155,26 @@ window.onload = function () {
   
   document.querySelector("#offers h2").innerHTML = changedata['offers'][language]; 
 
+  if (language == 'ar')
+    {
+      document.querySelector("#trans1").textContent = "الانتقالات الي المطار";
+      document.querySelector("#trans2").textContent = "ومن المطار";
+      document.querySelector("#hot").textContent = "فنادق";
+      document.querySelector("#res").textContent = "ومنتجعات";
+      document.querySelector("#esc").textContent = "الرحلات";
+      document.querySelector("#nle").textContent = "رحلات نيلية";
+      document.querySelector("#cty").textContent = "استراحات المدينة";
+      document.querySelector("#saf").textContent = "سفاري";
+    }
+  else if (language == 'en')
+    {
+      document.querySelector("#trans1").textContent = "Transfers to the airport";
+      document.querySelector("#trans2").textContent = "& from the airport";
+      document.querySelector("#esc").textContent = "Excursions";
+      document.querySelector("#nle").textContent = "Nile Cruises";
+    }
+
+
   if (language == 'ar') {
     // change the direction of navbar section
     document.querySelector(".header").style.textAlign = "right";

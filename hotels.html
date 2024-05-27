@@ -307,7 +307,7 @@ function showAll(theData){
   eachDest.setAttribute("class" , "nav-item");
   eachDest.setAttribute("role" , "presentation");
   // destination.setAttribute("class" ,"nav-link active p-3");
-  destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-3`);
+  destination.setAttribute("class" ,`nav-link ${(x == 0 ? "show active": "")} p-2`);
   destination.setAttribute("id" ,`${e.name.replaceAll(" " ,"-")}-tab`);
   // console.log(e.name.replaceAll(" " ,"-"));
   destination.setAttribute("data-bs-toggle" , "tab");
@@ -317,7 +317,7 @@ function showAll(theData){
   destination.setAttribute("aria-controls" , `${e.name.replaceAll(" " ,"-")}`);
   destination.setAttribute("aria-selected" , `true`);
 
-  destination.innerHTML = e.name ;
+  // destination.innerHTML = e.name ;
   eachDest.appendChild(destination);
   tabDest.appendChild(eachDest);
   
@@ -328,18 +328,24 @@ function showAll(theData){
   place.setAttribute("id" , `${e.name.replaceAll(" " ,"-")}`);
   place.setAttribute("role" , `tabpanel`);
   place.setAttribute("aria-labelledby" , `${e.name.replaceAll(" " ,"-")}-tab`);
+  // eachPlace.setAttribute("style","text-align: center; vertical-align: middle");
 
-  eachPlace.innerHTML = e.description;
+  var stars = document.createElement("div");
+  stars.setAttribute("style","font-size:x-small");
+  stars.innerHTML = `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">`
+  // eachPlace.innerHTML += `<div id="blalala" style="text-align: center; vertical-align: middle; font-size:x-large">`
+  
+    for (let index = 0; index < e.rate; index++) {
+    stars.innerHTML += `<span class="fa fa-star" style="color:orange;"></span>`
+  }
+  // eachPlace.innerHTML +="<br>"
+  destination.appendChild(stars);
+  destination.innerHTML += e.name;
+  eachPlace.innerHTML += e.description;
   
   father.setAttribute("class" , "post-box");
   imageFather.setAttribute("class" , "post-img");
   imageFather.setAttribute("id","imgF")
-
-  
-
-  // image.src = (e.image == null || undefined ? "assets/img/travel/tourism.jpg" : e.image )
-  // image.setAttribute("class" , "img-fluid");
-  // imageFather.appendChild(image);
 
   var NimageFather = document.createElement("div");
   NimageFather.setAttribute("class" , "post-img");
