@@ -433,6 +433,14 @@ function showAll(theData){
         {
           document.querySelector("#reserv").style.textAlign = "left";
           document.querySelector("#reserv").style.direction = "ltr";
+          document.querySelector("#reserv h3").style.textAlign ="right";
+          document.querySelector("#reserv h3").innerText="للحجز يمكنكم التواصل معنا عن طريق";
+        }
+        else
+        {
+          document.querySelector("#reserv h3").style.textAlign ="left";
+          if (language == "it")
+          document.querySelector("#reserv h3").innerText ="Per prenotazioni potete contattarci al n";
         }
 }
 
