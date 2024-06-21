@@ -133,17 +133,17 @@ function addNewOffer(off) {
 
   img = off.image;
 // var sendOff = sendApi("https://localhost:7181/Offer/add", newOffer,"POST");
-var sendOff = sendApi("https://hobitours.somee.com/Offer/add", newOffer,"POST");
+var sendOff = sendApi("http://api.hobitourstravel.com/Offer/add", newOffer,"POST");
 sendOff.then((res)=>{
   console.log(img);
   // addImage("https://localhost:7181/Offer/img/" + res.data, img);
-  addImage("https://hobitours.somee.com/Offer/img/" + res.data, img);
+  addImage("http://api.hobitourstravel.com/Offer/img/" + res.data, img);
   // var inputFile = img;
   // var data = new FormData();
   // data.append("imgName", inputFile.files[0].name);
   // data.append("img", inputFile.files[0]);
   // console.log(inputFile.files[0]);
-  // var offerimg = sendApi("https://hobitours.somee.com/Offer/img" + res.data, data,"PUT");
+  // var offerimg = sendApi("http://api.hobitourstravel.com/Offer/img" + res.data, data,"PUT");
 
 });
   console.log(newOffer);
@@ -296,17 +296,17 @@ function manageDestinations() {
   
     img = dest.image;
   // var offerE = sendApi("https://localhost:7181/destination/add", newDest,"POST");
-  var sendDest = sendApi("https://hobitours.somee.com/destination/add", newDest,"POST");
+  var sendDest = sendApi("http://api.hobitourstravel.com/destination/add", newDest,"POST");
   sendDest.then((res)=>{
     console.log(img);
     // addImage("https://localhost:7181/Offer/img/" + res.data, img);
-    addImage("https://hobitours.somee.com/destination/img/" + res.data, img);
+    addImage("http://api.hobitourstravel.com/destination/img/" + res.data, img);
     // var inputFile = img;
     // var data = new FormData();
     // data.append("imgName", inputFile.files[0].name);
     // data.append("img", inputFile.files[0]);
     // console.log(inputFile.files[0]);
-    // var offerimg = sendApi("https://hobitours.somee.com/destination/img" + res.data, data,"PUT");
+    // var offerimg = sendApi("http://api.hobitourstravel.com/destination/img" + res.data, data,"PUT");
   
   });
     console.log(newDest);

@@ -2,7 +2,7 @@ window.onload = function () {
     document.getElementById("sidebar").innerHTML = loadPage("sidenav.html");
     token = localStorage.getItem("token");
     // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
-    // getObject("https://hobitours.somee.com/Offer/all/" + language);
+    // getObject("http://api.hobitourstravel.com/Offer/all/" + language);
     if (token == null || undefined || "") {
       alert("please sign in first");
       window.location.replace("./sign-in.html");
@@ -23,13 +23,13 @@ window.onload = function () {
 
     function reloadOffers() {
         // selectoffers = reqApi("https://localhost:7181/Offer/all/it/");
-        // selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
-        selectoffers = sendApi("https://hobitours.somee.com/Offer/all/it/" , '' , "GET");
+        // selectoffers = reqApi("http://api.hobitourstravel.com/Offer/all/it/");
+        selectoffers = sendApi("http://api.hobitourstravel.com/Offer/all/it/" , '' , "GET");
         return selectoffers;
     }
     // var selectoffers = reqApi("https://localhost:7181/Offer/all/it/");
-    // var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
-    var selectoffers = sendApi("https://hobitours.somee.com/Offer/all/it/" , '' , "GET");
+    // var selectoffers = reqApi("http://api.hobitourstravel.com/Offer/all/it/");
+    var selectoffers = sendApi("http://api.hobitourstravel.com/Offer/all/it/" , '' , "GET");
 
     function loadOffers() {
         document.getElementById("secTitle").innerHTML = "Watch Offers";
@@ -54,7 +54,7 @@ window.onload = function () {
         var offersTable, offers;
         languages.forEach((lan) => {
         offersTable = [];
-        offers = sendApi("https://hobitours.somee.com/Offer/all/" + lan , '' , "GET");
+        offers = sendApi("http://api.hobitourstravel.com/Offer/all/" + lan , '' , "GET");
         offers.then((d) => {
             // selectoffers.then(d=>{
             // var ofNum = d.data.length;
@@ -93,13 +93,13 @@ window.onload = function () {
 
     function reloadDests() {
         // selectdests = reqApi("https://localhost:7181/destination/all/it/");
-        // selectdests = reqApi("https://hobitours.somee.com/destination/all/it/");
-        selectdests = sendApi("https://hobitours.somee.com/destination/all/it/" , '' , "GET");
+        // selectdests = reqApi("http://api.hobitourstravel.com/destination/all/it/");
+        selectdests = sendApi("http://api.hobitourstravel.com/destination/all/it/" , '' , "GET");
         return selectdests;
     }
     // var selectdests = reqApi("https://localhost:7181/destination/all/it/");
-    // var selectdests = reqApi("https://hobitours.somee.com/destination/all/it/");
-    var selectdests = sendApi("https://hobitours.somee.com/destination/all/it/" , '' , "GET");
+    // var selectdests = reqApi("http://api.hobitourstravel.com/destination/all/it/");
+    var selectdests = sendApi("http://api.hobitourstravel.com/destination/all/it/" , '' , "GET");
 
     function loadDest() {
         document.getElementById("secTitle").innerHTML = "Watch Destinations";
@@ -121,7 +121,7 @@ window.onload = function () {
         var DestsTable, Dests;
         languages.forEach((lan) => {
             DestsTable = [];
-        Dests = sendApi("https://hobitours.somee.com/destination/all/" + lan , '' , "GET");
+        Dests = sendApi("http://api.hobitourstravel.com/destination/all/" + lan , '' , "GET");
         Dests.then((d) => {
             // selectdests.then(d=>{
             // var ofNum = d.data.length;
@@ -173,7 +173,7 @@ window.onload = function () {
         });
         }
         var request;
-        request = sendApi("https://hobitours.somee.com/contact/all" , '' , "GET");
+        request = sendApi("http://api.hobitourstravel.com/contact/all" , '' , "GET");
         request.then((d) => {
             var c = 1;
             d.data.forEach((e) => {

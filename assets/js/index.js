@@ -205,8 +205,8 @@ window.onload = function () {
 
   // ******************************************
 
-  // getObject("https://hobitours.somee.com/Offer/all/" + language);
-  offers = reqApi("https://hobitours.somee.com/Offer/all/" + language);
+  // getObject("http://api.hobitourstravel.com/Offer/all/" + language);
+  offers = reqApi("http://api.hobitourstravel.com/Offer/all/" + language);
   offers.then(d=>{
     var ofNum = d.data.length;
     // console.log(d.data.length);
@@ -274,7 +274,7 @@ window.onload = function () {
 
   })
 
-  dests = reqApi("https://hobitours.somee.com/destination/all/" + language);
+  dests = reqApi("http://api.hobitourstravel.com/destination/all/" + language);
   dests.then((data)=>{
     // let destinations = JSON.parse(data.responseText()).destinations;
     // console.log(data);

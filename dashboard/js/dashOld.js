@@ -18,7 +18,7 @@ window.onload = function () {
   document.getElementById("sidebar").innerHTML = loadPage('sidenav.html');
   token = localStorage.getItem("token");
   // language = (parseURLParams(window.location.href).lan == null || undefined ? "it" : parseURLParams(window.location.href).lan[0] ) ;
-  // getObject("https://hobitours.somee.com/Offer/all/" + language);
+  // getObject("http://api.hobitourstravel.com/Offer/all/" + language);
   if (token == null || undefined || "") {
     alert("please sign in first");
     window.location.replace("./sign-in.html");
@@ -38,10 +38,10 @@ window.onload = function () {
 }
 
 function reloadOffers() {
-  selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+  selectoffers = reqApi("http://api.hobitourstravel.com/Offer/all/it/");
   return selectoffers;
 }
-var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+var selectoffers = reqApi("http://api.hobitourstravel.com/Offer/all/it/");
 
 function checkAuth() {
   // var accessToken = localStorage.getItem("token");
@@ -104,7 +104,7 @@ function loadOffers() {
   languages.forEach(lan=> {
     offersTable = [] ; 
     // console.log(e);
-    offers = reqApi("https://hobitours.somee.com/Offer/all/" + lan);
+    offers = reqApi("http://api.hobitourstravel.com/Offer/all/" + lan);
     offers.then(d=>{
     // selectoffers.then(d=>{
       // var ofNum = d.data.length;
@@ -289,7 +289,7 @@ function showDeleteOffer() {
     deleteOffer(delForm.id.value);
   });
 
-  // var selectoffers = reqApi("https://hobitours.somee.com/Offer/all/it/");
+  // var selectoffers = reqApi("http://api.hobitourstravel.com/Offer/all/it/");
   selectoffers.then(d=>{
     var ofNum = d.data.length;
     console.log(ofNum);
@@ -314,7 +314,7 @@ function showDeleteOffer() {
 
 function deleteOffer(offid) {
   console.log(offid);
-  var del = sendApi("https://hobitours.somee.com//Offer/delete/" +offid , {id : offid} ,"DELETE" );
+  var del = sendApi("http://api.hobitourstravel.com//Offer/delete/" +offid , {id : offid} ,"DELETE" );
   del.then(res=>{ reloadOffers();loadOffers(); })
      .catch((err)=> { alert('Errore durante la cancellazione dell\'offerta' + err);});
   // window.location.reload();
@@ -327,7 +327,7 @@ function showEdit(offId , lang) {
   divCont.innerHTML="";
   var allOff = [] , otherOff;
   languages.forEach(lan=> {
-    var off = reqApi("https://hobitours.somee.com/Offer/"+ offId +"/" + lan);
+    var off = reqApi("http://api.hobitourstravel.com/Offer/"+ offId +"/" + lan);
     off.then(d=>{
       
       var sOff = d.data;
@@ -397,7 +397,7 @@ function showEdit(offId , lang) {
               otherOff.day_night = upOff.day_night;
               
               allOff = [upOff,otherOff];
-              sendApi("https://hobitours.somee.com/Offer/update" , allOff , "PUT").then(result=>{ reloadOffers(); loadOffers() });
+              sendApi("http://api.hobitourstravel.com/Offer/update" , allOff , "PUT").then(result=>{ reloadOffers(); loadOffers() });
               // window.location.href = "./";
               // checkPassword();
             });

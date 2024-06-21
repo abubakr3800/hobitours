@@ -173,7 +173,7 @@
               
             </article><!-- End blog post -->
 
-            <div class="shadow px-3 py-1 m-2 bg-white rounded">
+            <div class="shadow px-3 py-1 m-2 bg-white rounded reser">
               <h3 class="my-1">For reservation you can contact us on</h3>
               <div class="con">
                 <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-phone m-1"></i></strong> <a href="tel:+393343226221">+39 334 322 6221</a> </div>
@@ -184,20 +184,7 @@
                 
               </div>
             </div>
-            
           </div>
-
-          <!-- <div class="col-lg-5">
-            <div class="portfolio-info mt-5 pt-5">
-              <h3>for reservation you can contact us on</h3>
-              <div class="con">
-                <div> <strong class="d-inline-block"><i class="bi bi-arrow-right"></i> Whatsapp:</strong> <a href="https://wa.me/201113284597">+20 111 328 4597 <i class="bi bi-whatsapp"></i> </a> </div>
-                <div> <strong class="d-inline-block"><i class="bi bi-arrow-right"></i> e-mail:</strong> <a href="mailto:info@hobitourstravel.com">info@hobitourstravel.com</a> </div>
-                <div> <strong class="d-inline-block"><i class="bi bi-arrow-right"></i> facebook:</strong> <a href="https://www.facebook.com/abobakr143">facebook <i class="bi bi-facebook"></i> </a> </div>
-              </div>
-            </div>
-          </div> -->
-
         </div>
 
       </div>
@@ -340,6 +327,8 @@
     document.querySelector(".blog p").style.direction = "rtl";
     document.querySelector(".blog h2").style.textAlign = "right";
     document.querySelector(".blog h2").style.direction = "rtl";
+    document.querySelector(".reser h3").style.textAlign ="right";
+    document.querySelector(".reser h3").innerText="للحجز يمكنكم التواصل معناعن طريق";
   }else {
     // change the direction of navbar section
     document.querySelector(".header").style.textAlign = "left";
@@ -348,6 +337,9 @@
     document.querySelector(".blog p").style.direction = "ltr";
     document.querySelector(".blog h2").style.textAlign = "left";
     document.querySelector(".blog h2").style.direction = "ltr";
+    document.querySelector(".reser h3").style.textAlign ="left";
+    if (language == "it")
+    document.querySelector(".reser h3").innerText ="Per prenotazioni potete contattarci al n";
   }
 
     window.onload = function () {
@@ -372,8 +364,8 @@
           home.innerHTML = changedata['home'][language];
       })
 
-      // getObject("https://hobitours.somee.com/Offer/all/" + language);
-      offer = reqApi("https://hobitours.somee.com/Offer/" + id + "/" + language);
+      // getObject("http://api.hobitourstravel.com/Offer/all/" + language);
+      offer = reqApi("http://api.hobitourstravel.com/Offer/" + id + "/" + language);
       offer.then(d=>{
         var getOff = d.data;
         // console.log(d.length);
@@ -382,7 +374,7 @@
         document.querySelector("#offerDescription > p").innerText = getOff.description;
         // document.getElementById('offerImage').src = (getOff.image == null || undefined ? "assets/img/travel/tourism.jpg" : getOff.image )
         imageFather = document.getElementById('offerImages')
-        var imagesContainer = reqApi("https://hobitours.somee.com/Offer/img/"+id);
+        var imagesContainer = reqApi("http://api.hobitourstravel.com/Offer/img/"+id);
         imagesContainer.then(i=>
         {
           var images = i.data;

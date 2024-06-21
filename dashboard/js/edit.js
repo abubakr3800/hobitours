@@ -6,8 +6,8 @@ function showEdit(offId, lang) {
     var allOff = [],
       otherOff;
     languages.forEach((lan) => {
-      // var off = reqApi("https://hobitours.somee.com/Offer/" + offId + "/" + lan);
-      var off = sendApi("https://hobitours.somee.com/Offer/" + offId + "/" + lan , "" , "GET");
+      // var off = reqApi("http://api.hobitourstravel.com/Offer/" + offId + "/" + lan);
+      var off = sendApi("http://api.hobitourstravel.com/Offer/" + offId + "/" + lan , "" , "GET");
       off.then((d) => {
         var sOff = d.data;
         console.log(sOff);
@@ -80,7 +80,7 @@ function showEdit(offId, lang) {
   
             allOff = [upOff, otherOff];
             sendApi(
-              "https://hobitours.somee.com/Offer/update",
+              "http://api.hobitourstravel.com/Offer/update",
               allOff,
               "PUT"
             ).then((result) => {
@@ -130,8 +130,8 @@ function showEdit(offId, lang) {
     var allDes = [],
       otherDes;
     languages.forEach((lan) => {
-      // var off = reqApi("https://hobitours.somee.com/Offer/" + desId + "/" + lan);
-      var des = sendApi("https://hobitours.somee.com/destination/" + desId + "/" + lan , "" , "GET");
+      // var off = reqApi("http://api.hobitourstravel.com/Offer/" + desId + "/" + lan);
+      var des = sendApi("http://api.hobitourstravel.com/destination/" + desId + "/" + lan , "" , "GET");
       des.then((d) => {
         var sDes = d.data;
         console.log(sDes);
@@ -246,7 +246,7 @@ function showEdit(offId, lang) {
             allDes = [upDes, otherDes];
             console.log(allDes);
             sendApi(
-              "https://hobitours.somee.com/destination/update",
+              "http://api.hobitourstravel.com/destination/update",
               allDes,
               "PUT"
             ).then((result) => {

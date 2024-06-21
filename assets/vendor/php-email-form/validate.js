@@ -20,7 +20,7 @@
         subject : thisForm.subject.value,
         message : thisForm.message.value
       };
-      var sendMsg = sendApi("https://hobitours.somee.com/contact/add", msg,"POST");
+      var sendMsg = sendApi("http://api.hobitourstravel.com/contact/add", msg,"POST");
       sendMsg.then((res)=>{
         displayS(thisForm)
       });
