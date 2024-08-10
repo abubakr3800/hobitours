@@ -60,7 +60,7 @@ var changedata = {
       ]
     },
     services:{
-      en:"SERVICIES",
+      en:"SERVICES",
       it:"SERVIZI",
       ar:"الخدمات"
     },
@@ -206,7 +206,7 @@ window.onload = function () {
   // ******************************************
 
   // getObject("http://api.hobitourstravel.com/Offer/all/" + language);
-  offers = reqApi("http://api.hobitourstravel.com/Offer/all/" + language);
+  offers = reqApi("https://api.hobitourstravel.com/Offer/all/" + language);
   offers.then(d=>{
     var ofNum = d.data.length;
     // console.log(d.data.length);
@@ -239,9 +239,10 @@ window.onload = function () {
       image.setAttribute("style" , "height:200px;width:100%");
 
       day_night.setAttribute("class" , "meta");
-      days.textContent=e.day_night.split(",")[0] + ( language == 'ar' ? "ايام/" : "Days/ " );
+      days.textContent=e.day_night.split(",")[0] + ( language == "ar" ? " ايام/" : language == "it" ? " Giorni/" : " Days/ " );
       days.setAttribute("class", "post-date");
-      nights.textContent=e.day_night.split(",")[1] + ( language == 'ar' ? "ليالي" : "Nights" );
+      n_c = e.day_night.split(",")[1];
+      nights.textContent=e.day_night.split(",")[1] + ( language == "ar" ? " ليالي" : language == "it" ? " Notte"  : (n_c == 1 ? " Night" : " Nights" ) );
       nights.setAttribute("class" , "post-author");
 
       offerName.textContent = e.name;
@@ -274,7 +275,7 @@ window.onload = function () {
 
   })
 
-  dests = reqApi("http://api.hobitourstravel.com/destination/all/" + language);
+  dests = reqApi("https://api.hobitourstravel.com/destination/all/" + language);
   dests.then((data)=>{
     // let destinations = JSON.parse(data.responseText()).destinations;
     // console.log(data);

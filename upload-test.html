@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
     <title>Hobitours</title>
     <meta content="" name="description" />
@@ -89,6 +90,10 @@
                 id="fileUploadForm"
                 enctype="multipart/form-data"
               >
+              <label class="input-group-text" for="fname">table :</label>
+              <input type="text" class="form-control" id="cat" name="cat"><br><br>
+              <label class="input-group-text" for="lname">id :</label>
+              <input type="text" class="form-control" id="idd" name="idd"><br><br>
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="inputGroupFile01"
                     >Upload</label
@@ -98,6 +103,7 @@
                     type="file"
                     class="form-control"
                     id="fileUpload"
+                    multiple
                   />
                 </div>
                 <div class="my-3">
@@ -216,24 +222,32 @@
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         var inputFile = document.getElementById("fileUpload");
-        var data = new FormData();
-        data.append("imgName", inputFile.files[0].name);
-        data.append("img", inputFile.files[0]);
-        console.log(inputFile.files[0]);
-        var url = "https://hobitours.somee.com/Offer/img/1";
-        fetch(url, {
-          method: "PUT",
-          body:data,
-          headers: {
-            // "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary3CwJNHYabBSBswH0",
+        var cat = document.querySelector("#cat").value;
+        var idd = document.querySelector("#fileUploadForm #idd").value;
+        console.log("ID :"+idd);
+        console.log("tab :"+cat);
+        for(var file in inputFile.files){
+          var data = new FormData();
+          if (typeof(inputFile.files[file]) !="object")
+          continue
+          data.append("imgName", inputFile.files[file].name);
+          data.append("img", inputFile.files[file]);
+          console.log(inputFile.files[file]);
+          var url = "https://api.hobitourstravel.com/"+cat+"/img/"+idd;
+          fetch(url, {
+              method: "PUT",
+              body:data,
+              headers: {
+                  // "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary3CwJNHYabBSBswH0",
             "Accept" : "*/*"
           },
         })
           .then((response) => response.text())
           .then((txt) => {
-            // Handle the response from the server
-            console.log(txt);
-          });
+              // Handle the response from the server
+              console.log(txt);
+            });
+        };
       });
     </script>
     <!-- Template Main JS File -->

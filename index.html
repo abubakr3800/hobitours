@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /> -->
 
   <title>Hobitours</title>
   <meta content="" name="description">
@@ -319,7 +320,6 @@
           return xmlhttp.responseText;
       }
     var navDrops = document.querySelectorAll('.navbar .dropdown > a');
-    console.log(navDrops);
     navDrops.forEach(el => {
         el.addEventListener('click', function(event) {
             if (document.querySelector('.mobile-nav-active')) {

@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  
   <title>Hobitours</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -43,45 +44,15 @@
       margin: auto;
     }
     
-    /* Caption text */
-    /* .text {
-      color: #f2f2f2;
-      font-size: 15px;
-      padding: 8px 12px;
-      position: absolute;
-      bottom: 8px;
-      width: 100%;
-      text-align: center;
-    } */
-    
-    /* Number text (1/3 etc) */
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
+    /* Hide the images by default */
+    .mySlides {
+      display: none;
     }
-    
-    /* The dots/bullets/indicators */
-    .dot {
-      height: 15px;
-      width: 15px;
-      margin: 0 2px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.6s ease;
-    }
-    
-    /* .active {
-      background-color: #717171;
-    } */
-    
+
     /* Fading animation */
-    .fade {
+    .fade1 {
       animation-name: fade;
-      animation-duration: 1.5s;
+      animation-duration: 3s;
     }
     
     @keyframes fade {
@@ -130,7 +101,7 @@
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li>
             <div class="shadow px-3 py-1 mb-2 bg-white rounded reser">
-              <h3 class="my-1">For reservation you can contact us on</h3>
+              <h3 class="my-1">For reservation you can contact us on :</h3>
               <div class="con">
                 <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-phone m-1"></i></strong> <a href="tel:+393343226221">+39 334 322 6221</a> </div>
                 <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-whatsapp m-1"></i></strong> <a href="https://wa.me/+201017626008">+20 101 762 6008</a> </div>
@@ -290,7 +261,7 @@ var language , destsResult = document.getElementById("destsResults") , tabDest =
         document.querySelector(".features").style.textAlign = "right";
         document.querySelector(".features").style.direction = "rtl";
     } 
-    hotels = reqApi("http://api.hobitourstravel.com/hotel/"+id+"/" + language+"/all");
+    hotels = reqApi("https://api.hobitourstravel.com/hotel/"+id+"/" + language+"/all");
     hotels.then(d=>{
       showAll(d.data);
     })
@@ -355,10 +326,9 @@ function showAll(theData){
   var NimageFather = document.createElement("div");
   NimageFather.setAttribute("class" , "post-img");
   var images;
-  var imagesContainer = reqApi("http://api.hobitourstravel.com/hotel/img/"+e.id);
+  var imagesContainer = reqApi("https://api.hobitourstravel.com/hotel/img/"+e.id);
   imagesContainer.then(i=>
   {
-    // console.log(e.id)
     images = i.data
     var l =images.length;
     if (l>0)
@@ -368,41 +338,25 @@ function showAll(theData){
       {
         NimageFather.innerHTML += 
         `
-        <div class="mySlides fade ss${e.name}">
-          <div class="numbertext">${i} / ${l}</div>
-        <img src=${images[i].images} style="width:100%; height:300px">
+        <div class="mySlides fade1 ss${e.name} m-3">
+        <img src=${images[i].images} style="width:100%;">
         </div>
         `
-      }
-      NimageFather.innerHTML += '</div> <br> <div class="text-center" style="text-align:center">'
-      for(i=0;i<l;i++)
-      {
-        NimageFather.innerHTML +=
-        `
-        <span class="dot dd${e.name}"></span> 
-        `
-      }
-      NimageFather.innerHTML += " </div> <br>";
-      // console.log(document.querySelector(`#${e.name.replaceAll(" " ,"-")} #imgF`));
+      };
+      NimageFather.innerHTML += '</div> <br> ';
       document.querySelector(`#${e.name.replaceAll(" " ,"-")} #imgF`).innerHTML =NimageFather.innerHTML;
-      // console.log(NimageFather.innerHTML);
       let slideIndex = 0;
       showSlides();
       function showSlides() {
         let i;
         let slides = document.getElementsByClassName(`ss${e.name}`);
-        let dots = document.getElementsByClassName(`dd${e.name}`);
         for (i = 0; i < slides.length; i++) {
           slides[i].style.display = "none";  
         }
         slideIndex++;
         if (slideIndex > slides.length) {slideIndex = 1}    
-        for (i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-        }
         slides[slideIndex-1].style.display = "block";  
-        dots[slideIndex-1].className += " active";
-        setTimeout(showSlides, 2000); // Change image every 2 seconds
+        setTimeout(function(){showSlides()}, 5000); // Change image every 2 seconds
       }
     }
   })
@@ -419,7 +373,7 @@ function showAll(theData){
   destsResult.innerHTML += 
       `
       <div class="shadow px-3 py-1 m-2 bg-white rounded" id="reserv">
-        <h3 class="my-1">For reservation you can contact us on</h3>
+        <h3 class="my-1">For reservation you can contact us on :</h3>
           <div class="con">
             <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-phone m-1"></i></strong> <a href="tel:+393343226221">+39 334 322 6221</a> </div>
             <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-whatsapp m-1"></i></strong> <a href="https://wa.me/+201017626008">+20 101 762 6008</a> </div>
@@ -440,7 +394,7 @@ function showAll(theData){
         {
           document.querySelector("#reserv h3").style.textAlign ="left";
           if (language == "it")
-          document.querySelector("#reserv h3").innerText ="Per prenotazioni potete contattarci al n";
+          document.querySelector("#reserv h3").innerText ="Per informazioni e prenotazioni ci potete contattare :";
         }
 }
 

@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  
   <title>Offer Details </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -79,7 +80,7 @@
     } */
     
     /* Fading animation */
-    .fade {
+    .fade1 {
       animation-name: fade;
       animation-duration: 1.5s;
     }
@@ -174,7 +175,7 @@
             </article><!-- End blog post -->
 
             <div class="shadow px-3 py-1 m-2 bg-white rounded reser">
-              <h3 class="my-1">For reservation you can contact us on</h3>
+              <h3 class="my-1">For reservation you can contact us on :</h3>
               <div class="con">
                 <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-phone m-1"></i></strong> <a href="tel:+393343226221">+39 334 322 6221</a> </div>
                 <div class="m-1"> <strong class="d-inline-block"><i class="bi bi-whatsapp m-1"></i></strong> <a href="https://wa.me/+201017626008">+20 101 762 6008</a> </div>
@@ -339,7 +340,7 @@
     document.querySelector(".blog h2").style.direction = "ltr";
     document.querySelector(".reser h3").style.textAlign ="left";
     if (language == "it")
-    document.querySelector(".reser h3").innerText ="Per prenotazioni potete contattarci al n";
+    document.querySelector(".reser h3").innerText ="Per informazioni e prenotazioni ci potete contattare :";
   }
 
     window.onload = function () {
@@ -365,16 +366,17 @@
       })
 
       // getObject("http://api.hobitourstravel.com/Offer/all/" + language);
-      offer = reqApi("http://api.hobitourstravel.com/Offer/" + id + "/" + language);
+      offer = reqApi("https://api.hobitourstravel.com/Offer/" + id + "/" + language);
       offer.then(d=>{
         var getOff = d.data;
         // console.log(d.length);
         // console.log(getOff);
-        document.getElementById('offerName').innerText = getOff.name + " (" + getOff.day_night.split(",")[0] + (language == 'ar' ? "ايام/" : " Days/ " ) + getOff.day_night.split(",")[1] + (language == 'ar' ? " ليالي )" : " Nights )" );
+        n_c = getOff.day_night.split(",")[1];
+        document.getElementById('offerName').innerText = getOff.name + " (" + getOff.day_night.split(",")[0] + (language == 'ar' ? "ايام/" : language =="it" ? " Giorni/" : " Days/ " ) + getOff.day_night.split(",")[1] + (language == 'ar' ? " ليالي )" : language =="it" ? " Notti)" : (n_c == 1 ? " Night )" : " Nights )" ) );
         document.querySelector("#offerDescription > p").innerText = getOff.description;
         // document.getElementById('offerImage').src = (getOff.image == null || undefined ? "assets/img/travel/tourism.jpg" : getOff.image )
         imageFather = document.getElementById('offerImages')
-        var imagesContainer = reqApi("http://api.hobitourstravel.com/Offer/img/"+id);
+        var imagesContainer = reqApi("https://api.hobitourstravel.com/Offer/img/"+id);
         imagesContainer.then(i=>
         {
           var images = i.data;
@@ -387,37 +389,24 @@
             {
               imageFather.innerHTML += 
           `
-            <div class="mySlides fade">
+            <div class="mySlides fade1">
               <div class="numbertext">${i} / ${l}</div>
-              <img src=${images[i].images} style="width:100%; height:300px">
+              <img src=${images[i].images} style="width:100%;">
               </div>
               `
             }
-            imageFather.innerHTML += '</div> <br> <div class="text-center" style="text-align:center">'
-            for(i=0;i<l;i++)
-            {
-              imageFather.innerHTML +=
-              `
-                <span class="dot"></span> 
-                `
-            }
-          imageFather.innerHTML += " </div> <br>"
+            imageFather.innerHTML += '</div> <br>'
           showSlides();
           function showSlides() {
             let i;
             let slides = document.getElementsByClassName("mySlides");
-            let dots = document.getElementsByClassName("dot");
             for (i = 0; i < slides.length; i++) {
               slides[i].style.display = "none";  
             }
             slideIndex++;
             if (slideIndex > slides.length) {slideIndex = 1}    
-            for (i = 0; i < dots.length; i++) {
-              dots[i].className = dots[i].className.replace(" active", "");
-            }
             slides[slideIndex-1].style.display = "block";  
-            dots[slideIndex-1].className += " active";
-            setTimeout(showSlides, 1500); // Change image every 2 seconds
+            setTimeout(showSlides, 5000); // Change image every 2 seconds
         }
           }
         })
