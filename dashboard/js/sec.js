@@ -26,7 +26,7 @@ document.getElementById("logForm").onsubmit = function (e) {
         // Convert the object to a JSON string
         // var str_json = JSON.stringify(userData);
         // console.log(str_json);
-        var signUser = signApi("http://api.hobitourstravel.com/user/login/" , userData);
+        var signUser = signApi("https://api.hobitourstravel.com/user/login/" , userData);
         // console.log(signUser);
         signUser.then((result)=>{
             console.log(result);
@@ -97,7 +97,7 @@ function updatePass(userId) {
                 id: userId,
                 password :  newPass.value
             }
-            putApi( 'http://api.hobitourstravel.com/user/updatePassword' , newUser);
+            putApi( 'https://api.hobitourstravel.com/user/updatePassword' , newUser);
             alert ("Password Updated Successfully!");
             window.location.replace("./sign-in.html");
         } else {

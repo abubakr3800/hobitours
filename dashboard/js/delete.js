@@ -16,7 +16,7 @@ function showDeleteOffer() {
       deleteOffer(delForm.id.value);
     });
   
-    // var selectoffers = reqApi("http://api.hobitourstravel.com/Offer/all/it/");
+    // var selectoffers = reqApi("https://api.hobitourstravel.com/Offer/all/it/");
     selectoffers
       .then((d) => {
         var ofNum = d.data.length;
@@ -43,7 +43,7 @@ function showDeleteOffer() {
   function deleteOffer(offid) {
     console.log(offid);
     // var del = sendApi( "https://localhost:7181/Offer/delete/" + offid, { id: offid }, "DELETE" );
-    var del = sendApi( "http://api.hobitourstravel.com/Offer/delete/" + offid, { id: offid }, "DELETE" );
+    var del = sendApi( "https://api.hobitourstravel.com/Offer/delete/" + offid, { id: offid }, "DELETE" );
     
     del
       .then((res) => {
@@ -73,7 +73,7 @@ function showDeletDestination() {
       deleteDestination(delForm.id.value);
     });
   
-    // var selectdests = reqApi("http://api.hobitourstravel.com/destination/all/it/");
+    // var selectdests = reqApi("https://api.hobitourstravel.com/destination/all/it/");
     selectdests
       .then((d) => {
         var ofNum = d.data.length;
@@ -100,7 +100,7 @@ function showDeletDestination() {
   function deleteDestination(desid) {
     console.log(desid);
     // var del = sendApi( "https://localhost:7181/destination/delete/" + desid, { id: desid }, "DELETE" );
-    var del = sendApi( "http://api.hobitourstravel.com/destination/delete/" + desid, { id: desid }, "DELETE" );
+    var del = sendApi( "https://api.hobitourstravel.com/destination/delete/" + desid, { id: desid }, "DELETE" );
     
     del
       .then((res) => {
@@ -114,7 +114,7 @@ function showDeletDestination() {
   }
   
   function deleteMsg(Msgid) {
-    var del = sendApi( "http://api.hobitourstravel.com/contact/delete/" + Msgid, { id: Msgid }, "DELETE" );
+    var del = sendApi( "https://api.hobitourstravel.com/contact/delete/" + Msgid, { id: Msgid }, "DELETE" );
     del
       .then((res) => {
         loadMessages();
